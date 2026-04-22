@@ -72,12 +72,6 @@ LipoScope uses a dual-license model:
 
 Third-party publications, PubMed metadata, abstracts, external links, DOI-linked content, paper figures, publisher material, and other third-party content are not relicensed by this repository. They remain subject to their original copyright, license, database, publisher, and access terms. See `NOTICE.md`.
 
-Suggested Application Note wording:
-
-```text
-The LipoScope source code is released under the MIT License. Original documentation, educational figures, explanatory text, and curated annotations are released under Creative Commons Attribution 4.0 International (CC BY 4.0). Third-party publications, PubMed metadata, abstracts, linked external content, and paper figures remain under their original licenses and copyright terms.
-```
-
 ## Author
 
 Developed by Selin Cildir, Centre for Cancer Biology, Adelaide University.
