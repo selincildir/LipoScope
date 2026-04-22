@@ -56,27 +56,9 @@ LipoScope is intended for research, education, study planning, and literature na
 - `index.html` - GitHub Pages entry point that opens `LipoScope.html`.
 - `README.md` - project overview and deployment notes.
 
-## Deploying on GitHub Pages
-
-1. Push this repository to GitHub.
-2. In the GitHub repository, open **Settings > Pages**.
-3. Set **Source** to **Deploy from a branch**.
-4. Select the `main` branch and `/root`.
-5. Save. GitHub Pages will publish the app at:
-
-```text
-https://<username>.github.io/<repository-name>/
-```
-
-For this repository name, the expected URL is:
-
-```text
-https://selincildir.github.io/LipoScope/
-```
-
 ## Citation
 
-If you use LipoScope in research, please cite the project page and the relevant primary papers surfaced through the app. A formal citation can be added here after publication of the Application Note.
+If you use LipoScope in research, please cite the project page and the relevant primary papers surfaced through the app. 
 
 ## Author
 
