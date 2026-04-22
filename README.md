@@ -63,6 +63,13 @@ LipoScope is intended for research, education, study planning, and literature na
 
 If you use LipoScope in research, please cite the project page and the relevant primary papers surfaced through the app. 
 
+Suggested attribution:
+
+```text
+LipoScope content by Selin Cildir, licensed under CC BY 4.0.
+https://github.com/selincildir/LipoScope
+```
+
 ## License
 
 LipoScope uses a dual-license model:
