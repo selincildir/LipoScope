@@ -55,6 +55,9 @@ LipoScope is intended for research, education, study planning, and literature na
 - `LipoScope.html` - the full application.
 - `index.html` - GitHub Pages entry point that opens `LipoScope.html`.
 - `README.md` - project overview and deployment notes.
+- `LICENSE` - MIT License for the software/code.
+- `CONTENT_LICENSE.md` - CC BY 4.0 license notice for original non-code content.
+- `NOTICE.md` - third-party content and use notice.
 
 ## Deploying on GitHub Pages
 
@@ -77,6 +80,21 @@ https://selincildir.github.io/LipoScope/
 ## Citation
 
 If you use LipoScope in research, please cite the project page and the relevant primary papers surfaced through the app. A formal citation can be added here after publication of the Application Note.
+
+## License
+
+LipoScope uses a dual-license model:
+
+- Software/code: MIT License. See `LICENSE`.
+- Original documentation, educational figures, explanatory text, and curated annotations created for LipoScope: Creative Commons Attribution 4.0 International (CC BY 4.0). See `CONTENT_LICENSE.md`.
+
+Third-party publications, PubMed metadata, abstracts, external links, DOI-linked content, paper figures, publisher material, and other third-party content are not relicensed by this repository. They remain subject to their original copyright, license, database, publisher, and access terms. See `NOTICE.md`.
+
+Suggested Application Note wording:
+
+```text
+The LipoScope source code is released under the MIT License. Original documentation, educational figures, explanatory text, and curated annotations are released under Creative Commons Attribution 4.0 International (CC BY 4.0). Third-party publications, PubMed metadata, abstracts, linked external content, and paper figures remain under their original licenses and copyright terms.
+```
 
 ## Author
 
