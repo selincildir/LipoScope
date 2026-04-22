@@ -59,27 +59,9 @@ LipoScope is intended for research, education, study planning, and literature na
 - `CONTENT_LICENSE.md` - CC BY 4.0 license notice for original non-code content.
 - `NOTICE.md` - third-party content and use notice.
 
-## Deploying on GitHub Pages
-
-1. Push this repository to GitHub.
-2. In the GitHub repository, open **Settings > Pages**.
-3. Set **Source** to **Deploy from a branch**.
-4. Select the `main` branch and `/root`.
-5. Save. GitHub Pages will publish the app at:
-
-```text
-https://<username>.github.io/<repository-name>/
-```
-
-For this repository name, the expected URL is:
-
-```text
-https://selincildir.github.io/LipoScope/
-```
-
 ## Citation
 
-If you use LipoScope in research, please cite the project page and the relevant primary papers surfaced through the app. A formal citation can be added here after publication of the Application Note.
+If you use LipoScope in research, please cite the project page and the relevant primary papers surfaced through the app. 
 
 ## License
 
