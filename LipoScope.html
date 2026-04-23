@@ -1578,7 +1578,7 @@ select:focus{border-color:var(--rose)}
       <!-- ── Live Database Stats ── -->
       <div class="about-section">
         <h2>📊 Live Database Summary <span style="font-size:11px;font-weight:400;color:var(--text-faint);margin-left:8px">PubMed · lipedema[tiab] OR lipoedema[tiab]</span></h2>
-        <p style="font-size:11.5px;color:var(--text-soft);margin-bottom:14px;line-height:1.7">These counts are retrieved live from PubMed and reflect papers where <strong>lipedema or lipoedema appears in the title or abstract</strong>. The "Curated Papers" count reflects your visible Browse workspace. Atlas-level tools use a separate PubMed-wide evidence source: the 211-record public seed plus an automatically refreshed lipoedema-focused PubMed layer.</p>
+        <p style="font-size:11.5px;color:var(--text-soft);margin-bottom:14px;line-height:1.7">These counts are retrieved live from PubMed and reflect papers where <strong>lipedema or lipoedema appears in the title or abstract</strong>. The "Curated Papers" count reflects your visible Browse workspace. Atlas-level tools use a separate PubMed-wide evidence source: the 211-record public seed plus an automatically refreshed lipoedema-focused PubMed layer. The PubMed-wide Atlas checks PubMed automatically every <strong>12 hours</strong> while the app is open.</p>
         <div class="about-stat-grid" id="about-stat-grid">
           <!-- Populated by updateAboutStats() -->
         </div>
@@ -1714,6 +1714,7 @@ select:focus{border-color:var(--rose)}
         <div class="hero-feature"><strong>PubMed-wide research map</strong> Knowledge graph, candidate ranking, mechanisms, gaps, and generated biology figures stay anchored to the full lipoedema evidence layer.</div>
       </div>
       <div class="living-status" id="resource-live-status">PubMed-wide Atlas: loading cached records and checking for updates...</div>
+      <div class="atlas-note" style="margin-top:10px">The PubMed-wide Atlas checks PubMed automatically every 12 hours while the app is open. When new lipoedema/lipedema records are found, the Atlas, candidate table, mechanisms, omics matches, gaps, and generated biology figures recompute from the refreshed evidence layer.</div>
     </div>
 
     <div class="about-section">
@@ -2029,7 +2030,7 @@ select:focus{border-color:var(--rose)}
 </div><!-- /.main-content -->
 
 <footer class="app-footer">
-  <span><strong>LipoScope</strong> <span id="app-version-label">v1.5.0</span> · Research atlas for lipoedema/lipedema literature, biology maps, and local evidence synthesis</span>
+  <span><strong>LipoScope</strong> <span id="app-version-label">v1.5.1</span> · Research atlas for lipoedema/lipedema literature, biology maps, and local evidence synthesis</span>
   <span>Updated <span id="app-updated-label">23 April 2026</span> · Public GitHub Pages build</span>
 </footer>
 <button class="scroll-top-btn" id="scroll-top-btn" onclick="scrollToTop()" title="Back to top" aria-label="Back to top">↑</button>
@@ -2070,7 +2071,7 @@ select:focus{border-color:var(--rose)}
 </div>
 
 <script>
-const LIPOSCOPE_VERSION = 'v1.5.0';
+const LIPOSCOPE_VERSION = 'v1.5.1';
 const LIPOSCOPE_UPDATED = '23 April 2026';
 
 const PAPERS = [
@@ -8290,7 +8291,7 @@ function getAtlasSourcePapers() {
 function updateLivingAtlasStatus(state, message) {
   var checked = getLivingAtlasChecked();
   var suffix = checked ? ' · last checked ' + new Date(checked).toLocaleDateString('en-AU') : '';
-  var txt = message + (livingAtlasPapers.length ? ' · ' + livingAtlasPapers.length + ' PubMed records cached' : '') + suffix;
+  var txt = message + (livingAtlasPapers.length ? ' · ' + livingAtlasPapers.length + ' PubMed records cached' : '') + suffix + ' · auto-checks every 12 hours';
   ['atlas-live-status','resource-live-status'].forEach(function(id) {
     var el = document.getElementById(id);
     if (!el) return;
@@ -8623,32 +8624,33 @@ function renderBioFigure1(all, entities) {
   });
   var maxCount = Math.max.apply(null, mechData.map(function(d){ return d.count || 1; }));
   var positions = [
-    {x:42,y:122},{x:355,y:122},{x:668,y:122},
-    {x:42,y:284},{x:355,y:284},{x:668,y:284}
+    {x:44,y:130},{x:350,y:130},{x:656,y:130},
+    {x:44,y:340},{x:350,y:340},{x:656,y:340}
   ];
-  var html = '<svg class="biofig-svg" viewBox="0 0 980 520" role="img" aria-label="Generated PubMed-wide lipoedema biology mechanism map">';
-  html += '<defs><marker id="biofig-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#1e6b6b"/></marker><filter id="biofig-shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#1a1410" flood-opacity="0.12"/></filter></defs>';
-  html += '<rect x="18" y="18" width="944" height="484" rx="18" fill="#ffffff"/>';
+  var html = '<svg class="biofig-svg" viewBox="0 0 980 570" role="img" aria-label="Generated PubMed-wide lipoedema biology mechanism map">';
+  html += '<defs><filter id="biofig-shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#1a1410" flood-opacity="0.12"/></filter></defs>';
+  html += '<rect x="18" y="18" width="944" height="534" rx="18" fill="#ffffff"/>';
   html += biofigSvgText('Generated mechanism map from PubMed-wide lipoedema evidence', 44, 54, 80, 1, {size:17, weight:800, fill:'#1a1410'});
   html += biofigSvgText('Nodes are sorted by supporting-paper count; entity labels are derived from the same candidate library used by the Atlas.', 44, 77, 120, 1, {size:11, fill:'#706860'});
-  html += '<g filter="url(#biofig-shadow)"><circle cx="490" cy="86" r="42" fill="#b83c52"/><text x="490" y="82" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">Lipoedema</text><text x="490" y="101" text-anchor="middle" font-size="10.5" fill="rgba(255,255,255,0.82)">' + all.length + ' records</text></g>';
+  html += '<rect x="44" y="94" width="892" height="28" rx="9" fill="#fbfaf8" stroke="#ebe5df"/>';
+  html += biofigSvgText('Source: ' + all.length + ' PubMed-wide lipoedema records. Card height, support bars, and ranks update after the 12-hour PubMed refresh.', 62, 113, 126, 1, {size:10.8, fill:'#463c36'});
   mechData.forEach(function(d, idx) {
-    var p = positions[idx], m = d.mechanism, color = biofigMechanismColor(m, idx), boxW = 270, boxH = 126;
-    var cx = p.x + boxW / 2, cy = p.y + boxH / 2;
-    var strokeW = 1.4 + (d.count / Math.max(1, maxCount)) * 4;
-    html += '<path d="M490 128 C490 ' + (cy - 80) + ' ' + cx + ' ' + (cy - 80) + ' ' + cx + ' ' + (p.y - 2) + '" fill="none" stroke="' + color + '" stroke-width="' + strokeW.toFixed(1) + '" opacity="0.6" marker-end="url(#biofig-arrow)"/>';
+    var p = positions[idx], m = d.mechanism, color = biofigMechanismColor(m, idx), boxW = 280, boxH = 176;
+    var barW = Math.max(18, Math.round((d.count / Math.max(1, maxCount)) * 214));
     html += '<g filter="url(#biofig-shadow)"><rect x="' + p.x + '" y="' + p.y + '" width="' + boxW + '" height="' + boxH + '" rx="13" fill="#fbfaf8" stroke="' + color + '" stroke-width="1.5"/>';
     html += '<rect x="' + p.x + '" y="' + p.y + '" width="9" height="' + boxH + '" rx="5" fill="' + color + '"/>';
-    html += biofigSvgText(m.label, p.x + 22, p.y + 27, 32, 2, {size:12.5, weight:800, fill:'#1a1410'});
-    html += biofigSvgText(d.count + ' supporting papers' + (d.latest ? ' · latest ' + d.latest : ''), p.x + 22, p.y + 65, 34, 1, {size:10.5, weight:700, fill:color});
-    html += biofigSvgText(biofigSupportLabel(d.count, maxCount), p.x + 22, p.y + 83, 36, 1, {size:10.5, fill:'#463c36'});
+    html += '<circle cx="' + (p.x + boxW - 34) + '" cy="' + (p.y + 32) + '" r="21" fill="' + color + '" opacity="0.95"/><text x="' + (p.x + boxW - 34) + '" y="' + (p.y + 37) + '" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">' + (idx + 1) + '</text>';
+    html += biofigSvgText(m.label, p.x + 22, p.y + 30, 31, 2, {size:12.2, weight:800, fill:'#1a1410'});
+    html += biofigSvgText(d.count + ' supporting papers' + (d.latest ? ' · latest ' + d.latest : ''), p.x + 22, p.y + 78, 36, 1, {size:10.5, weight:700, fill:color});
+    html += biofigSvgText(biofigSupportLabel(d.count, maxCount), p.x + 22, p.y + 98, 37, 1, {size:10.5, fill:'#463c36'});
     var ents = biofigTopEntitiesForMechanism(d.papers, entities);
-    html += biofigSvgText('Leading entities: ' + (ents.length ? ents.join(', ') : 'none detected yet'), p.x + 22, p.y + 104, 36, 1, {size:10.2, fill:'#706860'});
+    html += biofigSvgText('Leading entities: ' + (ents.length ? ents.join(', ') : 'none detected yet'), p.x + 22, p.y + 122, 38, 2, {size:10.2, fill:'#706860'});
+    html += '<rect x="' + (p.x + 22) + '" y="' + (p.y + 152) + '" width="214" height="8" rx="4" fill="#eee8e2"/><rect x="' + (p.x + 22) + '" y="' + (p.y + 152) + '" width="' + barW + '" height="8" rx="4" fill="' + color + '"/>';
     html += '</g>';
   });
   var strongest = mechData[0], weakest = mechData[mechData.length - 1];
-  html += '<rect x="58" y="450" width="865" height="34" rx="10" fill="#fbfaf8" stroke="#ebe5df"/>';
-  html += biofigSvgText('Current strongest mechanism signal: ' + strongest.mechanism.label + ' (' + strongest.count + ' papers). Lowest-ranked displayed signal: ' + weakest.mechanism.label + ' (' + weakest.count + ' papers).', 78, 472, 118, 1, {size:11, fill:'#463c36'});
+  html += '<rect x="58" y="525" width="865" height="18" rx="9" fill="#fbfaf8" stroke="#ebe5df"/>';
+  html += biofigSvgText('Strongest displayed signal: ' + strongest.mechanism.label + ' (' + strongest.count + ' papers). Lowest displayed signal: ' + weakest.mechanism.label + ' (' + weakest.count + ' papers).', 78, 538, 118, 1, {size:10.5, fill:'#463c36'});
   html += '</svg>';
   el.innerHTML = html;
 }
@@ -8666,13 +8668,14 @@ function renderBioFigure3(all, entities) {
   var clinical = all.filter(function(p){ return /diagnos|treatment|outcome|QoL|quality of life|surgery|compression|trial|guideline/i.test(atlasPaperText(p)); }).length;
   var topCandidates = entities.slice(0, 4).map(function(e){ return e.label; });
   var topGap = gaps[0] || ['Medium','replication and standardization','Evidence map is still loading.','Use standardized phenotyping and matched controls.'];
+  var highGapCount = gaps.filter(function(g){ return g[0] === 'High'; }).length;
   var topMechanism = mechanisms[0] ? mechanisms[0].label : 'mechanism evidence';
   var nextStudy = 'Best next study pattern: address "' + topGap[1] + '" by testing ' + topMechanism + ' with matched controls, minimum dataset fields, imaging, and serum/adipose omics' + (topCandidates.length ? ' focused on ' + topCandidates.join(', ') : '') + '.';
   var stages = [
     {label:'Discovery', n:all.length, sub:'PubMed-wide records', detail:'Largest domain: ' + topTopic, color:'#1e6b6b'},
     {label:'Evidence triage', n:highDesign, sub:'higher-design records', detail:'Recent records: ' + recent, color:'#8a611d'},
     {label:'Mechanism testing', n:mechanisms.length, sub:'active mechanisms', detail:'Top signal: ' + topMechanism, color:'#5e3d80'},
-    {label:'Translation gaps', n:gaps.filter(function(g){ return g[0] === 'High'; }).length, sub:'high-priority gaps', detail:'Clinical/outcome records: ' + clinical, color:'#b83c52'}
+    {label:'Gap signals', n:gaps.length, sub:'prioritized opportunities', detail:highGapCount + ' high-priority trigger(s); not absence of gaps', color:'#b83c52'}
   ];
   var max = Math.max.apply(null, stages.map(function(s){ return s.n || 1; }));
   var html = '<svg class="biofig-svg" viewBox="0 0 980 430" role="img" aria-label="Generated PubMed-wide lipoedema research translation map">';
@@ -8688,7 +8691,7 @@ function renderBioFigure3(all, entities) {
     html += '<text x="' + (x + 18) + '" y="' + (y + 61) + '" font-size="24" font-weight="800" fill="#1a1410">' + atlasEsc(stage.n) + '</text>';
     html += biofigSvgText(stage.sub, x + 18, y + 79, 24, 1, {size:10.5, fill:'#706860'});
     html += '<rect x="' + (x + 18) + '" y="' + (y + 94) + '" width="132" height="9" rx="5" fill="#eee8e2"/><rect x="' + (x + 18) + '" y="' + (y + 94) + '" width="' + barW + '" height="9" rx="5" fill="' + stage.color + '"/>';
-    html += biofigSvgText(stage.detail, x + 18, y + 119, 25, 1, {size:10.2, fill:'#463c36'});
+    html += biofigSvgText(stage.detail, x + 18, y + 119, 25, 2, {size:10.2, fill:'#463c36'});
     html += '</g>';
   });
   html += '<rect x="66" y="290" width="848" height="86" rx="12" fill="#fbfaf8" stroke="#ebe5df"/>';
