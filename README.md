@@ -63,6 +63,13 @@ LipoScope is intended for research, education, study planning, and literature na
 
 If you use LipoScope in research, please cite the project page and the relevant primary papers surfaced through the app. 
 
+Suggested attribution:
+
+```text
+LipoScope content by Selin Cildir, licensed under CC BY 4.0.
+https://github.com/selincildir/LipoScope
+```
+
 ## License
 
 LipoScope uses a dual-license model:
@@ -71,12 +78,6 @@ LipoScope uses a dual-license model:
 - Original documentation, educational figures, explanatory text, and curated annotations created for LipoScope: Creative Commons Attribution 4.0 International (CC BY 4.0). See `CONTENT_LICENSE.md`.
 
 Third-party publications, PubMed metadata, abstracts, external links, DOI-linked content, paper figures, publisher material, and other third-party content are not relicensed by this repository. They remain subject to their original copyright, license, database, publisher, and access terms. See `NOTICE.md`.
-
-Suggested Application Note wording:
-
-```text
-The LipoScope source code is released under the MIT License. Original documentation, educational figures, explanatory text, and curated annotations are released under Creative Commons Attribution 4.0 International (CC BY 4.0). Third-party publications, PubMed metadata, abstracts, linked external content, and paper figures remain under their original licenses and copyright terms.
-```
 
 ## Author
 
