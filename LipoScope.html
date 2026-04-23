@@ -495,6 +495,8 @@ select:focus{border-color:var(--rose)}
   .notif-hdr h4 { font-size:12.5px; font-weight:700; color:var(--text); flex:1; }
   .notif-mark  { font-size:11px; color:var(--rose); cursor:pointer; font-weight:700; }
   .notif-mark:hover { text-decoration:underline; }
+  .notif-close { width:26px; height:26px; border:none; border-radius:50%; background:#fff; color:var(--text-soft); cursor:pointer; font-size:16px; line-height:1; display:flex; align-items:center; justify-content:center; }
+  .notif-close:hover { color:var(--rose); background:var(--surface); }
   .notif-scroll { max-height:370px; overflow-y:auto; }
   .notif-item { padding:12px 16px; border-bottom:1px solid var(--border); cursor:pointer; transition:background 0.15s; border-left:3px solid transparent; }
   .notif-item:hover { background:var(--bg); }
@@ -508,6 +510,23 @@ select:focus{border-color:var(--rose)}
   .notif-check-btn { padding:7px 14px; background:var(--teal); color:#fff; border:none; border-radius:7px; font-size:11.5px; font-weight:700; cursor:pointer; transition:background 0.2s; }
   .notif-check-btn:hover { background:#155050; }
   .notif-last-check { font-size:10.5px; color:var(--text-faint); }
+  @media(max-width:700px) {
+    .notif-wrap { position:static; }
+    .notif-drop {
+      position:fixed;
+      top:78px;
+      left:12px;
+      right:12px;
+      width:auto;
+      max-height:calc(100vh - 92px);
+      overflow:hidden;
+      z-index:900;
+    }
+    .notif-scroll { max-height:calc(100vh - 224px); }
+    .notif-footer { flex-wrap:wrap; gap:8px; align-items:stretch; }
+    .notif-last-check { width:100%; }
+    .notif-clear-btn, .notif-check-btn { flex:1; min-width:126px; }
+  }
 
   /* ── MODAL ANALYSIS BUTTON ── */
   .ask-ai-btn { display:inline-flex; align-items:center; gap:6px; padding:9px 18px; background:linear-gradient(135deg,#5e3d80,#3a4f82); color:#fff; border-radius:7px; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:12.5px; font-weight:600; transition:opacity 0.2s; }
@@ -731,6 +750,9 @@ select:focus{border-color:var(--rose)}
   .atlas-svg-box svg { display:block; width:100%; height:auto; min-height:390px; }
   .atlas-node { cursor:pointer; transition:opacity 0.15s; }
   .atlas-node:hover { opacity:0.78; }
+  .atlas-graph-legend { display:flex; flex-wrap:wrap; gap:7px; padding:10px 12px 12px; border-top:1px solid var(--border); background:#fff; }
+  .atlas-graph-legend span { display:inline-flex; align-items:center; gap:6px; font-size:10.5px; font-weight:800; color:var(--text-soft); }
+  .atlas-graph-legend i { width:10px; height:10px; border-radius:50%; display:inline-block; }
   .atlas-detail { background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:14px 16px; min-height:390px; }
   .atlas-detail h4 { font-family:'Playfair Display',serif; font-size:1rem; margin-bottom:4px; color:var(--text); }
   .atlas-detail p { font-size:12px; color:var(--text-mid); line-height:1.7; margin-bottom:8px; }
@@ -903,6 +925,17 @@ select:focus{border-color:var(--rose)}
   }
   .resource-hero h2 { font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--text); margin-bottom:7px; }
   .resource-hero p { color:var(--text-mid); font-size:13px; line-height:1.75; max-width:980px; }
+  .resource-hero .hero-feature-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:16px; }
+  .resource-hero .hero-feature {
+    background:rgba(255,255,255,0.74);
+    border:1px solid #e5ddd6;
+    border-radius:10px;
+    padding:10px 12px;
+    font-size:12px;
+    color:var(--text-mid);
+    line-height:1.55;
+  }
+  .resource-hero .hero-feature strong { display:block; color:var(--teal); font-size:11.5px; margin-bottom:3px; }
   .living-status {
     display:inline-flex;
     align-items:center;
@@ -934,6 +967,24 @@ select:focus{border-color:var(--rose)}
   .resource-meta { display:flex; gap:6px; flex-wrap:wrap; margin-top:auto; }
   .resource-tag { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:var(--teal); background:var(--teal-pale); border:1px solid #cfe3df; border-radius:999px; padding:3px 7px; }
   .resource-link { display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:8px 12px; border-radius:7px; background:var(--teal); color:#fff; text-decoration:none; font-size:11.5px; font-weight:800; margin-top:6px; width:max-content; }
+  .resource-image-gallery { display:grid; gap:18px; margin-top:12px; }
+  .resource-image-card {
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:12px;
+    box-shadow:var(--shadow-sm);
+    overflow:hidden;
+  }
+  .resource-image-card h3 { font-size:14px; color:var(--text); padding:14px 16px 8px; }
+  .resource-image-card img {
+    width:100%;
+    height:auto;
+    display:block;
+    background:#fff;
+    border-top:1px solid #f0ebe6;
+    border-bottom:1px solid #f0ebe6;
+  }
+  .resource-image-card figcaption { font-size:11.5px; line-height:1.65; color:var(--text-soft); padding:11px 16px 15px; }
   .biofig-wrap { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:16px; box-shadow:var(--shadow-sm); }
   .biofig-title { font-size:13px; font-weight:800; color:var(--text); margin-bottom:6px; }
   .biofig-caption { font-size:11.5px; color:var(--text-soft); line-height:1.65; margin-top:8px; }
@@ -957,6 +1008,31 @@ select:focus{border-color:var(--rose)}
   .science-video-svg { width:100%; height:auto; display:block; background:#fff; border:1px solid #ebe5df; border-radius:10px; box-shadow:var(--shadow-sm); }
   .app-footer { max-width:1440px; margin:0 auto; padding:18px 40px 34px; color:var(--text-faint); font-size:11px; display:flex; gap:10px; justify-content:space-between; flex-wrap:wrap; border-top:1px solid var(--border); }
   .app-footer strong { color:var(--text-mid); }
+  .scroll-top-btn {
+    position:fixed;
+    right:22px;
+    bottom:22px;
+    width:44px;
+    height:44px;
+    border:none;
+    border-radius:50%;
+    background:var(--teal);
+    color:#fff;
+    box-shadow:0 10px 26px rgba(20,45,49,0.24);
+    cursor:pointer;
+    font-size:20px;
+    font-weight:900;
+    z-index:650;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    transition:transform 0.18s, opacity 0.18s, background 0.18s;
+  }
+  .scroll-top-btn.visible { display:flex; }
+  .scroll-top-btn:hover { transform:translateY(-2px); background:#155050; }
+  @media(max-width:700px) {
+    .scroll-top-btn { right:14px; bottom:14px; width:42px; height:42px; }
+  }
   .tab-guide {
     background:linear-gradient(135deg,#ffffff,#f5f9f8);
     border:1px solid #d8e6e3;
@@ -1064,13 +1140,14 @@ select:focus{border-color:var(--rose)}
   <div style="margin-left:auto;padding:10px 20px;display:flex;align-items:center;gap:10px;">
     <!-- Notification Bell -->
     <div class="notif-wrap" id="notif-wrap">
-      <button class="notif-btn" id="notif-btn" onclick="toggleNotifDrop()" title="New paper alerts">🔔
+      <button class="notif-btn" id="notif-btn" onclick="toggleNotifDrop(event)" title="New paper alerts" aria-label="New paper alerts">🔔
         <span class="notif-badge" id="notif-badge">0</span>
       </button>
       <div class="notif-drop" id="notif-drop">
         <div class="notif-hdr">
           <h4>🔔 New Paper Alerts</h4>
           <span class="notif-mark" onclick="markAllNotifsRead()">Mark all read</span>
+          <button class="notif-close" onclick="closeNotifDrop(event)" title="Close alerts" aria-label="Close alerts">×</button>
         </div>
         <div class="notif-scroll" id="notif-scroll">
           <div class="notif-empty" id="notif-empty">Checking PubMed for new papers…</div>
@@ -1511,7 +1588,7 @@ select:focus{border-color:var(--rose)}
       <div class="about-section">
         <h2>📖 About This Resource</h2>
         <p>This interactive literature database was developed to support research into <strong>lipoedema (lipedema)</strong> — a chronic, painful adipose tissue disorder affecting predominantly women, characterised by bilateral, symmetrical subcutaneous fat deposition in the limbs, accompanied by pain, bruising, and oedema.</p>
-        <p>The curated collection spans <strong id="about-year-range">2009–2026</strong> and is sourced from <strong>PubMed</strong>. Each entry is annotated with topic categories, study type, structured aims/methods/findings, and direct DOI links.</p>
+        <p>The public default collection contains <strong>211 lipoedema/lipedema papers</strong> spanning <strong id="about-year-range">2009–2026</strong>, combining a manually curated seed with a PubMed-expanded metadata layer. Each record includes topic and study-type classification, source links, and figure lookup where full-text access supports it.</p>
         <p>The <strong>Analytics</strong> tab draws <strong>all</strong> data live from PubMed to show the real-time landscape of lipedema/lipoedema research — publication trends, topic distribution, study types, journal coverage, and topic cloud — all exclusively reflecting PubMed counts and classifications. The <strong>Live Search</strong> tab lets you query PubMed directly, and papers found can be added to Browse with one click.</p>
       </div>
 
@@ -1576,7 +1653,7 @@ select:focus{border-color:var(--rose)}
         <h2>🗂️ Database Management</h2>
         <div class="manage-stats-row">
           <div class="manage-stat">
-            <span class="manage-stat-n" id="about-total-papers">41</span>
+            <span class="manage-stat-n" id="about-total-papers">211</span>
             <span class="manage-stat-l">Visible Papers</span>
           </div>
           <div class="manage-stat" style="border-color:var(--teal-light)">
@@ -1591,8 +1668,8 @@ select:focus{border-color:var(--rose)}
         <p style="font-size:13px;color:var(--text-mid);line-height:1.7;margin:14px 0 16px">
           Papers you <strong>Hide</strong> are not permanently deleted — they are stored in your browser and can be restored below.
           Papers you <strong>Add</strong> from Live Search are saved locally in your browser across sessions.
-          Hiding all default literature pauses automatic default refresh for this browser profile, so you can curate from a clean slate.
-          Restoring hidden papers re-enables the default corpus.
+          Hiding all default literature lets you curate from a clean slate.
+          Restoring hidden papers or using <strong>Restore 211 Default Corpus</strong> brings the public default corpus back.
         </p>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <button onclick="restoreAllHidden()" class="legato-btn" style="font-size:12.5px;padding:9px 18px">
@@ -1607,8 +1684,8 @@ select:focus{border-color:var(--rose)}
           <button onclick="bootstrapDefaultCorpus(true)" class="legato-btn" style="font-size:12.5px;padding:9px 18px">
             🔄 Update Default Literature
           </button>
-          <button onclick="clearExpandedDefaultCorpus()" class="legato-btn secondary" style="font-size:12.5px;padding:9px 18px">
-            🧹 Clear PubMed-Expanded Defaults
+          <button onclick="restoreBuiltInDefaultCorpus()" class="legato-btn secondary" style="font-size:12.5px;padding:9px 18px">
+            ↩ Restore 211 Default Corpus
           </button>
         </div>
 
@@ -1624,11 +1701,39 @@ select:focus{border-color:var(--rose)}
 
   <!-- ═══ RESOURCES & FIGURES PANEL ═══ -->
   <div class="panel active" id="panel-resources">
-    <div class="tab-guide"><strong>Start Here:</strong> This welcome tab orients new users before they browse the literature. It contains curated lipoedema resources, scientific biology explainers, dynamic PubMed-aware candidate-gene figures, and a visual walkthrough of the app. Figures are conceptual research maps, not diagnostic advice.</div>
+    <div class="tab-guide"><strong>Welcome to LipoScope.</strong> This is an open lipoedema research atlas built to make the literature easier to explore, question, and reuse. You start with 211 curated lipoedema/lipedema papers, then shape the workspace around your own focus: genetics, diagnosis, clinical care, lymphatics, adipose biology, pain, treatment, or any other research angle. You can hide the default corpus and curate from a clean slate, or keep the public corpus and expand it with selected PubMed or Google Scholar records. Paper figures are only a few clicks away, and the local omics overlay lets you search a target gene or biomarker to see whether it has appeared in the lipoedema literature before.</div>
     <div class="resource-hero">
-      <h2>Start Here: LipoScope Resources &amp; Biology Figures</h2>
-      <p>A research-facing hub for lipoedema/lipedema websites, guideline sources, registries, active study finders, and evidence-based biology schematics. The Research Atlas and Figure 2 are rebuilt from the Living Atlas source: visible curated/local LipoScope papers plus an automatically refreshed, lipoedema-scoped PubMed layer. Solid links reflect stronger literature support, while dashed links mark plausible or emerging mechanisms that should not be over-claimed without validation.</p>
+      <h2>Welcome to LipoScope</h2>
+      <p>LipoScope brings the lipoedema literature into one practical workspace. You can browse the 211-paper public corpus, filter by topic or study design, open paper summaries and source links, check figures from open-access full text, follow genes and biomarkers through the Research Atlas, and overlay your own gene or biomarker list locally in the browser. Nothing here requires registration, and your local additions stay on your device.</p>
+      <p>If the default corpus is not the right shape for your project, you can clear it from view and build a focused collection from PubMed, Google Scholar, or your own reading list. That makes the same app useful for a genetics project, a diagnostic review, a clinical service, a treatment-outcome study, or a molecular biology hypothesis.</p>
+      <div class="hero-feature-list">
+        <div class="hero-feature"><strong>211-paper public corpus</strong> Start with a broad lipoedema/lipedema literature set, then hide, restore, update, or expand it.</div>
+        <div class="hero-feature"><strong>Paper figures with minimal clicks</strong> Open a paper card and use figure lookup to reach available full-text figures and figure pages.</div>
+        <div class="hero-feature"><strong>Gene and biomarker checking</strong> Paste or upload genes, proteins, variants, or biomarkers and see matching lipoedema papers with supporting links.</div>
+        <div class="hero-feature"><strong>Living research map</strong> Knowledge graph, candidate ranking, mechanisms, gaps, and minimum dataset views recompute when the corpus changes.</div>
+      </div>
       <div class="living-status" id="resource-live-status">Living PubMed Atlas: loading cached records and checking for updates...</div>
+    </div>
+
+    <div class="about-section">
+      <h2>Visual Guides to Lipoedema</h2>
+      <div class="resource-image-gallery">
+        <figure class="resource-image-card">
+          <h3>Understanding the condition</h3>
+          <img src="Lipoedema_understanding_condition.png" alt="Educational overview of lipoedema features, areas affected, pathophysiology, clinical impact, and management">
+          <figcaption>A broad visual overview of lipoedema: typical distribution, clinical features, pathophysiology, impact, and management context. Use this as an orientation figure, not as a self-diagnosis tool.</figcaption>
+        </figure>
+        <figure class="resource-image-card">
+          <h3>Genetic architecture and susceptibility</h3>
+          <img src="Lipoedema_genetics.png" alt="Educational figure explaining familial aggregation, heritability, polygenic architecture, and gene-environment-hormone interactions in lipoedema">
+          <figcaption>A research-facing view of familial aggregation, polygenic architecture, heritability, variable expressivity, and gene-environment-hormone interactions. Treat specific loci as research leads unless validated in lipoedema-focused cohorts.</figcaption>
+        </figure>
+        <figure class="resource-image-card">
+          <h3>Diagnosis and differential diagnosis</h3>
+          <img src="Lipoedema_diagnosis.png" alt="Educational figure explaining lipoedema diagnosis, patient history, clinical examination, differential diagnosis, supportive tests, and clinical diagnostic criteria">
+          <figcaption>A practical clinical research guide to history, examination, differential diagnosis, supportive tests, and diagnostic criteria. It is educational and should not replace assessment by a clinician experienced in lipoedema.</figcaption>
+        </figure>
+      </div>
     </div>
 
     <div class="about-section">
@@ -2013,8 +2118,9 @@ select:focus{border-color:var(--rose)}
 
 <footer class="app-footer">
   <span><strong>LipoScope</strong> <span id="app-version-label">v1.3.0</span> · Research atlas for lipoedema/lipedema literature, biology maps, and local evidence synthesis</span>
-  <span>Updated <span id="app-updated-label">22 April 2026</span> · Public GitHub Pages build</span>
+  <span>Updated <span id="app-updated-label">23 April 2026</span> · Public GitHub Pages build</span>
 </footer>
+<button class="scroll-top-btn" id="scroll-top-btn" onclick="scrollToTop()" title="Back to top" aria-label="Back to top">↑</button>
 
 <!-- ═══ MODAL ═══ -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
@@ -2052,8 +2158,8 @@ select:focus{border-color:var(--rose)}
 </div>
 
 <script>
-const LIPOSCOPE_VERSION = 'v1.2.0';
-const LIPOSCOPE_UPDATED = '22 April 2026';
+const LIPOSCOPE_VERSION = 'v1.3.0';
+const LIPOSCOPE_UPDATED = '23 April 2026';
 
 const PAPERS = [
   {
@@ -2955,6 +3061,3581 @@ const PAPERS = [
     color: "#2a7a7a"
   }
 ];
+
+
+const DEFAULT_EXPANDED_PAPERS = [
+  {
+    "id": 942016523,
+    "pmid": "42016523",
+    "title": "Exploring uric acid as a biomarker in lipedema and lymphedema: A metabolomics study with prospective validation.",
+    "authors": "Alkhalfan F, Sangwan N, Aggarwal A, Scalise A, Alemán JO, Rajasekar B, Joseph D, Peterson K, Hamer A, Ali M, Bartholomew JR, Cameron SJ",
+    "firstAuthor": "Alkhalfan F",
+    "lastAuthor": "et al.",
+    "journal": "Obesity medicine",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Exploring uric acid as a biomarker in lipedema and lymphedema: A metabolomics study with prospective validation. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.obmed.2025.100618",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941988381,
+    "pmid": "41988381",
+    "title": "The role of extracellular vesicles in the context of (inter-)cellular communication contributing to adipose tissue dysfunction in lipedema.",
+    "authors": "Morawitz KH, Gross JC",
+    "firstAuthor": "Morawitz KH",
+    "lastAuthor": "et al.",
+    "journal": "Frontiers in cell and developmental biology",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Adipose Biology",
+    "summary": "The role of extracellular vesicles in the context of (inter-)cellular communication contributing to adipose tissue dysfunction in lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3389/fcell.2026.1804905",
+    "color": "#c4773a",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941909346,
+    "pmid": "41909346",
+    "title": "Exploring the Immunological Shield Hypothesis: A Population-Based Exploration of Phenotypic Divergence Between Lipedema and Celiac Disease Autoimmunity.",
+    "authors": "Amato AC, Amato JL, Benitti D",
+    "firstAuthor": "Amato AC",
+    "lastAuthor": "et al.",
+    "journal": "Cureus",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Exploring the Immunological Shield Hypothesis: A Population-Based Exploration of Phenotypic Divergence Between Lipedema and Celiac Disease Autoimmunity. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.7759/cureus.104222",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941899351,
+    "pmid": "41899351",
+    "title": "Non-Invasive Radiofrequency Therapy for Musculoskeletal, Neurological, and Vascular Conditions of the Lower Limb: A Systematic Review and Meta-Analysis.",
+    "authors": "Vinolo-Gil MJ, Estebanez-Pérez MJ, Vera-Serrano FJ, Góngora-Rodríguez J, Perez-Perez CM, Martin-Vega FJ, García-Campanario I",
+    "firstAuthor": "Vinolo-Gil MJ",
+    "lastAuthor": "et al.",
+    "journal": "Journal of clinical medicine",
+    "year": 2026,
+    "type": "Systematic Review",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Non-Invasive Radiofrequency Therapy for Musculoskeletal, Neurological, and Vascular Conditions of the Lower Limb: A Systematic Review and Meta-Analysis. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/jcm15062428",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941886595,
+    "pmid": "41886595",
+    "title": "Prevalence of comorbidities associated with lipedema. A comparative study with the general population.",
+    "authors": "Vaquero-Ramiro E, Puentes-Gutiérrez AB, Morandeira-Rivas A, Millán-Casas L, García-Bascones M",
+    "firstAuthor": "Vaquero-Ramiro E",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Genetics & Genomics",
+    "summary": "Prevalence of comorbidities associated with lipedema. A comparative study with the general population. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555261435120",
+    "color": "#5e3d80",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941884178,
+    "pmid": "41884178",
+    "title": "Safety and Efficacy of Surgical Techniques in Treating Lipedema: Systematic Review.",
+    "authors": "Vengoechea JAA, Gagliardi RC, Martín MIM, Valencia CZ, Triana BM, Limia SB, Figueroa CR, Millán C, Meyer PF",
+    "firstAuthor": "Vengoechea JAA",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic surgery journal. Open forum",
+    "year": 2026,
+    "type": "Systematic Review",
+    "topic": "Treatment & Surgery",
+    "summary": "Safety and Efficacy of Surgical Techniques in Treating Lipedema: Systematic Review. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1093/asjof/ojag039",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941876905,
+    "pmid": "41876905",
+    "title": "An adipocytokine signature improves diagnostic accuracy for people living with lipoedema.",
+    "authors": "Mühlberg KS, Schürfeld R, Kieser P, Uhlemann S, Stumvoll M, Scheinert D, Blüher M, Fasshauer M, Ebert T",
+    "firstAuthor": "Mühlberg KS",
+    "lastAuthor": "et al.",
+    "journal": "The British journal of dermatology",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Diagnosis & Clinical",
+    "summary": "An adipocytokine signature improves diagnostic accuracy for people living with lipoedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1093/bjd/ljag103",
+    "color": "#3a4f82",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941858708,
+    "pmid": "41858708",
+    "title": "Lipedema Reduction Surgery Outcomes and Comorbidities: A Retrospective Study.",
+    "authors": "Schwartz JS, Danesh N, Danesh E, Raghebi A, Danesh J",
+    "firstAuthor": "Schwartz JS",
+    "lastAuthor": "et al.",
+    "journal": "Plastic and reconstructive surgery. Global open",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Lipedema Reduction Surgery Outcomes and Comorbidities: A Retrospective Study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1097/GOX.0000000000007383",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941845080,
+    "pmid": "41845080",
+    "title": "Dry Liposuction for Upper-Extremity End-Stage Lymphedema: A Step-by-Step Video of Technique.",
+    "authors": "Sollie M, Lilja C, Ydo CB, Foged T, Sørensen JA, Thomsen JB",
+    "firstAuthor": "Sollie M",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic plastic surgery",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Dry Liposuction for Upper-Extremity End-Stage Lymphedema: A Step-by-Step Video of Technique. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s00266-026-05745-y",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941840242,
+    "pmid": "41840242",
+    "title": "Author's Reply to \"Commentary on 'Efficacy and Safety of Surgical Intervention in Refractory Lipedema: A Systematic Review and Single-Arm Meta-Analysis' by Coutinho et al.\".",
+    "authors": "Coutinho ML, Delgado LM, Leão PP",
+    "firstAuthor": "Coutinho ML",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic plastic surgery",
+    "year": 2026,
+    "type": "Systematic Review",
+    "topic": "Treatment & Surgery",
+    "summary": "Author's Reply to \"Commentary on 'Efficacy and Safety of Surgical Intervention in Refractory Lipedema: A Systematic Review and Single-Arm Meta-Analysis' by Coutinho et al.\". PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s00266-026-05741-2",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941838993,
+    "pmid": "41838993",
+    "title": "Cardiovascular Signs and Symptoms: Edema.",
+    "authors": "Greenberg J, Greenberg J, Laurie A",
+    "firstAuthor": "Greenberg J",
+    "lastAuthor": "et al.",
+    "journal": "FP essentials",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Cardiovascular Signs and Symptoms: Edema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://pubmed.ncbi.nlm.nih.gov/41838993/",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941832313,
+    "pmid": "41832313",
+    "title": "Assessment of the elasticity of lipedematous tissue and the examination of the relationship between pain and fibrosis in lipedema.",
+    "authors": "Yaman A, Mansız-Kaplan B",
+    "firstAuthor": "Yaman A",
+    "lastAuthor": "et al.",
+    "journal": "International journal of obesity (2005)",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Epidemiology & Registry",
+    "summary": "Assessment of the elasticity of lipedematous tissue and the examination of the relationship between pain and fibrosis in lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1038/s41366-026-02049-8",
+    "color": "#505050",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941828544,
+    "pmid": "41828544",
+    "title": "Lipedema and Dynapenia: Inflammatory Myosteatosis as a Mechanistic Link Between Tissue Expansion and Muscle Dysfunction.",
+    "authors": "Viana DPDC, Invitti AL, Schor E",
+    "firstAuthor": "Viana DPDC",
+    "lastAuthor": "et al.",
+    "journal": "International journal of molecular sciences",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Lipedema and Dynapenia: Inflammatory Myosteatosis as a Mechanistic Link Between Tissue Expansion and Muscle Dysfunction. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/ijms27052319",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941819150,
+    "pmid": "41819150",
+    "title": "Lipödem – eine verborgene Erkrankung mit einer Prävalenz von 0,95% – basierend auf 8,7 Millionen Versicherten.",
+    "authors": "Aitzetmüller-Klietz ML, Acar L, Öztürk M, Kückelhaus M, Nzomo MM, Marschall U, Aitzetmüller-Klietz M, Hirsch T",
+    "firstAuthor": "Aitzetmüller-Klietz ML",
+    "lastAuthor": "et al.",
+    "journal": "Handchirurgie, Mikrochirurgie, plastische Chirurgie : Organ der Deutschsprachigen Arbeitsgemeinschaft fur Handchirurgie : Organ der Deutschsprachigen Arbeitsgemeinschaft fur Mikrochirurgie der Peripheren Nerven und Gefasse : Organ der V...",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Genetics & Genomics",
+    "summary": "Lipödem – eine verborgene Erkrankung mit einer Prävalenz von 0,95% – basierend auf 8,7 Millionen Versicherten. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1055/a-2763-4919",
+    "color": "#5e3d80",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941808123,
+    "pmid": "41808123",
+    "title": "Changes in plasma fatty acid composition in females with lipedema following low-carbohydrate vs low-fat diets and associations with pain reduction.",
+    "authors": "Lundanes J, Nes VF, Hansson P, Fristedt R, Landberg R, Martins C, Nymo S",
+    "firstAuthor": "Lundanes J",
+    "lastAuthor": "et al.",
+    "journal": "Nutrition journal",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Changes in plasma fatty acid composition in females with lipedema following low-carbohydrate vs low-fat diets and associations with pain reduction. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1186/s12937-026-01304-y",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941794729,
+    "pmid": "41794729",
+    "title": "Correction: objective measures of physical activity and physical capacities in lipedema - a scoping review.",
+    "authors": "Malm IÅ, Violasdotter Nilsson P, Hurtig-Wennlöf A",
+    "firstAuthor": "Malm IÅ",
+    "lastAuthor": "et al.",
+    "journal": "BMC women's health",
+    "year": 2026,
+    "type": "Narrative Review",
+    "topic": "Pathophysiology",
+    "summary": "Correction: objective measures of physical activity and physical capacities in lipedema - a scoping review. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1186/s12905-026-04345-x",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941790229,
+    "pmid": "41790229",
+    "title": "Author's Reply to \"Functional Gains Outweigh Sensory Sequelae in Lipedema Surgery\".",
+    "authors": "Coutinho ML, Monteiro Delgado L, Leão PP",
+    "firstAuthor": "Coutinho ML",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic plastic surgery",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Author's Reply to \"Functional Gains Outweigh Sensory Sequelae in Lipedema Surgery\". PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s00266-026-05740-3",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941768116,
+    "pmid": "41768116",
+    "title": "Lipedema and obesity: A narrative review and treatment protocol.",
+    "authors": "Rathod S, Pouwels S, Schmidt J",
+    "firstAuthor": "Rathod S",
+    "lastAuthor": "et al.",
+    "journal": "JPRAS open",
+    "year": 2026,
+    "type": "Narrative Review",
+    "topic": "Treatment & Surgery",
+    "summary": "Lipedema and obesity: A narrative review and treatment protocol. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.jpra.2026.01.004",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941767758,
+    "pmid": "41767758",
+    "title": "Disordered eating risk and well-being in women with lipedema.",
+    "authors": "Kunzová M",
+    "firstAuthor": "Kunzová M",
+    "lastAuthor": "et al.",
+    "journal": "Frontiers in global women's health",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Disordered eating risk and well-being in women with lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3389/fgwh.2026.1720708",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941767202,
+    "pmid": "41767202",
+    "title": "Moderate weight loss decreases lipedema-affected body fat mass in a woman who is lean with lipedema.",
+    "authors": "De Girolamo G, Smith GI, Stein RI, Wright TF, Klein S",
+    "firstAuthor": "De Girolamo G",
+    "lastAuthor": "et al.",
+    "journal": "JCEM case reports",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Moderate weight loss decreases lipedema-affected body fat mass in a woman who is lean with lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1210/jcemcr/luag018",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941717523,
+    "pmid": "41717523",
+    "title": "Clinical effects of TECAR therapy in the conservative management of Stage 2 lipedema in females: A randomized controlled trial.",
+    "authors": "Uzun Ö, Sezgin Özcan D, Bölük Şenlikçi H, Atalay Z, Ünal R, Dalyan M",
+    "firstAuthor": "Uzun Ö",
+    "lastAuthor": "et al.",
+    "journal": "Turkish journal of physical medicine and rehabilitation",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Clinical effects of TECAR therapy in the conservative management of Stage 2 lipedema in females: A randomized controlled trial. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.5606/tftrd.2025.17157",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941693932,
+    "pmid": "41693932",
+    "title": "Management of lipedema with a biphasic ketogenic/low-carbohydrate diet: a case report.",
+    "authors": "Cannataro R, Abrego-Guandique DM, Cione E",
+    "firstAuthor": "Cannataro R",
+    "lastAuthor": "et al.",
+    "journal": "Frontiers in nutrition",
+    "year": 2026,
+    "type": "Case Report/Series",
+    "topic": "Treatment & Surgery",
+    "summary": "Management of lipedema with a biphasic ketogenic/low-carbohydrate diet: a case report. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3389/fnut.2026.1728651",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941689756,
+    "pmid": "41689756",
+    "title": "Macroscopic fat embolism after liposuction.",
+    "authors": "Edler C, Kirkerup P, Huter T, Sperhake JP, Ondruschka B, Schröder AS",
+    "firstAuthor": "Edler C",
+    "lastAuthor": "et al.",
+    "journal": "Forensic science, medicine, and pathology",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Macroscopic fat embolism after liposuction. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s12024-026-01190-0",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941685833,
+    "pmid": "41685833",
+    "title": "A multidimensional evaluation of pain in lipedema.",
+    "authors": "Sakizli Erdal E, Haspolat M, Ergin C, Keser I",
+    "firstAuthor": "Sakizli Erdal E",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Epidemiology & Registry",
+    "summary": "A multidimensional evaluation of pain in lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555261427251",
+    "color": "#505050",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941643535,
+    "pmid": "41643535",
+    "title": "A retrospective cross-sectional study comparing health-related quality-of-life in females with lipoedema and bilateral leg lymphoedema.",
+    "authors": "Stellmaker R, Thompson B, Mackie H, Paramanandam VS, Sherman KA, Koelmeyer L",
+    "firstAuthor": "Stellmaker R",
+    "lastAuthor": "et al.",
+    "journal": "Journal of psychosomatic research",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "A retrospective cross-sectional study comparing health-related quality-of-life in females with lipoedema and bilateral leg lymphoedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.jpsychores.2026.112562",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941642311,
+    "pmid": "41642311",
+    "title": "Serrapeptase After Liposuction for Lipedema: Limited Evidence for Antifibrotic Efficacy.",
+    "authors": "Bruno A, Saccoccio V",
+    "firstAuthor": "Bruno A",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic plastic surgery",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Serrapeptase After Liposuction for Lipedema: Limited Evidence for Antifibrotic Efficacy. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s00266-026-05638-0",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941636813,
+    "pmid": "41636813",
+    "title": "Commentary on \"Efficacy and Safety of Surgical Intervention in Refractory Lipedema: A Systematic Review and Single-Arm Meta-Analysis\" by Coutinho et al.",
+    "authors": "Karimaneh K, Kiani Z, Ansari-Dogaheh M",
+    "firstAuthor": "Karimaneh K",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic plastic surgery",
+    "year": 2026,
+    "type": "Systematic Review",
+    "topic": "Treatment & Surgery",
+    "summary": "Commentary on \"Efficacy and Safety of Surgical Intervention in Refractory Lipedema: A Systematic Review and Single-Arm Meta-Analysis\" by Coutinho et al. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s00266-026-05658-w",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941636318,
+    "pmid": "41636318",
+    "title": "Assessment of YouTube™ videos on lipoedema: Quality, reliability, and educational gaps in a lymphatic disorder.",
+    "authors": "Çiftkaya PÖ, Bucak ÖF, Ayan F, Atasoy M, Coşkun E",
+    "firstAuthor": "Çiftkaya PÖ",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Assessment of YouTube™ videos on lipoedema: Quality, reliability, and educational gaps in a lymphatic disorder. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555261424065",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941612065,
+    "pmid": "41612065",
+    "title": "Response to the Letter to the Editor: Improving Abdominal Lipedema Diagnosis with Lymphatic Imaging Validation and Standard-Based Clinical Implementation.",
+    "authors": "Bruno A, Cilluffo M",
+    "firstAuthor": "Bruno A",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic plastic surgery",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Response to the Letter to the Editor: Improving Abdominal Lipedema Diagnosis with Lymphatic Imaging Validation and Standard-Based Clinical Implementation. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s00266-025-05548-7",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941604515,
+    "pmid": "41604515",
+    "title": "Painful Adipose Tissue Disorder: A Systematic Review of Interventions for Dercum's Disease.",
+    "authors": "How-Volkman C, Bernal C, Kruayatidee A, Gulia K, Kabutogi S, Mohammed H, Wong MS",
+    "firstAuthor": "How-Volkman C",
+    "lastAuthor": "et al.",
+    "journal": "Annals of plastic surgery",
+    "year": 2026,
+    "type": "Systematic Review",
+    "topic": "Treatment & Surgery",
+    "summary": "Painful Adipose Tissue Disorder: A Systematic Review of Interventions for Dercum's Disease. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1097/SAP.0000000000004665",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941595658,
+    "pmid": "41595658",
+    "title": "Lipedema in Women and Its Interrelationship with Endometriosis and Other Gynecologic Diseases: A Scoping Review.",
+    "authors": "Viana DPDC, Invitti AL, Schor E",
+    "firstAuthor": "Viana DPDC",
+    "lastAuthor": "et al.",
+    "journal": "Biomedicines",
+    "year": 2026,
+    "type": "Narrative Review",
+    "topic": "Pathophysiology",
+    "summary": "Lipedema in Women and Its Interrelationship with Endometriosis and Other Gynecologic Diseases: A Scoping Review. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/biomedicines14010122",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941580786,
+    "pmid": "41580786",
+    "title": "Epigenetic alterations of AKT1 orchestrate a metabolic reprogramming in advanced lipedema: translational insights from an integrated multi-omics study.",
+    "authors": "Santella B, Salvati A, Papp A, D'Ursi A, Memoli D, Mingo M, Pulai C, Marino C, Rastrelli L, D'Elia M, Nassa G, Schiavo L",
+    "firstAuthor": "Santella B",
+    "lastAuthor": "et al.",
+    "journal": "Journal of translational medicine",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Genetics & Genomics",
+    "summary": "Epigenetic alterations of AKT1 orchestrate a metabolic reprogramming in advanced lipedema: translational insights from an integrated multi-omics study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1186/s12967-026-07726-w",
+    "color": "#5e3d80",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941564589,
+    "pmid": "41564589",
+    "title": "A single center retrospective observational study on 106 consecutive lipedema surgeries: Defining the ideal surgical approach.",
+    "authors": "Thiry M, Schiraldi L, Guiotto M, Fresa M, Mazzolai L, di Summa PG",
+    "firstAuthor": "Thiry M",
+    "lastAuthor": "et al.",
+    "journal": "Journal of plastic, reconstructive & aesthetic surgery : JPRAS",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "A single center retrospective observational study on 106 consecutive lipedema surgeries: Defining the ideal surgical approach. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.bjps.2025.12.018",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941554022,
+    "pmid": "41554022",
+    "title": "Lipedema symptoms are not influenced by endothermal ablation in patients with varicose veins.",
+    "authors": "Reyes Valdivia A, Zevallos A, Fabregate Fuente M, Boado Rey L, Chuquisana C, Duque Santos Á, Gómez Olmos C, Alonso B, de Miguel C",
+    "firstAuthor": "Reyes Valdivia A",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Lipedema symptoms are not influenced by endothermal ablation in patients with varicose veins. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555261418968",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941548036,
+    "pmid": "41548036",
+    "title": "Unraveling lipedema: comprehensive insights and the path to future discoveries.",
+    "authors": "Faria AM, Valerio CM, Barcellos CR, Oliveira RA, Trujilho FR, Baiocchi JMT, Cifarelli V, Scherer PE, Halpern B",
+    "firstAuthor": "Faria AM",
+    "lastAuthor": "et al.",
+    "journal": "npj metabolic health and disease",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Unraveling lipedema: comprehensive insights and the path to future discoveries. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1038/s44324-025-00093-y",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941542013,
+    "pmid": "41542013",
+    "title": "Association Between Hormonal Contraceptive Use and Lipedema: A Cross-Sectional Study With 637 Brazilian Women.",
+    "authors": "Amato AC, Amato JL, Benitti D",
+    "firstAuthor": "Amato AC",
+    "lastAuthor": "et al.",
+    "journal": "Cureus",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Association Between Hormonal Contraceptive Use and Lipedema: A Cross-Sectional Study With 637 Brazilian Women. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.7759/cureus.99189",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941540367,
+    "pmid": "41540367",
+    "title": "Objective measures of physical activity and physical capacities in lipedema - a scooping review.",
+    "authors": "Åström Malm I, Violasdotter Nilsson P, Hurtig-Wennlöf A",
+    "firstAuthor": "Åström Malm I",
+    "lastAuthor": "et al.",
+    "journal": "BMC women's health",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Objective measures of physical activity and physical capacities in lipedema - a scooping review. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1186/s12905-026-04271-y",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941535506,
+    "pmid": "41535506",
+    "title": "Functional Gains Outweigh Sensory Sequelae in Lipedema Surgery.",
+    "authors": "Bruno A",
+    "firstAuthor": "Bruno A",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic plastic surgery",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Functional Gains Outweigh Sensory Sequelae in Lipedema Surgery. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s00266-026-05657-x",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941519859,
+    "pmid": "41519859",
+    "title": "Lipedema World Alliance Delphi Consensus-Based Position Paper on the Definition and Management of Lipedema: Results from the 2023 Lipedema World Congress in Potsdam.",
+    "authors": "Kruppa P, Crescenzi R, Faerber G, Forner-Cordero I, Cornely M, Shayan R, Karnezis T, Simarro JL, de Souza PF, Herbst KL, Ghods M, Michelini S",
+    "firstAuthor": "Kruppa P",
+    "lastAuthor": "et al.",
+    "journal": "Nature communications",
+    "year": 2026,
+    "type": "Guidelines",
+    "topic": "Guidelines & Consensus",
+    "summary": "Lipedema World Alliance Delphi Consensus-Based Position Paper on the Definition and Management of Lipedema: Results from the 2023 Lipedema World Congress in Potsdam. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1038/s41467-025-68232-z",
+    "color": "#6a3a98",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941512532,
+    "pmid": "41512532",
+    "title": "Lipedema: pathophysiological insights and therapeutic strategies - An update for dermatologists.",
+    "authors": "Dal'Forno-Dini T, Birck MS, Saalfeld RM, Macedo CLD, Bagatin E",
+    "firstAuthor": "Dal'Forno-Dini T",
+    "lastAuthor": "et al.",
+    "journal": "Anais brasileiros de dermatologia",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Lipedema: pathophysiological insights and therapeutic strategies - An update for dermatologists. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.abd.2025.501270",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941489931,
+    "pmid": "41489931",
+    "title": "The use of glove drains in lipedema liposuction: A technical note and preliminary observations.",
+    "authors": "Bruno A, Cilluffo M",
+    "firstAuthor": "Bruno A",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "The use of glove drains in lipedema liposuction: A technical note and preliminary observations. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555251413901",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941479665,
+    "pmid": "41479665",
+    "title": "Hedonic hunger and eating behavior after low-carbohydrate versus low-fat diets in females with lipedema and obesity.",
+    "authors": "Lundanes J, Naustvoll TG, Tangvik RJ, Martins C, Nymo S",
+    "firstAuthor": "Lundanes J",
+    "lastAuthor": "et al.",
+    "journal": "Frontiers in nutrition",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Hedonic hunger and eating behavior after low-carbohydrate versus low-fat diets in females with lipedema and obesity. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3389/fnut.2025.1716592",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941470854,
+    "pmid": "41470854",
+    "title": "Characterization of Gut Microbiota Profile in Lipedema: A Pilot Study.",
+    "authors": "Di Renzo L, Frank G, Pala B, Cianci R, De Santis GL, Nicoletti F, Bigioni G, Ortoman M, Borro M, Simmaco M, Peluso D, De Lorenzo A, Gualtieri P",
+    "firstAuthor": "Di Renzo L",
+    "lastAuthor": "et al.",
+    "journal": "Nutrients",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Characterization of Gut Microbiota Profile in Lipedema: A Pilot Study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/nu17243909",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941464842,
+    "pmid": "41464842",
+    "title": "Breast Imaging Findings in Women with Lipedema: A Retrospective Cross-Sectional Descriptive Study.",
+    "authors": "Fiengo E, Sbarbati A",
+    "firstAuthor": "Fiengo E",
+    "lastAuthor": "et al.",
+    "journal": "Journal of clinical medicine",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Diagnosis & Clinical",
+    "summary": "Breast Imaging Findings in Women with Lipedema: A Retrospective Cross-Sectional Descriptive Study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/jcm14248940",
+    "color": "#3a4f82",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941463059,
+    "pmid": "41463059",
+    "title": "Clinical Signs at Diagnosis and Comorbidities in a Large Cohort of Patients with Lipedema in Spain.",
+    "authors": "Simarro Blasco JL, Michelini S, Andrés-Gasco M, Lebrero García A, Ortega Abad D, Margalejo Lombardo J, Buj Vargas J, Sanchéz-Costa JT, Martín Martínez MA",
+    "firstAuthor": "Simarro Blasco JL",
+    "lastAuthor": "et al.",
+    "journal": "Biomedicines",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Diagnosis & Clinical",
+    "summary": "Clinical Signs at Diagnosis and Comorbidities in a Large Cohort of Patients with Lipedema in Spain. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/biomedicines13123049",
+    "color": "#3a4f82",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941436421,
+    "pmid": "41436421",
+    "title": "Health-related quality of life among lipedema patients: A systematic review and meta-analysis.",
+    "authors": "Günay UB, Talak GR, Demiröz A",
+    "firstAuthor": "Günay UB",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2025,
+    "type": "Systematic Review",
+    "topic": "Epidemiology & Registry",
+    "summary": "Health-related quality of life among lipedema patients: A systematic review and meta-analysis. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555251410009",
+    "color": "#505050",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941436310,
+    "pmid": "41436310",
+    "title": "Lipedema is not obesity-A call for clinical clarity.",
+    "authors": "Bukhari SF",
+    "firstAuthor": "Bukhari SF",
+    "lastAuthor": "et al.",
+    "journal": "Journal of clinical lipidology",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Adipose Biology",
+    "summary": "Lipedema is not obesity-A call for clinical clarity. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.jacl.2025.11.004",
+    "color": "#c4773a",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941432544,
+    "pmid": "41432544",
+    "title": "Lipoedema and Bariatric and Metabolic Surgery: A Systematic Review.",
+    "authors": "Pajaziti Q, Geropoulos G, MacVicar E, Colucci N, Lucocq J, Lamb PJ, Robertson AG",
+    "firstAuthor": "Pajaziti Q",
+    "lastAuthor": "et al.",
+    "journal": "Clinical obesity",
+    "year": 2026,
+    "type": "Systematic Review",
+    "topic": "Treatment & Surgery",
+    "summary": "Lipoedema and Bariatric and Metabolic Surgery: A Systematic Review. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1111/cob.70062",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941432038,
+    "pmid": "41432038",
+    "title": "What is the recommended compression pressure for different clinical indications?",
+    "authors": "Mosti G, Benigni JP, Caggiati A",
+    "firstAuthor": "Mosti G",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "What is the recommended compression pressure for different clinical indications?. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555251410002",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941429971,
+    "pmid": "41429971",
+    "title": "Expanding the Role of Cell Salvage: Implications for High-Volume Liposuction and Lipedema Surgery.",
+    "authors": "Bruno A",
+    "firstAuthor": "Bruno A",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic plastic surgery",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Expanding the Role of Cell Salvage: Implications for High-Volume Liposuction and Lipedema Surgery. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s00266-025-05569-2",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941426843,
+    "pmid": "41426843",
+    "title": "Lack of Scientific Evidence for the Use of Gestrinone in the Treatment of Lipedema: A Systematic Review.",
+    "authors": "Amato AC, Amato JS, Benitti D",
+    "firstAuthor": "Amato AC",
+    "lastAuthor": "et al.",
+    "journal": "Cureus",
+    "year": 2025,
+    "type": "Systematic Review",
+    "topic": "Treatment & Surgery",
+    "summary": "Lack of Scientific Evidence for the Use of Gestrinone in the Treatment of Lipedema: A Systematic Review. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.7759/cureus.97213",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941407589,
+    "pmid": "41407589",
+    "title": "Lipedema: a chronic adipose tissue disease.",
+    "authors": "Funcke JB, Scherer PE, Straub LG",
+    "firstAuthor": "Funcke JB",
+    "lastAuthor": "et al.",
+    "journal": "Trends in molecular medicine",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Lipedema: a chronic adipose tissue disease. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.molmed.2025.11.005",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941406420,
+    "pmid": "41406420",
+    "title": "A Case Series on Combining Modified Mediterranean Diet and Ketogenic Diet in a \"Sandwich\" Approach for Patients with Lipedema and Comorbidities.",
+    "authors": "Fedre B, Dessalvi S, Boccardo F",
+    "firstAuthor": "Fedre B",
+    "lastAuthor": "et al.",
+    "journal": "Lymphology",
+    "year": 2025,
+    "type": "Case Report/Series",
+    "topic": "Treatment & Surgery",
+    "summary": "A Case Series on Combining Modified Mediterranean Diet and Ketogenic Diet in a \"Sandwich\" Approach for Patients with Lipedema and Comorbidities. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://pubmed.ncbi.nlm.nih.gov/41406420/",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941393612,
+    "pmid": "41393612",
+    "title": "Impact of Pycnogenol® Use in the Treatment of Patients With Lipedema: A Randomized Controlled Trial.",
+    "authors": "Mello Netto BAS Sr, Corassa JM, Barros FS, Zani V, Seabra de Mello MS, Lorenzoni MB, Assis NM",
+    "firstAuthor": "Mello Netto BAS Sr",
+    "lastAuthor": "et al.",
+    "journal": "Cureus",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Impact of Pycnogenol® Use in the Treatment of Patients With Lipedema: A Randomized Controlled Trial. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.7759/cureus.96589",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941392052,
+    "pmid": "41392052",
+    "title": "Efficacy and Safety of Surgical Intervention in Refractory Lipedema: A Systematic Review and Single-Arm Meta-Analysis.",
+    "authors": "Coutinho ML, da Nobrega Oliveira REN, Delgado LM, Orletti D, de Luccia N, Leão PP",
+    "firstAuthor": "Coutinho ML",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic plastic surgery",
+    "year": 2026,
+    "type": "Systematic Review",
+    "topic": "Treatment & Surgery",
+    "summary": "Efficacy and Safety of Surgical Intervention in Refractory Lipedema: A Systematic Review and Single-Arm Meta-Analysis. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s00266-025-05507-2",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941370187,
+    "pmid": "41370187",
+    "title": "Report of two cases of lipedema: An under-recognized, misdiagnosed, and under-reported disorder in India.",
+    "authors": "Kuttiatt VS, Anandan M, Elangovan N, Sadhasivam A",
+    "firstAuthor": "Kuttiatt VS",
+    "lastAuthor": "et al.",
+    "journal": "Journal of postgraduate medicine",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Diagnosis & Clinical",
+    "summary": "Report of two cases of lipedema: An under-recognized, misdiagnosed, and under-reported disorder in India. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.4103/jpgm.jpgm_273_25",
+    "color": "#3a4f82",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941347113,
+    "pmid": "41347113",
+    "title": "Lipedema Presenting as Obesity.",
+    "authors": "Kumar S, Aleem S, Guddeti A, Hari Kumar KVS",
+    "firstAuthor": "Kumar S",
+    "lastAuthor": "et al.",
+    "journal": "JCEM case reports",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Lipedema Presenting as Obesity. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1210/jcemcr/luaf278",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941333043,
+    "pmid": "41333043",
+    "title": "Struggles in Accessing Healthcare, the Experiences Made by Women with Lipedema in Sweden - A Qualitative Study.",
+    "authors": "Dahlberg J, Nylander E, Persson M, Shayesteh A",
+    "firstAuthor": "Dahlberg J",
+    "lastAuthor": "et al.",
+    "journal": "International journal of women's health",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Struggles in Accessing Healthcare, the Experiences Made by Women with Lipedema in Sweden - A Qualitative Study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.2147/IJWH.S563416",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941312907,
+    "pmid": "41312907",
+    "title": "Effects of lipedema on lower limb muscle strength, muscle endurance, functionality, functional exercise capacity, pressure pain threshold and edema: A case-control study.",
+    "authors": "Haspolat M, Sakizli Erdal E, Ergin C, Erturk B, Keser I",
+    "firstAuthor": "Haspolat M",
+    "lastAuthor": "et al.",
+    "journal": "Physiotherapy theory and practice",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Effects of lipedema on lower limb muscle strength, muscle endurance, functionality, functional exercise capacity, pressure pain threshold and edema: A case-control study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1080/09593985.2025.2592718",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941310256,
+    "pmid": "41310256",
+    "title": "Dietary Inflammatory Index and Mediterranean Diet Score are associated with systemic inflammation in women with lipedema.",
+    "authors": "Tel Adıgüzel K, Yaman A, Kürklü NS, Adıgüzel E",
+    "firstAuthor": "Tel Adıgüzel K",
+    "lastAuthor": "et al.",
+    "journal": "International journal of obesity (2005)",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Dietary Inflammatory Index and Mediterranean Diet Score are associated with systemic inflammation in women with lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1038/s41366-025-01960-w",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941303617,
+    "pmid": "41303617",
+    "title": "The Molecular Mechanisms Underlying Dercum's Disease: Exploring the Intersection of Obesity, Pain, and Inflammation.",
+    "authors": "Reytor-González C, Jiménez-Flores E, Toral-Noristz M, Campuzano-Donoso M, Román-Galeano NM, Simancas-Racines D",
+    "firstAuthor": "Reytor-González C",
+    "lastAuthor": "et al.",
+    "journal": "International journal of molecular sciences",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Epidemiology & Registry",
+    "summary": "The Molecular Mechanisms Underlying Dercum's Disease: Exploring the Intersection of Obesity, Pain, and Inflammation. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/ijms262211130",
+    "color": "#505050",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941295226,
+    "pmid": "41295226",
+    "title": "Quantifying Morphological Change in Stage III Lipedema: A 3D Imaging Study of Population Trends and Individual Treatment Courses.",
+    "authors": "Sanktjohanser NA, Thierfelder N, Beck B, Mert S, Fuchs B, Wiggenhauser PS, Giunta RE, Koban KC",
+    "firstAuthor": "Sanktjohanser NA",
+    "lastAuthor": "et al.",
+    "journal": "Journal of personalized medicine",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Diagnosis & Clinical",
+    "summary": "Quantifying Morphological Change in Stage III Lipedema: A 3D Imaging Study of Population Trends and Individual Treatment Courses. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/jpm15110525",
+    "color": "#3a4f82",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941291075,
+    "pmid": "41291075",
+    "title": "Cutaneous Sensory Alterations After Lower Limb Liposuction for Lipedema: A Comparative Study with Aesthetic Liposuction Patients.",
+    "authors": "Bruno A, D'Antimi A",
+    "firstAuthor": "Bruno A",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic plastic surgery",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Cutaneous Sensory Alterations After Lower Limb Liposuction for Lipedema: A Comparative Study with Aesthetic Liposuction Patients. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s00266-025-05456-w",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941288228,
+    "pmid": "41288228",
+    "title": "Current Evidence-Based Clinical Nutritional Approaches in Lipedema: A Scoping Review.",
+    "authors": "Atabilen Pınar B, Çelik MN, Altıntaş Başar HB, Ağagündüz D, Karaca OB",
+    "firstAuthor": "Atabilen Pınar B",
+    "lastAuthor": "et al.",
+    "journal": "Nutrition reviews",
+    "year": 2025,
+    "type": "Narrative Review",
+    "topic": "Pathophysiology",
+    "summary": "Current Evidence-Based Clinical Nutritional Approaches in Lipedema: A Scoping Review. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1093/nutrit/nuaf203",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941287673,
+    "pmid": "41287673",
+    "title": "Chondromalacia in Lipedema: The Sarcopenic-Valgus Cascade That Keeps Getting Missed.",
+    "authors": "Amato AC",
+    "firstAuthor": "Amato AC",
+    "lastAuthor": "et al.",
+    "journal": "Cureus",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Chondromalacia in Lipedema: The Sarcopenic-Valgus Cascade That Keeps Getting Missed. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.7759/cureus.95299",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941278213,
+    "pmid": "41278213",
+    "title": "Lipedema and adipose tissue: current understanding, controversies, and future directions.",
+    "authors": "Rabiee A",
+    "firstAuthor": "Rabiee A",
+    "lastAuthor": "et al.",
+    "journal": "Frontiers in cell and developmental biology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Lipedema and adipose tissue: current understanding, controversies, and future directions. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3389/fcell.2025.1691161",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941243294,
+    "pmid": "41243294",
+    "title": "Exercise training in women with lipedema - A systematic review.",
+    "authors": "Lanzi S, Porceddu E, Pousaz A, Jaques C, Mazzolai L",
+    "firstAuthor": "Lanzi S",
+    "lastAuthor": "et al.",
+    "journal": "VASA. Zeitschrift fur Gefasskrankheiten",
+    "year": 2025,
+    "type": "Systematic Review",
+    "topic": "Treatment & Surgery",
+    "summary": "Exercise training in women with lipedema - A systematic review. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1024/0301-1526/a001250",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941226777,
+    "pmid": "41226777",
+    "title": "Tirzepatide as a Potential Disease-Modifying Therapy in Lipedema: A Narrative Review on Bridging Metabolism, Inflammation, and Fibrosis.",
+    "authors": "Viana DPDC, Invitti AL, Schor E",
+    "firstAuthor": "Viana DPDC",
+    "lastAuthor": "et al.",
+    "journal": "International journal of molecular sciences",
+    "year": 2025,
+    "type": "Narrative Review",
+    "topic": "Treatment & Surgery",
+    "summary": "Tirzepatide as a Potential Disease-Modifying Therapy in Lipedema: A Narrative Review on Bridging Metabolism, Inflammation, and Fibrosis. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/ijms262110741",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941211203,
+    "pmid": "41211203",
+    "title": "Water-Jet Assisted Liposuction in Lipedema: Which Cannula is the Safest?",
+    "authors": "Aitzetmüller-Klietz ML, Berg J, Hirsch T, Aitzetmüller-Klietz M",
+    "firstAuthor": "Aitzetmüller-Klietz ML",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic surgery journal. Open forum",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Water-Jet Assisted Liposuction in Lipedema: Which Cannula is the Safest?. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1093/asjof/ojaf120",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941193894,
+    "pmid": "41193894",
+    "title": "The Role of Helium Plasma Technology in Liposuction for Lipedema of the Lower Limbs: A Stage-Specific Analysis.",
+    "authors": "Bruno A, Cilluffo M",
+    "firstAuthor": "Bruno A",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic plastic surgery",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "The Role of Helium Plasma Technology in Liposuction for Lipedema of the Lower Limbs: A Stage-Specific Analysis. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s00266-025-05407-5",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941185844,
+    "pmid": "41185844",
+    "title": "The IgG Paradox in Lipedema: More Food Sensitivities, Less Antibody Production.",
+    "authors": "Amato AC, Amato JS, Benitti D",
+    "firstAuthor": "Amato AC",
+    "lastAuthor": "et al.",
+    "journal": "Cureus",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "The IgG Paradox in Lipedema: More Food Sensitivities, Less Antibody Production. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.7759/cureus.93788",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941172461,
+    "pmid": "41172461",
+    "title": "Body image and related factors in patients with lower extremity lymphedema and lipedema: a cross-sectional study.",
+    "authors": "Ersoy S, Kesiktaş FN, Ahısha BŞ, Ceylan CM, Paker N, Buğdaycı D",
+    "firstAuthor": "Ersoy S",
+    "lastAuthor": "et al.",
+    "journal": "Revista da Associacao Medica Brasileira (1992)",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Body image and related factors in patients with lower extremity lymphedema and lipedema: a cross-sectional study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1590/1806-9282.20250274",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941156066,
+    "pmid": "41156066",
+    "title": "Lipedema and Hypermobility Spectrum Disorders Sharing Pathophysiology: A Cross-Sectional Observational Study.",
+    "authors": "Fiengo E, Sbarbati A",
+    "firstAuthor": "Fiengo E",
+    "lastAuthor": "et al.",
+    "journal": "Journal of clinical medicine",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Lipedema and Hypermobility Spectrum Disorders Sharing Pathophysiology: A Cross-Sectional Observational Study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/jcm14207195",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941145864,
+    "pmid": "41145864",
+    "title": "Large-Volume Liposuction and Manual Extraction in Lipedema: A Hybrid approach.",
+    "authors": "Mostofizadeh-Haghighi G, Zaharie A, Ghods M",
+    "firstAuthor": "Mostofizadeh-Haghighi G",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic plastic surgery",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Large-Volume Liposuction and Manual Extraction in Lipedema: A Hybrid approach. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s00266-025-05329-2",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941116112,
+    "pmid": "41116112",
+    "title": "Improving Abdominal Lipedema Diagnosis with Lymphatic Imaging Validation and Standard-Based Clinical Implementation.",
+    "authors": "Feng Y, Liao D, Zhuang Z",
+    "firstAuthor": "Feng Y",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic plastic surgery",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Improving Abdominal Lipedema Diagnosis with Lymphatic Imaging Validation and Standard-Based Clinical Implementation. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s00266-025-05371-0",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941108445,
+    "pmid": "41108445",
+    "title": "Nutritional Approaches and Supplementation in Lipedema Management: A Narrative Review of Current Evidence.",
+    "authors": "Aydin A, Bilgic P",
+    "firstAuthor": "Aydin A",
+    "lastAuthor": "et al.",
+    "journal": "Current nutrition reports",
+    "year": 2025,
+    "type": "Narrative Review",
+    "topic": "Pathophysiology",
+    "summary": "Nutritional Approaches and Supplementation in Lipedema Management: A Narrative Review of Current Evidence. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s13668-025-00705-5",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941091276,
+    "pmid": "41091276",
+    "title": "Photobiomodulation with IR and RED light acutely applied to lipedema patients: preliminary study with 3 cases.",
+    "authors": "Parizotto NA, Millan C, Kamamoto F, Gornati V, Salem LAN, Soler M, Andrade AL, Soares CD, Meyer PF",
+    "firstAuthor": "Parizotto NA",
+    "lastAuthor": "et al.",
+    "journal": "Lasers in medical science",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Photobiomodulation with IR and RED light acutely applied to lipedema patients: preliminary study with 3 cases. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s10103-025-04693-4",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941054393,
+    "pmid": "41054393",
+    "title": "The Relationship Between Sleep Quality, Fatigue, and Quality of Life in Women with Lipedema.",
+    "authors": "Cagliyan Turk A, Eker Buyuksireci D, Erden E, Erden E, Borman P",
+    "firstAuthor": "Cagliyan Turk A",
+    "lastAuthor": "et al.",
+    "journal": "Lymphatic research and biology",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "The Relationship Between Sleep Quality, Fatigue, and Quality of Life in Women with Lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/15578585251387100",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941043654,
+    "pmid": "41043654",
+    "title": "Lipedema and fine arts: From prehistoric times to contemporary art.",
+    "authors": "Wollina U, Goldman A, Levell NJ",
+    "firstAuthor": "Wollina U",
+    "lastAuthor": "et al.",
+    "journal": "Clinics in dermatology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Lipedema and fine arts: From prehistoric times to contemporary art. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.clindermatol.2025.09.026",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941035460,
+    "pmid": "41035460",
+    "title": "Development of an Evidence-Based and Theory-Informed Self-Management Intervention for People with Lipoedema: An Intervention Mapping Study.",
+    "authors": "Kloosterman LM, Hendrickx A, Schneider F, Dekker R, Jager-Wittenaar H, Scafoglieri A",
+    "firstAuthor": "Kloosterman LM",
+    "lastAuthor": "et al.",
+    "journal": "Journal of multidisciplinary healthcare",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Development of an Evidence-Based and Theory-Informed Self-Management Intervention for People with Lipoedema: An Intervention Mapping Study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.2147/JMDH.S536084",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941020814,
+    "pmid": "41020814",
+    "title": "New Perspectives on the Use of Resveratrol in the Treatment of Metabolic and Estrogen-Dependent Conditions Through Hormonal Modulation and Anti-Inflammatory Effects.",
+    "authors": "Renke G, Fuschini AC, Clivati B, Teixeira LM, Cuyabano ML, Erel CT, Rosado EL",
+    "firstAuthor": "Renke G",
+    "lastAuthor": "et al.",
+    "journal": "Current issues in molecular biology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Hormones & Estrogen",
+    "summary": "New Perspectives on the Use of Resveratrol in the Treatment of Metabolic and Estrogen-Dependent Conditions Through Hormonal Modulation and Anti-Inflammatory Effects. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/cimb47090692",
+    "color": "#b83c52",
+    "defaultExpanded": true
+  },
+  {
+    "id": 941010539,
+    "pmid": "41010539",
+    "title": "Exploring the Anti-Inflammatory Potential of a Mediterranean-Style Ketogenic Diet in Women with Lipedema.",
+    "authors": "Jeziorek M, Chachaj A, Szuba A, Różańska D, Prescha A",
+    "firstAuthor": "Jeziorek M",
+    "lastAuthor": "et al.",
+    "journal": "Nutrients",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Exploring the Anti-Inflammatory Potential of a Mediterranean-Style Ketogenic Diet in Women with Lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/nu17183014",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940996112,
+    "pmid": "40996112",
+    "title": "Validation of the Lymphedema Quality of Life Questionnaire for German Patients with Lipedema.",
+    "authors": "Mahler J, Keeley V, Obed D, Bingöl A, Vogt PM, Hadamitzky C",
+    "firstAuthor": "Mahler J",
+    "lastAuthor": "et al.",
+    "journal": "Lymphatic research and biology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Validation of the Lymphedema Quality of Life Questionnaire for German Patients with Lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/15578585251382110",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940970229,
+    "pmid": "40970229",
+    "title": "Radioelectric Asymmetric Conveyer (REAC) Neuropostural Optimization (NPO) for Pain in Lipedema: A Sham-Controlled Study.",
+    "authors": "Fontani V, Rinaldi A, Castagna A, Rinaldi S",
+    "firstAuthor": "Fontani V",
+    "lastAuthor": "et al.",
+    "journal": "Cureus",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Epidemiology & Registry",
+    "summary": "Radioelectric Asymmetric Conveyer (REAC) Neuropostural Optimization (NPO) for Pain in Lipedema: A Sham-Controlled Study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.7759/cureus.92331",
+    "color": "#505050",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940939491,
+    "pmid": "40939491",
+    "title": "Clinical or cultural? Dietary interventions for lipedema: a systematic review.",
+    "authors": "de Oliveira J, de Paula ACP, Guimarães VHD",
+    "firstAuthor": "de Oliveira J",
+    "lastAuthor": "et al.",
+    "journal": "Maturitas",
+    "year": 2025,
+    "type": "Systematic Review",
+    "topic": "Treatment & Surgery",
+    "summary": "Clinical or cultural? Dietary interventions for lipedema: a systematic review. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.maturitas.2025.108716",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940938408,
+    "pmid": "40938408",
+    "title": "Abdominal Lipedema: Clinical Diagnosis and Management Through a Proposed Diagnostic Algorithm.",
+    "authors": "Bruno A, Cilluffo M",
+    "firstAuthor": "Bruno A",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic plastic surgery",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Diagnosis & Clinical",
+    "summary": "Abdominal Lipedema: Clinical Diagnosis and Management Through a Proposed Diagnostic Algorithm. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s00266-025-05192-1",
+    "color": "#3a4f82",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940921780,
+    "pmid": "40921780",
+    "title": "Lipoedema and the Rise of Scientific Legitimacy: A Condition Emerging from the Shadows.",
+    "authors": "Bruno A",
+    "firstAuthor": "Bruno A",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic plastic surgery",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Lipoedema and the Rise of Scientific Legitimacy: A Condition Emerging from the Shadows. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s00266-025-05260-6",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940899334,
+    "pmid": "40899334",
+    "title": "What we cannot miss in clinical trials on compression therapy.",
+    "authors": "Mosti G, Bohbot S, Bongards C, Benigni JP, Devoogdt N, Forner-Cordero I, Gianesini S, Jindal R, Lurie F, da Matta E, Mo M, Rastel D, Roes C, Taha W, Thomis S, Wittens C",
+    "firstAuthor": "Mosti G",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "What we cannot miss in clinical trials on compression therapy. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555251377228",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940891600,
+    "pmid": "40891600",
+    "title": "A new approach to pain management in Lipedema.",
+    "authors": "Mendoza E",
+    "firstAuthor": "Mendoza E",
+    "lastAuthor": "et al.",
+    "journal": "VASA. Zeitschrift fur Gefasskrankheiten",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Epidemiology & Registry",
+    "summary": "A new approach to pain management in Lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1024/0301-1526/a001224",
+    "color": "#505050",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940876880,
+    "pmid": "40876880",
+    "title": "Lipoedema research priorities: a Swedish priority-setting partnership for future treatment and diagnostic studies.",
+    "authors": "Dahlberg J, Österberg M, Hellberg C, Stenman J, Fundell S, Andersson ÅG, Edling S, Liss A",
+    "firstAuthor": "Dahlberg J",
+    "lastAuthor": "et al.",
+    "journal": "BMJ open",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Diagnosis & Clinical",
+    "summary": "Lipoedema research priorities: a Swedish priority-setting partnership for future treatment and diagnostic studies. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1136/bmjopen-2024-086869",
+    "color": "#3a4f82",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940861617,
+    "pmid": "40861617",
+    "title": "The Evolutionary Theory of Lipedema: A Perspective on Energy Storage and Chronic Inflammation.",
+    "authors": "Amato AC",
+    "firstAuthor": "Amato AC",
+    "lastAuthor": "et al.",
+    "journal": "Cureus",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "The Evolutionary Theory of Lipedema: A Perspective on Energy Storage and Chronic Inflammation. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.7759/cureus.88809",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940851549,
+    "pmid": "40851549",
+    "title": "Quality assessment of online health resources for lipedema: A multimetric analysis.",
+    "authors": "Posso AN, Escobar-Domingo MJ, Mustoe A, Tobin M, Fanning JE, Singhal D, Lee BT",
+    "firstAuthor": "Posso AN",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Quality assessment of online health resources for lipedema: A multimetric analysis. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555251372218",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940818035,
+    "pmid": "40818035",
+    "title": "Lipoedema (lipalgia): an overview with recommendations.",
+    "authors": "Crouch M",
+    "firstAuthor": "Crouch M",
+    "lastAuthor": "et al.",
+    "journal": "British journal of nursing (Mark Allen Publishing)",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Guidelines & Consensus",
+    "summary": "Lipoedema (lipalgia): an overview with recommendations. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.12968/bjon.2024.0495",
+    "color": "#6a3a98",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940806207,
+    "pmid": "40806207",
+    "title": "Menopause as a Critical Turning Point in Lipedema: The Estrogen Receptor Imbalance, Intracrine Estrogen, and Adipose Tissue Dysfunction Model.",
+    "authors": "Pinto da Costa Viana D, Caseri Câmara L, Borges Palau R",
+    "firstAuthor": "Pinto da Costa Viana D",
+    "lastAuthor": "et al.",
+    "journal": "International journal of molecular sciences",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Hormones & Estrogen",
+    "summary": "Menopause as a Critical Turning Point in Lipedema: The Estrogen Receptor Imbalance, Intracrine Estrogen, and Adipose Tissue Dysfunction Model. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/ijms26157074",
+    "color": "#b83c52",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940788448,
+    "pmid": "40788448",
+    "title": "The ıncidence of neuropathic pain and ıts ımpact on quality of life in patients with lipedema.",
+    "authors": "Erden E, Turk AC, Erden E, Yetim S, Borman P",
+    "firstAuthor": "Erden E",
+    "lastAuthor": "et al.",
+    "journal": "Irish journal of medical science",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Epidemiology & Registry",
+    "summary": "The ıncidence of neuropathic pain and ıts ımpact on quality of life in patients with lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s11845-025-04024-0",
+    "color": "#505050",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940785137,
+    "pmid": "40785137",
+    "title": "Shocking evidence to diminish fibrosis after lipedema reductive surgery.",
+    "authors": "Reyes Valdivia A, Chuquisana C",
+    "firstAuthor": "Reyes Valdivia A",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Shocking evidence to diminish fibrosis after lipedema reductive surgery. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555251369082",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940778367,
+    "pmid": "40778367",
+    "title": "Mental and physical health burden and quality of life in Czech women with lipedema.",
+    "authors": "Kunzová M, Lagová E, Keith L",
+    "firstAuthor": "Kunzová M",
+    "lastAuthor": "et al.",
+    "journal": "Frontiers in global women's health",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Epidemiology & Registry",
+    "summary": "Mental and physical health burden and quality of life in Czech women with lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3389/fgwh.2025.1629077",
+    "color": "#505050",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940763111,
+    "pmid": "40763111",
+    "title": "Response to Letter: Keith et al., Proposed Framework for Research Case Definitions of Lipedema, 22, 2: 93-105.",
+    "authors": "Eason HE, Dylke ES",
+    "firstAuthor": "Eason HE",
+    "lastAuthor": "et al.",
+    "journal": "Lymphatic research and biology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Response to Letter: Keith et al., Proposed Framework for Research Case Definitions of Lipedema, 22, 2: 93-105. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/15578585251362102",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940761995,
+    "pmid": "40761995",
+    "title": "Lipedema in Men: A Retrospective Case Series of Five Patients From a Brazilian Referral Center.",
+    "authors": "Amato AC, Amato JS, Benitti D, Santos KD",
+    "firstAuthor": "Amato AC",
+    "lastAuthor": "et al.",
+    "journal": "Cureus",
+    "year": 2025,
+    "type": "Case Report/Series",
+    "topic": "Pathophysiology",
+    "summary": "Lipedema in Men: A Retrospective Case Series of Five Patients From a Brazilian Referral Center. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.7759/cureus.87332",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940710038,
+    "pmid": "40710038",
+    "title": "A Case Series on the Efficacy of the Pharmacological Treatment of Lipedema: The Italian Experience with Exenatide.",
+    "authors": "Patton L, Reverdito V, Bellucci A, Bortolon M, Macrelli A, Ricolfi L",
+    "firstAuthor": "Patton L",
+    "lastAuthor": "et al.",
+    "journal": "Clinics and practice",
+    "year": 2025,
+    "type": "Case Report/Series",
+    "topic": "Treatment & Surgery",
+    "summary": "A Case Series on the Efficacy of the Pharmacological Treatment of Lipedema: The Italian Experience with Exenatide. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/clinpract15070128",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940670310,
+    "pmid": "40670310",
+    "title": "Relationship of the tissue stiffness measured using shear wave elastography with the pain threshold and quality of life of patients with lipedema: A cross-sectional study.",
+    "authors": "Ozturk G, Kahraman AN, Akpinar P, Utangac U, Silte Karamanlioglu D, Akan Begoglu F, Unlu Ozkan F, Aktas I, Vural A",
+    "firstAuthor": "Ozturk G",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Epidemiology & Registry",
+    "summary": "Relationship of the tissue stiffness measured using shear wave elastography with the pain threshold and quality of life of patients with lipedema: A cross-sectional study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555251357094",
+    "color": "#505050",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940660631,
+    "pmid": "40660631",
+    "title": "Unveiling kinesiophobia: A hidden challenge in women with lipedema.",
+    "authors": "Kasap Z, Türköz MD, Keleş B, Çilesizoğlu Yavuz N",
+    "firstAuthor": "Kasap Z",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Unveiling kinesiophobia: A hidden challenge in women with lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555251360606",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940651427,
+    "pmid": "40651427",
+    "title": "Selective combined liposuction (SCL) for lipedema treatment: Outcomes in symptoms improvement and aesthetic self-perception.",
+    "authors": "Pereira N, Venegas J, López A, Oñate V, Ruiz-Tagle J",
+    "firstAuthor": "Pereira N",
+    "lastAuthor": "et al.",
+    "journal": "Journal of plastic, reconstructive & aesthetic surgery : JPRAS",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Selective combined liposuction (SCL) for lipedema treatment: Outcomes in symptoms improvement and aesthetic self-perception. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.bjps.2025.06.031",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940611043,
+    "pmid": "40611043",
+    "title": "Examining the characteristic features of lipedema and the usefulness of BMI and WHtR in clinical evaluation.",
+    "authors": "Czerwińska M, Gruszecki M, Rumiński J, Hansdorfer-Korzon R",
+    "firstAuthor": "Czerwińska M",
+    "lastAuthor": "et al.",
+    "journal": "BMC women's health",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Examining the characteristic features of lipedema and the usefulness of BMI and WHtR in clinical evaluation. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1186/s12905-025-03834-9",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940588696,
+    "pmid": "40588696",
+    "title": "Lipedema after Bariatric and Metabolic Surgery: A Scoping Review.",
+    "authors": "Zevallos A, Schmidt J, Thaher O, Bausch D, Pouwels S",
+    "firstAuthor": "Zevallos A",
+    "lastAuthor": "et al.",
+    "journal": "Obesity surgery",
+    "year": 2025,
+    "type": "Narrative Review",
+    "topic": "Treatment & Surgery",
+    "summary": "Lipedema after Bariatric and Metabolic Surgery: A Scoping Review. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s11695-025-08021-1",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940575811,
+    "pmid": "40575811",
+    "title": "Lipoedema.",
+    "authors": "Ekerhovd IW, Frølich HS, Drotningsvik A, Ausen K, De Weerd L, Hegard W, Skuladottir H",
+    "firstAuthor": "Ekerhovd IW",
+    "lastAuthor": "et al.",
+    "journal": "Tidsskrift for den Norske laegeforening : tidsskrift for praktisk medicin, ny raekke",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Lipoedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.4045/tidsskr.24.0515",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940430153,
+    "pmid": "40430153",
+    "title": "An Advanced Pneumatic Compression Therapy System Improves Leg Volume and Fluid, Adipose Tissue Thickness, Symptoms, and Quality of Life and Reduces Risk of Lymphedema in Women with Lipedema.",
+    "authors": "Herbst KL, Zelaya C, Sommerville M, Zimmerman T, McHutchison L",
+    "firstAuthor": "Herbst KL",
+    "lastAuthor": "et al.",
+    "journal": "Life (Basel, Switzerland)",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "An Advanced Pneumatic Compression Therapy System Improves Leg Volume and Fluid, Adipose Tissue Thickness, Symptoms, and Quality of Life and Reduces Risk of Lymphedema in Women with Lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/life15050725",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940425048,
+    "pmid": "40425048",
+    "title": "Lipedema: Progress, Challenges, and the Road Ahead.",
+    "authors": "Cifarelli V",
+    "firstAuthor": "Cifarelli V",
+    "lastAuthor": "et al.",
+    "journal": "Obesity reviews : an official journal of the International Association for the Study of Obesity",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Lipedema: Progress, Challenges, and the Road Ahead. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1111/obr.13953",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940419722,
+    "pmid": "40419722",
+    "title": "Therapeutic Applications of Ketogenic Diets in Lipedema: A Narrative Review of Current Evidence.",
+    "authors": "Sanlier N, Baltacı S",
+    "firstAuthor": "Sanlier N",
+    "lastAuthor": "et al.",
+    "journal": "Current obesity reports",
+    "year": 2025,
+    "type": "Narrative Review",
+    "topic": "Treatment & Surgery",
+    "summary": "Therapeutic Applications of Ketogenic Diets in Lipedema: A Narrative Review of Current Evidence. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s13679-025-00642-y",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940397828,
+    "pmid": "40397828",
+    "title": "Ultrasound Assisted Liposuction with VASER for lower limb lipedema: a single-center cohort of 191 female patients.",
+    "authors": "Hersant B, de Clermont-Tonnerre E, Argentino G, Bensid M, Bensaid S, Roccaro G, Hermeziu O, Murante A, La Padula S, Meningaud JP",
+    "firstAuthor": "Hersant B",
+    "lastAuthor": "et al.",
+    "journal": "Plastic and reconstructive surgery",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Diagnosis & Clinical",
+    "summary": "Ultrasound Assisted Liposuction with VASER for lower limb lipedema: a single-center cohort of 191 female patients. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1097/PRS.0000000000012217",
+    "color": "#3a4f82",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940391527,
+    "pmid": "40391527",
+    "title": "Shockwave therapy in lipedema patients: A prospective study.",
+    "authors": "Bruno A, Cilluffo M",
+    "firstAuthor": "Bruno A",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Shockwave therapy in lipedema patients: A prospective study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555251343155",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940386000,
+    "pmid": "40386000",
+    "title": "Lipedema: Clinical Features, Diagnosis, and Management.",
+    "authors": "Mortada H, Alhithlool AW, AlBattal NZ, Shetty RK, Al-Mekhlafi GA, Hong JP, Alshomer F",
+    "firstAuthor": "Mortada H",
+    "lastAuthor": "et al.",
+    "journal": "Archives of plastic surgery",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Diagnosis & Clinical",
+    "summary": "Lipedema: Clinical Features, Diagnosis, and Management. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1055/a-2530-5875",
+    "color": "#3a4f82",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940372970,
+    "pmid": "40372970",
+    "title": "Effects of multimodal exercise program on edema, pain, exercise capacity, lower extremity muscle strength and function in patients with lipedema.",
+    "authors": "Sakizli Erdal E, Ergin C, Haspolat M, Erturk B, Keser I",
+    "firstAuthor": "Sakizli Erdal E",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2026,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Effects of multimodal exercise program on edema, pain, exercise capacity, lower extremity muscle strength and function in patients with lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555251343148",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940339162,
+    "pmid": "40339162",
+    "title": "Health-related stigma, perceived social support, and their role in quality of life among women with lipedema.",
+    "authors": "Falck J, Herbst K, Rolander B, Nygårdh A, Jonasson LL, Mårtensson J",
+    "firstAuthor": "Falck J",
+    "lastAuthor": "et al.",
+    "journal": "Health care for women international",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Epidemiology & Registry",
+    "summary": "Health-related stigma, perceived social support, and their role in quality of life among women with lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1080/07399332.2025.2499487",
+    "color": "#505050",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940299449,
+    "pmid": "40299449",
+    "title": "Metabolic Alterations in Women with Lipedema Compared to Women with Lifestyle-Induced Overweight/Obesity.",
+    "authors": "Jeziorek M, Wuczyński M, Sowicz M, Adaszyńska A, Szuba A, Chachaj A",
+    "firstAuthor": "Jeziorek M",
+    "lastAuthor": "et al.",
+    "journal": "Biomedicines",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Metabolic Alterations in Women with Lipedema Compared to Women with Lifestyle-Induced Overweight/Obesity. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/biomedicines13040867",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940295372,
+    "pmid": "40295372",
+    "title": "Global Analysis and Latest Research Hot Spots of Lipoedema/Lipodystrophy Investigation and Management: A Bibliometric Analysis and Visualized Review.",
+    "authors": "Alsayegh A, Alsuwilem Z, Alsalem A, Alanzan A, Alashjaee R, Almuslem M, Raffah O, Almutairi R, Arab K",
+    "firstAuthor": "Alsayegh A",
+    "lastAuthor": "et al.",
+    "journal": "Aesthetic plastic surgery",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Global Analysis and Latest Research Hot Spots of Lipoedema/Lipodystrophy Investigation and Management: A Bibliometric Analysis and Visualized Review. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1007/s00266-025-04855-3",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940235450,
+    "pmid": "40235450",
+    "title": "Relationship Between 25-Hydroxyvitamin D and Vitamin B12 Levels and Neuropathic Pain in Patients Diagnosed with Lipedema.",
+    "authors": "Ozturk G, Akpinar P, Silte Karamanlioglu D, Akan Begoğlu F, Unlu Ozkan F, Aktas I",
+    "firstAuthor": "Ozturk G",
+    "lastAuthor": "et al.",
+    "journal": "Lymphatic research and biology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Relationship Between 25-Hydroxyvitamin D and Vitamin B12 Levels and Neuropathic Pain in Patients Diagnosed with Lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1089/lrb.2024.0083",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940230006,
+    "pmid": "40230006",
+    "title": "Improving Precision of Bioimpedance Spectroscopic Analysis for Lymphedema and Lipedema Assessment.",
+    "authors": "Ward LC, Gaitatzis K, Thompson B, Paramanandam VS, Koelmeyer LA",
+    "firstAuthor": "Ward LC",
+    "lastAuthor": "et al.",
+    "journal": "Lymphatic research and biology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Improving Precision of Bioimpedance Spectroscopic Analysis for Lymphedema and Lipedema Assessment. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1089/lrb.2024.0086",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940217588,
+    "pmid": "40217588",
+    "title": "Physiotherapy Intervention in the Immediate Postoperative Phase of Lipedema Surgery-Observational Study.",
+    "authors": "Río-González Á, Delgado-Pérez E, García-García E, González-Fernández L, García-Isidoro S, Cerezo-Téllez E",
+    "firstAuthor": "Río-González Á",
+    "lastAuthor": "et al.",
+    "journal": "Journal of clinical medicine",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Physiotherapy Intervention in the Immediate Postoperative Phase of Lipedema Surgery-Observational Study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/jcm14072137",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940217279,
+    "pmid": "40217279",
+    "title": "Dealing with lipoedema: women's experiences of healthcare, self-care, and treatments-a mixed-methods study.",
+    "authors": "Falck J, Nygårdh A, Rolander B, Jonasson LL, Mårtensson J",
+    "firstAuthor": "Falck J",
+    "lastAuthor": "et al.",
+    "journal": "BMC women's health",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Dealing with lipoedema: women's experiences of healthcare, self-care, and treatments-a mixed-methods study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1186/s12905-025-03707-1",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940177931,
+    "pmid": "40177931",
+    "title": "Lipedema awareness and knowledge level among medical doctors in Turkey: A cross-sectional study highlighting the diagnosis and treatment gap.",
+    "authors": "Bagatir N, Cinar C, Akansel A, Atasoy M, Bucak OF, Oztop P, Coskun E",
+    "firstAuthor": "Bagatir N",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Diagnosis & Clinical",
+    "summary": "Lipedema awareness and knowledge level among medical doctors in Turkey: A cross-sectional study highlighting the diagnosis and treatment gap. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555251332998",
+    "color": "#3a4f82",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940165003,
+    "pmid": "40165003",
+    "title": "The effect of exercise in patients with lower limb lymphedema: a systematic review.",
+    "authors": "Wittenkamp MC, Christensen J, Vinther A, Juhl CB",
+    "firstAuthor": "Wittenkamp MC",
+    "lastAuthor": "et al.",
+    "journal": "Acta oncologica (Stockholm, Sweden)",
+    "year": 2025,
+    "type": "Systematic Review",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "The effect of exercise in patients with lower limb lymphedema: a systematic review. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.2340/1651-226X.2025.42560",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940162826,
+    "pmid": "40162826",
+    "title": "Using psychological theory to inform self-care support for women with lipoedema.",
+    "authors": "Williams A, McKain L",
+    "firstAuthor": "Williams A",
+    "lastAuthor": "et al.",
+    "journal": "British journal of community nursing",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Epidemiology & Registry",
+    "summary": "Using psychological theory to inform self-care support for women with lipoedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.12968/bjcn.2025.0042",
+    "color": "#505050",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940162824,
+    "pmid": "40162824",
+    "title": "Insights from lymphoedema healthcare professionals managing lipalgia syndrome (lipoedema): a service evaluation.",
+    "authors": "Cooper G, Williams J, Gabe-Walters M, Husain N, Clement-Wake S, Thomas M",
+    "firstAuthor": "Cooper G",
+    "lastAuthor": "et al.",
+    "journal": "British journal of community nursing",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Insights from lymphoedema healthcare professionals managing lipalgia syndrome (lipoedema): a service evaluation. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.12968/bjcn.2025.0013",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940149538,
+    "pmid": "40149538",
+    "title": "Lipedema: A Disease Triggered by M2 Polarized Macrophages?",
+    "authors": "Grewal T, Kempa S, Buechler C",
+    "firstAuthor": "Grewal T",
+    "lastAuthor": "et al.",
+    "journal": "Biomedicines",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Lipedema: A Disease Triggered by M2 Polarized Macrophages?. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/biomedicines13030561",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940135932,
+    "pmid": "40135932",
+    "title": "Experiences of Sexual Health and Intimate Relationships in Women With Lipedema: A Qualitative Study.",
+    "authors": "Falck J, Mårtensson J, Jonasson LL, Dudek J, Nygårdh A",
+    "firstAuthor": "Falck J",
+    "lastAuthor": "et al.",
+    "journal": "Journal of advanced nursing",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Experiences of Sexual Health and Intimate Relationships in Women With Lipedema: A Qualitative Study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1111/jan.16933",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940125475,
+    "pmid": "40125475",
+    "title": "Changes in Cytokines and Fibrotic Growth Factors after Low-Carbohydrate or Low-Fat Low-Energy Diets in Females with Lipedema.",
+    "authors": "Lundanes J, Nes VF, Aakervik O, Ryan L, Hansson P, Rokstad AM, Martins C, Nymo S",
+    "firstAuthor": "Lundanes J",
+    "lastAuthor": "et al.",
+    "journal": "Current developments in nutrition",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Changes in Cytokines and Fibrotic Growth Factors after Low-Carbohydrate or Low-Fat Low-Energy Diets in Females with Lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.cdnut.2025.104571",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940111978,
+    "pmid": "40111978",
+    "title": "Clinical characteristics, comorbidities, and correlation with advanced lipedema stages: A retrospective study from a Swiss referral centre.",
+    "authors": "Luta X, Buso G, Porceddu E, Psychogyiou R, Keller S, Mazzolai L",
+    "firstAuthor": "Luta X",
+    "lastAuthor": "et al.",
+    "journal": "PloS one",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Epidemiology & Registry",
+    "summary": "Clinical characteristics, comorbidities, and correlation with advanced lipedema stages: A retrospective study from a Swiss referral centre. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1371/journal.pone.0319099",
+    "color": "#505050",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940097137,
+    "pmid": "40097137",
+    "title": "Defining lipedema's molecular hallmarks by multi-omics approach for disease prediction in women.",
+    "authors": "Straub LG, Funcke JB, Joffin N, Joung C, Al-Ghadban S, Zhao S, Zhu Q, Kruglikov IL, Zhu Y, Langlais PR, Gordillo R, Herbst KL, Scherer PE",
+    "firstAuthor": "Straub LG",
+    "lastAuthor": "et al.",
+    "journal": "Metabolism: clinical and experimental",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Defining lipedema's molecular hallmarks by multi-omics approach for disease prediction in women. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.metabol.2025.156191",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940080396,
+    "pmid": "40080396",
+    "title": "The Comparative Evaluation of Depression, Life Satisfaction, and Quality of Life Between Female Patients with Lipedema and Lymphedema.",
+    "authors": "Yaman A, Borman P, Koyuncu EG, Aslan AB, Karasu AU, Pirinççi CŞ",
+    "firstAuthor": "Yaman A",
+    "lastAuthor": "et al.",
+    "journal": "Lymphatic research and biology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "The Comparative Evaluation of Depression, Life Satisfaction, and Quality of Life Between Female Patients with Lipedema and Lymphedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1089/lrb.2024.0117",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940077894,
+    "pmid": "40077894",
+    "title": "Endothelial cell alterations in capillaries of adipose tissue from patients affected by lipedema.",
+    "authors": "Michelini S, Greco S, Vaia N, Puleo V, Pellegrino P, Di Vincenzo A, Michelini S, Herbst KL, Goteri G, Luca T, Castorina S, Giordano A, Ciarmela P, Cinti S",
+    "firstAuthor": "Michelini S",
+    "lastAuthor": "et al.",
+    "journal": "Obesity (Silver Spring, Md.)",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Endothelial cell alterations in capillaries of adipose tissue from patients affected by lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1002/oby.24244",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940065580,
+    "pmid": "40065580",
+    "title": "Vascular remodeling of adipose tissue in lipedema: endothelial dysfunction as an emerging culprit in a mysterious disease.",
+    "authors": "Allerton TD",
+    "firstAuthor": "Allerton TD",
+    "lastAuthor": "et al.",
+    "journal": "Obesity (Silver Spring, Md.)",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Vascular remodeling of adipose tissue in lipedema: endothelial dysfunction as an emerging culprit in a mysterious disease. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1002/oby.24281",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940062597,
+    "pmid": "40062597",
+    "title": "Carboxytherapy in Dermatologic Surgery and Aesthetic Medicine: Current Knowledge and Future Perspectives-A Systematic Review.",
+    "authors": "Susini P, di Seclì D, Bacchini S, Pozzi M, Diluiso G, Marcaccini G, Brandi C, Nisi G, Grimaldi L, Cuomo R",
+    "firstAuthor": "Susini P",
+    "lastAuthor": "et al.",
+    "journal": "Dermatologic surgery : official publication for American Society for Dermatologic Surgery [et al.]",
+    "year": 2025,
+    "type": "Systematic Review",
+    "topic": "Treatment & Surgery",
+    "summary": "Carboxytherapy in Dermatologic Surgery and Aesthetic Medicine: Current Knowledge and Future Perspectives-A Systematic Review. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1097/DSS.0000000000004608",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940042124,
+    "pmid": "40042124",
+    "title": "Assessment Tools to Quantify the Physical Aspects of Lipedema: A Systematic Review.",
+    "authors": "Eason HE, Kilbreath SL, Fearn N, Dylke ES",
+    "firstAuthor": "Eason HE",
+    "lastAuthor": "et al.",
+    "journal": "Lymphatic research and biology",
+    "year": 2025,
+    "type": "Systematic Review",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Assessment Tools to Quantify the Physical Aspects of Lipedema: A Systematic Review. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1089/lrb.2024.0102",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940035028,
+    "pmid": "40035028",
+    "title": "Comprehensive Needs Assessment for Enhancing Self-Management in People with Lipoedema and the Support Provided by Their Healthcare Professionals.",
+    "authors": "Kloosterman LM, Jager-Wittenaar H, Schneider F, Hendrickx A, Dekker R, Scafoglieri A",
+    "firstAuthor": "Kloosterman LM",
+    "lastAuthor": "et al.",
+    "journal": "Journal of multidisciplinary healthcare",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Comprehensive Needs Assessment for Enhancing Self-Management in People with Lipoedema and the Support Provided by Their Healthcare Professionals. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.2147/JMDH.S508816",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 940009424,
+    "pmid": "40009424",
+    "title": "Building evidence for diagnosis of lipedema: using a classification and regression tree (CART) algorithm to differentiate lipedema from lymphedema patients.",
+    "authors": "Forner-Cordero I, Muñoz-Langa J, Morilla-Bellido L",
+    "firstAuthor": "Forner-Cordero I",
+    "lastAuthor": "et al.",
+    "journal": "International angiology : a journal of the International Union of Angiology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Building evidence for diagnosis of lipedema: using a classification and regression tree (CART) algorithm to differentiate lipedema from lymphedema patients. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.23736/S0392-9590.25.05207-1",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939991623,
+    "pmid": "39991623",
+    "title": "Objective Assessment of the Cardiorespiratory Fitness Among Individuals With Lymphedema and Lipedema: A Systematic Review and Meta-Analysis.",
+    "authors": "Vanaki A, Fallah A, Rahimidanesh N, Ashnaei A, Naghadian Moghaddam MM, Shahrabi Farahani M, Soltanipur M, Yarmohammadi H",
+    "firstAuthor": "Vanaki A",
+    "lastAuthor": "et al.",
+    "journal": "International journal of vascular medicine",
+    "year": 2025,
+    "type": "Systematic Review",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Objective Assessment of the Cardiorespiratory Fitness Among Individuals With Lymphedema and Lipedema: A Systematic Review and Meta-Analysis. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1155/ijvm/8627520",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939976418,
+    "pmid": "39976418",
+    "title": "More than meets the eye: phenomenological insights into the functioning of people with lipoedema.",
+    "authors": "Kloosterman LM, Eilers R, Scafoglieri A, Hendrickx A, Dekker R, Jager-Wittenaar H",
+    "firstAuthor": "Kloosterman LM",
+    "lastAuthor": "et al.",
+    "journal": "International journal of qualitative studies on health and well-being",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "More than meets the eye: phenomenological insights into the functioning of people with lipoedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1080/17482631.2025.2463157",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939957746,
+    "pmid": "39957746",
+    "title": "Outcome of bariatric surgery in patients with unexpected liver cirrhosis: A multicenter study from China.",
+    "authors": "Sun X, Yao L, Kang X, Yu W, Kitaghenda FK, Ibn Rashid MS, Taguemkam AN, Hong J, Dong Z, Sun X, Zhu X",
+    "firstAuthor": "Sun X",
+    "lastAuthor": "et al.",
+    "journal": "Liver research (Beijing, China)",
+    "year": 2024,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Outcome of bariatric surgery in patients with unexpected liver cirrhosis: A multicenter study from China. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.livres.2024.08.001",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939950611,
+    "pmid": "39950611",
+    "title": "Lipedema awareness in fibromyalgia.",
+    "authors": "Bolkan Günaydın E, Ünlü Z, Ay S, Karapınar TO",
+    "firstAuthor": "Bolkan Günaydın E",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Lipedema awareness in fibromyalgia. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555251321042",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939949954,
+    "pmid": "39949954",
+    "title": "Brazilian Consensus Statement on Lipedema using the Delphi methodology.",
+    "authors": "Amato ACM, Peclat APRM, Kikuchi R, de Souza AC, Silva MTB, de Oliveira RHP, Benitti DA, de Oliveira JCP",
+    "firstAuthor": "Amato ACM",
+    "lastAuthor": "et al.",
+    "journal": "Jornal vascular brasileiro",
+    "year": 2025,
+    "type": "Guidelines",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Brazilian Consensus Statement on Lipedema using the Delphi methodology. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1590/1677-5449.202301832",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939947109,
+    "pmid": "39947109",
+    "title": "Letter comments on \"Comparison of post operative analgesia requirements between lipoedema and lymphoedema patients undergoing lower limb liposuction.\" Efficient peripheral nerve block with dexamethasone for lower limb liposuction.",
+    "authors": "Ishibashi S, Tsuchiya R",
+    "firstAuthor": "Ishibashi S",
+    "lastAuthor": "et al.",
+    "journal": "Journal of plastic, reconstructive & aesthetic surgery : JPRAS",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Letter comments on \"Comparison of post operative analgesia requirements between lipoedema and lymphoedema patients undergoing lower limb liposuction.\" Efficient peripheral nerve block with dexamethasone for lower limb liposuction. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.bjps.2025.01.095",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939918887,
+    "pmid": "39918887",
+    "title": "Efficacy and Safety of TANIT Platform Combining Dampened Bioactive Current and Functional Dermal Stimulation for the Treatment of Adipose Tissue in Patients with Stage I or II Lipedema.",
+    "authors": "Casart Quintero YC, Pérez Bruzón JD, Fernández Peñuela RJ, Sánchez Hidalgo A",
+    "firstAuthor": "Casart Quintero YC",
+    "lastAuthor": "et al.",
+    "journal": "Photobiomodulation, photomedicine, and laser surgery",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Efficacy and Safety of TANIT Platform Combining Dampened Bioactive Current and Functional Dermal Stimulation for the Treatment of Adipose Tissue in Patients with Stage I or II Lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1089/photob.2024.0027",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939866170,
+    "pmid": "39866170",
+    "title": "Lipedema: exploring pathophysiology and treatment strategies - state of the art.",
+    "authors": "Kamamoto F, Baiocchi JMT, Batista BN, Ribeiro RDA, Modena DAO, Gornati VC",
+    "firstAuthor": "Kamamoto F",
+    "lastAuthor": "et al.",
+    "journal": "Jornal vascular brasileiro",
+    "year": 2024,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Lipedema: exploring pathophysiology and treatment strategies - state of the art. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1590/1677-5449.202400252",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939831319,
+    "pmid": "39831319",
+    "title": "Is lipedema a progressive disease?",
+    "authors": "Forner-Cordero I, Muñoz-Langa J",
+    "firstAuthor": "Forner-Cordero I",
+    "lastAuthor": "et al.",
+    "journal": "Vascular medicine (London, England)",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Is lipedema a progressive disease?. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/1358863X241306415",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939817245,
+    "pmid": "39817245",
+    "title": "Outcomes of liposuction techniques for management of lipedema: a case series and narrative review.",
+    "authors": "Ciudad P, Bustos VP, Escandón JM, Flaherty EG, Mayer HF, Manrique OJ",
+    "firstAuthor": "Ciudad P",
+    "lastAuthor": "et al.",
+    "journal": "Annals of translational medicine",
+    "year": 2024,
+    "type": "Narrative Review",
+    "topic": "Treatment & Surgery",
+    "summary": "Outcomes of liposuction techniques for management of lipedema: a case series and narrative review. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.21037/atm-24-165",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939797361,
+    "pmid": "39797361",
+    "title": "Comparative Analysis of Liposuction and Conservative Treatment in Lipedema Patients: A Modified Body-Q Questionnaire Study.",
+    "authors": "Aitzetmüller-Klietz ML, Ozturk M, Seefeldt T, Wiebringhaus P, Wellenbrock SV, Tav B, Hirsch T, Harati K, Aitzetmüller-Klietz M",
+    "firstAuthor": "Aitzetmüller-Klietz ML",
+    "lastAuthor": "et al.",
+    "journal": "Journal of clinical medicine",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Comparative Analysis of Liposuction and Conservative Treatment in Lipedema Patients: A Modified Body-Q Questionnaire Study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/jcm14010279",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939768702,
+    "pmid": "39768702",
+    "title": "Lipedema: Complications in High-Volume Liposuction Are Linked to Preoperative Anemia.",
+    "authors": "Flores T, Kremsner B, Schön J, Riedl J, Sabitzer H, Glisic C, Pfoser K, Nedomansky J, Bergmeister KD, Schrögendorfer KF",
+    "firstAuthor": "Flores T",
+    "lastAuthor": "et al.",
+    "journal": "Journal of clinical medicine",
+    "year": 2024,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Lipedema: Complications in High-Volume Liposuction Are Linked to Preoperative Anemia. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/jcm13247779",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939734091,
+    "pmid": "39734091",
+    "title": "Understanding Adipose Tissue Dysfunction.",
+    "authors": "Blüher M",
+    "firstAuthor": "Blüher M",
+    "lastAuthor": "et al.",
+    "journal": "Journal of obesity & metabolic syndrome",
+    "year": 2024,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Understanding Adipose Tissue Dysfunction. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.7570/jomes24013",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939718932,
+    "pmid": "39718932",
+    "title": "Characterization of Pain in Lipedema: Reliability and Validity of Pain Pressure Thresholds and Hand-Held Sphygmomanometer Assessments in People with Lipedema.",
+    "authors": "Bettariga F, Fumagalli L, Aloisi D, Maestroni L, Mantovani S",
+    "firstAuthor": "Bettariga F",
+    "lastAuthor": "et al.",
+    "journal": "Lymphatic research and biology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Characterization of Pain in Lipedema: Reliability and Validity of Pain Pressure Thresholds and Hand-Held Sphygmomanometer Assessments in People with Lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1089/lrb.2024.0058",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939704381,
+    "pmid": "39704381",
+    "title": "Enhancing lymphoscintigraphic specificity of lymphoedema diagnosis in patients with lipoedema.",
+    "authors": "Amiel H, Coulie J, Georis R, van la Parra R, Pirson G, Deconinck C",
+    "firstAuthor": "Amiel H",
+    "lastAuthor": "et al.",
+    "journal": "Clinical obesity",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Enhancing lymphoscintigraphic specificity of lymphoedema diagnosis in patients with lipoedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1111/cob.12730",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939673359,
+    "pmid": "39673359",
+    "title": "Beyond the physical: The interplay of experienced weight stigma, internalised weight bias and depression in lipoedema.",
+    "authors": "Clarke C, Kirby JN, Best T",
+    "firstAuthor": "Clarke C",
+    "lastAuthor": "et al.",
+    "journal": "Clinical obesity",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Beyond the physical: The interplay of experienced weight stigma, internalised weight bias and depression in lipoedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1111/cob.12727",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939662189,
+    "pmid": "39662189",
+    "title": "Comparison of postoperative analgesia requirements between lipoedema and lymphoedema patients undergoing lower limb liposuction.",
+    "authors": "Hilder KR, Munnoch DA",
+    "firstAuthor": "Hilder KR",
+    "lastAuthor": "et al.",
+    "journal": "Journal of plastic, reconstructive & aesthetic surgery : JPRAS",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Comparison of postoperative analgesia requirements between lipoedema and lymphoedema patients undergoing lower limb liposuction. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.bjps.2024.11.027",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939652636,
+    "pmid": "39652636",
+    "title": "Adipose Tissue Biology and Effect of Weight Loss in Women With Lipedema.",
+    "authors": "Cifarelli V, Smith GI, Gonzalez-Nieves S, Samovski D, Palacios HH, Yoshino J, Stein RI, Fuchs A, Wright TF, Klein S",
+    "firstAuthor": "Cifarelli V",
+    "lastAuthor": "et al.",
+    "journal": "Diabetes",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Adipose Tissue Biology and Effect of Weight Loss in Women With Lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.2337/db24-0890",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939640214,
+    "pmid": "39640214",
+    "title": "Preoperative Routine Cold-water Immersion for Lipedema Reduction Surgery.",
+    "authors": "Schwartz JS, Danesh E, Danesh N, Raghebi A, Danesh J, West J",
+    "firstAuthor": "Schwartz JS",
+    "lastAuthor": "et al.",
+    "journal": "Plastic and reconstructive surgery. Global open",
+    "year": 2024,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Preoperative Routine Cold-water Immersion for Lipedema Reduction Surgery. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1097/GOX.0000000000006367",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939598145,
+    "pmid": "39598145",
+    "title": "Evaluation of the Effectiveness of Compression Therapy Combined with Exercises Versus Exercises Only Among Lipedema Patients Using Various Outcome Measures.",
+    "authors": "Czerwińska M, Gruszecki M, Rumiński J, Hansdorfer-Korzon R",
+    "firstAuthor": "Czerwińska M",
+    "lastAuthor": "et al.",
+    "journal": "Life (Basel, Switzerland)",
+    "year": 2024,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Evaluation of the Effectiveness of Compression Therapy Combined with Exercises Versus Exercises Only Among Lipedema Patients Using Various Outcome Measures. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/life14111346",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939590304,
+    "pmid": "39590304",
+    "title": "Identification of Specific microRNAs in Adipose Tissue Affected by Lipedema.",
+    "authors": "Cione E, Michelini S, Abrego-Guandique DM, Vaia N, Michelini S, Puleo V, Bertelli M, Caroleo MC, Cannataro R",
+    "firstAuthor": "Cione E",
+    "lastAuthor": "et al.",
+    "journal": "Current issues in molecular biology",
+    "year": 2024,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "Identification of Specific microRNAs in Adipose Tissue Affected by Lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/cimb46110710",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939583599,
+    "pmid": "39583599",
+    "title": "Radio Electric Asymmetric Conveyer (REAC) Biomodulation for Chronic Pain and Functional Improvement in Rheumatoid Arthritis, Lipedema, and Fibromyalgia: A Case Study on Anti-inflammatory, Circulatory, and Metabolic Optimization.",
+    "authors": "Renck AC, Fontani V, Rinaldi S",
+    "firstAuthor": "Renck AC",
+    "lastAuthor": "et al.",
+    "journal": "Cureus",
+    "year": 2024,
+    "type": "Original Research",
+    "topic": "Epidemiology & Registry",
+    "summary": "Radio Electric Asymmetric Conveyer (REAC) Biomodulation for Chronic Pain and Functional Improvement in Rheumatoid Arthritis, Lipedema, and Fibromyalgia: A Case Study on Anti-inflammatory, Circulatory, and Metabolic Optimization. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.7759/cureus.74311",
+    "color": "#505050",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939574523,
+    "pmid": "39574523",
+    "title": "The effect of a low-carbohydrate diet on subcutaneous adipose tissue in females with lipedema.",
+    "authors": "Lundanes J, Gårseth M, Taylor S, Crescenzi R, Pridmore M, Wagnild R, Hyldmo ÅA, Martins C, Nymo S",
+    "firstAuthor": "Lundanes J",
+    "lastAuthor": "et al.",
+    "journal": "Frontiers in nutrition",
+    "year": 2024,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "The effect of a low-carbohydrate diet on subcutaneous adipose tissue in females with lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3389/fnut.2024.1484612",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939566600,
+    "pmid": "39566600",
+    "title": "Gastrointestinal hormones and subjective ratings of appetite after low-carbohydrate vs low-fat low-energy diets in females with lipedema - A randomized controlled trial.",
+    "authors": "Lundanes J, Storliløkken GE, Solem MS, Dankel SN, Tangvik RJ, Ødegård R, Holst JJ, Rehfeld JF, Martins C, Nymo S",
+    "firstAuthor": "Lundanes J",
+    "lastAuthor": "et al.",
+    "journal": "Clinical nutrition ESPEN",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Hormones & Estrogen",
+    "summary": "Gastrointestinal hormones and subjective ratings of appetite after low-carbohydrate vs low-fat low-energy diets in females with lipedema - A randomized controlled trial. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.clnesp.2024.11.018",
+    "color": "#b83c52",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939525887,
+    "pmid": "39525887",
+    "title": "Transcriptomics of Subcutaneous Tissue of Lipedema Identified Differentially Expressed Genes Involved in Adipogenesis, Inflammation, and Pain.",
+    "authors": "Streubel MK, Baumgartner A, Meier-Vollrath I, Frambach Y, Brandenburger M, Kisch T",
+    "firstAuthor": "Streubel MK",
+    "lastAuthor": "et al.",
+    "journal": "Plastic and reconstructive surgery. Global open",
+    "year": 2024,
+    "type": "Original Research",
+    "topic": "Genetics & Genomics",
+    "summary": "Transcriptomics of Subcutaneous Tissue of Lipedema Identified Differentially Expressed Genes Involved in Adipogenesis, Inflammation, and Pain. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1097/GOX.0000000000006288",
+    "color": "#5e3d80",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939477220,
+    "pmid": "39477220",
+    "title": "Improvement in Health-Related Quality of Life and Symptoms Following Lipedema Liposuction: A Longitudinal Study.",
+    "authors": "Karri V",
+    "firstAuthor": "Karri V",
+    "lastAuthor": "et al.",
+    "journal": "Annals of plastic surgery",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "Improvement in Health-Related Quality of Life and Symptoms Following Lipedema Liposuction: A Longitudinal Study. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1097/SAP.0000000000004124",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939476528,
+    "pmid": "39476528",
+    "title": "A retrospective cohort study: Waterjet-assisted liposuction reduces inflammation but increases the risk of hypokalemia in patients with lipoedema.",
+    "authors": "Hoffmann J, Stepniewski A, Lehmann W, Jäckle K",
+    "firstAuthor": "Hoffmann J",
+    "lastAuthor": "et al.",
+    "journal": "Journal of plastic, reconstructive & aesthetic surgery : JPRAS",
+    "year": 2024,
+    "type": "Original Research",
+    "topic": "Treatment & Surgery",
+    "summary": "A retrospective cohort study: Waterjet-assisted liposuction reduces inflammation but increases the risk of hypokalemia in patients with lipoedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1016/j.bjps.2024.10.013",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939462781,
+    "pmid": "39462781",
+    "title": "Comments on: Comparison of fluid and body composition measures in women with lipoedema, lymphoedema, and control participants.",
+    "authors": "Pereira de Godoy HJ, Pereira de Godoy JM",
+    "firstAuthor": "Pereira de Godoy HJ",
+    "lastAuthor": "et al.",
+    "journal": "Clinical obesity",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Comments on: Comparison of fluid and body composition measures in women with lipoedema, lymphoedema, and control participants. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1111/cob.12713",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939431927,
+    "pmid": "39431927",
+    "title": "Letter to the Editor re: Proposed Framework for Research Case Definitions of Lipedema, by Keith et al. (doi: 10.1089/lrb.2023.0062).",
+    "authors": "Damstra RJ, Gordon K, Bertsch T, Brorson H, Hardy D, Klose G, Francis K, Erbacher G, Hendrickx A, Moffatt C",
+    "firstAuthor": "Damstra RJ",
+    "lastAuthor": "et al.",
+    "journal": "Lymphatic research and biology",
+    "year": 2024,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Letter to the Editor re: Proposed Framework for Research Case Definitions of Lipedema, by Keith et al. (doi: 10.1089/lrb.2023.0062). PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1089/lrb.2024.0062",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939408242,
+    "pmid": "39408242",
+    "title": "The Efficacy of Ketogenic Diets (Low Carbohydrate; High Fat) as a Potential Nutritional Intervention for Lipedema: A Systematic Review and Meta-Analysis.",
+    "authors": "Amato ACM, Amato JLS, Benitti DA",
+    "firstAuthor": "Amato ACM",
+    "lastAuthor": "et al.",
+    "journal": "Nutrients",
+    "year": 2024,
+    "type": "Systematic Review",
+    "topic": "Treatment & Surgery",
+    "summary": "The Efficacy of Ketogenic Diets (Low Carbohydrate; High Fat) as a Potential Nutritional Intervention for Lipedema: A Systematic Review and Meta-Analysis. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/nu16193276",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939381855,
+    "pmid": "39381855",
+    "title": "Can Physical Therapy Techniques Slow Down the Progression of Lipedema?",
+    "authors": "Esmer M, Schingale FJ",
+    "firstAuthor": "Esmer M",
+    "lastAuthor": "et al.",
+    "journal": "Lymphatic research and biology",
+    "year": 2024,
+    "type": "Original Research",
+    "topic": "Lymphatics & Vasculature",
+    "summary": "Can Physical Therapy Techniques Slow Down the Progression of Lipedema?. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1089/lrb.2024.0065",
+    "color": "#6a5020",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939345998,
+    "pmid": "39345998",
+    "title": "Safety and Effectiveness of Liposuction Modalities in Managing Lipedema: Systematic Review and Meta-analysis.",
+    "authors": "Mortada H, Alaqil S, Jabbar IA, Alhubail F, Pereira N, Hong JP, Alshomer F",
+    "firstAuthor": "Mortada H",
+    "lastAuthor": "et al.",
+    "journal": "Archives of plastic surgery",
+    "year": 2024,
+    "type": "Systematic Review",
+    "topic": "Treatment & Surgery",
+    "summary": "Safety and Effectiveness of Liposuction Modalities in Managing Lipedema: Systematic Review and Meta-analysis. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1055/a-2334-9260",
+    "color": "#2f6a3c",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939338410,
+    "pmid": "39338410",
+    "title": "Effects, Doses, and Applicability of Gestrinone in Estrogen-Dependent Conditions and Post-Menopausal Women.",
+    "authors": "Renke G, Antunes M, Sakata R, Tostes F",
+    "firstAuthor": "Renke G",
+    "lastAuthor": "et al.",
+    "journal": "Pharmaceuticals (Basel, Switzerland)",
+    "year": 2024,
+    "type": "Original Research",
+    "topic": "Hormones & Estrogen",
+    "summary": "Effects, Doses, and Applicability of Gestrinone in Estrogen-Dependent Conditions and Post-Menopausal Women. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.3390/ph17091248",
+    "color": "#b83c52",
+    "defaultExpanded": true
+  },
+  {
+    "id": 939316836,
+    "pmid": "39316836",
+    "title": "A surge of interest: Analysing the increased public interest in lipedema using google trends.",
+    "authors": "Erden Y, Temel MH, Bağcıer F",
+    "firstAuthor": "Erden Y",
+    "lastAuthor": "et al.",
+    "journal": "Phlebology",
+    "year": 2025,
+    "type": "Original Research",
+    "topic": "Pathophysiology",
+    "summary": "A surge of interest: Analysing the increased public interest in lipedema using google trends. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
+    "aims": "",
+    "methods": "",
+    "findings": [
+      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
+    ],
+    "doi": "https://doi.org/10.1177/02683555241286354",
+    "color": "#1e6b6b",
+    "defaultExpanded": true
+  }
+];
+
 // ═══════════════════════════════════════════════════════
 //  TOPIC & TYPE COLOR MAPS
 // ═══════════════════════════════════════════════════════
@@ -3046,6 +6727,8 @@ function returnToDefaultProfile() {
   loadStores();
   localStorage.removeItem(defaultCorpusKey('disabled_v1'));
   hiddenIds = [];
+  expandedPapers = cloneDefaultExpandedPapers();
+  saveExpandedPapers();
   saveHiddenIds();
   _resourceFigurePreviewKey = '';
   filteredPapers = getAllPapers().slice();
@@ -3053,7 +6736,7 @@ function returnToDefaultProfile() {
   syncUI();
   updateProfileUI();
   bootstrapDefaultCorpus(false);
-  showToast('Default public LipoScope view restored with PubMed-expanded defaults visible.', 'success');
+  showToast('Default public LipoScope view restored with 211 built-in papers visible.', 'success');
 }
 
 function updateProfileUI() {
@@ -3075,10 +6758,25 @@ var hiddenIds  = [];
 var expandedPapers = [];
 var DEFAULT_CORPUS_TARGET = 211;
 
+function cloneDefaultExpandedPapers() {
+  return (DEFAULT_EXPANDED_PAPERS || []).map(function(p) {
+    return Object.assign({}, p, {
+      findings: Array.isArray(p.findings) ? p.findings.slice() : []
+    });
+  });
+}
+
 function loadStores() {
   try { var s = localStorage.getItem(profileKey('user_papers_v3')); if (s) userPapers = JSON.parse(s); else userPapers = []; } catch(e) { userPapers = []; }
   try { var s = localStorage.getItem(profileKey('hidden_ids_v3'));  if (s) hiddenIds  = JSON.parse(s); else hiddenIds  = []; } catch(e) { hiddenIds = []; }
-  try { var s = localStorage.getItem(profileKey('expanded_default_papers_v1')); if (s) expandedPapers = JSON.parse(s); else expandedPapers = []; } catch(e) { expandedPapers = []; }
+  try {
+    var s = localStorage.getItem(profileKey('expanded_default_papers_v1'));
+    if (s) expandedPapers = JSON.parse(s);
+    else expandedPapers = cloneDefaultExpandedPapers();
+  } catch(e) { expandedPapers = cloneDefaultExpandedPapers(); }
+  if (!localStorage.getItem(defaultCorpusKey('disabled_v1')) && (!Array.isArray(expandedPapers) || !expandedPapers.length)) {
+    expandedPapers = cloneDefaultExpandedPapers();
+  }
 }
 function saveUserPapers() {
   try { localStorage.setItem(profileKey('user_papers_v3'), JSON.stringify(userPapers)); } catch(e) {}
@@ -3334,19 +7032,19 @@ function hideAllBuiltInPapers() {
   showToast('Default literature hidden. Automatic default refresh is paused for this profile.', 'warn');
 }
 
-function clearExpandedDefaultCorpus() {
-  if (!expandedPapers.length) { showToast('No PubMed-expanded default records to clear.', 'info'); return; }
-  if (!confirm('Clear the ' + expandedPapers.length + ' PubMed-expanded default records stored in this browser? The manually curated seed papers are not removed.')) return;
-  var expandedIds = {};
-  expandedPapers.forEach(function(p){ expandedIds[p.id] = true; });
-  expandedPapers = [];
-  hiddenIds = hiddenIds.filter(function(id){ return !expandedIds[id]; });
+function restoreBuiltInDefaultCorpus() {
+  if (!confirm('Restore the public 211-paper default corpus for this browser profile? User-added papers will remain.')) return;
+  expandedPapers = cloneDefaultExpandedPapers();
+  localStorage.removeItem(defaultCorpusKey('disabled_v1'));
+  var builtIds = {};
+  PAPERS.concat(expandedPapers).forEach(function(p){ builtIds[p.id] = true; });
+  hiddenIds = hiddenIds.filter(function(id){ return !builtIds[id]; });
   saveExpandedPapers();
   saveHiddenIds();
   filteredPapers = getAllPapers().slice();
   renderPapers(filteredPapers);
   syncUI();
-  showToast('PubMed-expanded default corpus cleared.', 'warn');
+  showToast('211-paper default corpus restored.', 'success');
 }
 
 function defaultCorpusKey(k) { return profileKey('default_corpus_' + k); }
@@ -3367,7 +7065,7 @@ function normalizePubMedTitle(t) {
 async function bootstrapDefaultCorpus(force) {
   if (!force && localStorage.getItem(defaultCorpusKey('disabled_v1'))) return;
   if (!force && isDefaultCorpusReady() && isDefaultCorpusFresh()) return;
-  if (force && !confirm('Refresh the browser-local default corpus toward ' + DEFAULT_CORPUS_TARGET + ' total lipoedema/lipedema records using PubMed?')) return;
+  if (force && !confirm('Update the browser-local default corpus to ' + DEFAULT_CORPUS_TARGET + ' lipoedema/lipedema records using PubMed metadata?')) return;
   if (force) localStorage.removeItem(defaultCorpusKey('disabled_v1'));
 
   if (force) showToast('Updating default literature from PubMed...', 'info');
@@ -4912,7 +8610,7 @@ function renderResourceFigurePreview(force) {
   if (!el) return;
   var papers = selectResourceFigurePapers();
   if (!papers.length) {
-    el.innerHTML = '<div class="evidence-note">No papers with PMID, DOI, or PMCID are currently available for figure lookup. Restore the default PubMed-expanded corpus or add PubMed-linked papers.</div>';
+    el.innerHTML = '<div class="evidence-note">No papers with PMID, DOI, or PMCID are currently available for figure lookup. Restore the 211-paper default corpus or add PubMed-linked papers.</div>';
     return;
   }
   var key = papers.map(function(p){ return p.id; }).join('|');
@@ -5054,6 +8752,34 @@ function buildAtlasGraphData(entities, all) {
   return { nodes:nodes, links:links };
 }
 
+var ATLAS_MOLECULAR_CATEGORIES = {
+  adipose:{ label:'Adipose biology', color:'#c4773a', terms:/adipose|adipocyte|fat|lipid|lipolysis|adipogenesis|ppar|leptin|svf|metabol/i },
+  lymphatic:{ label:'Lymphatic / vascular biology', color:'#1e6b6b', terms:/lymph|vascular|endothelial|vegf|fluid|microcirculation|vessel|pf4|cxcl4/i },
+  genetics:{ label:'Genetics / omics', color:'#5e3d80', terms:/gene|genetic|gwas|variant|omics|transcript|methyl|sequenc|epigen|mirna|rna/i },
+  hormone:{ label:'Hormone signalling', color:'#b83c52', terms:/hormone|estrogen|oestrogen|progesterone|menopause|puberty|pregnancy|receptor|akr1c/i },
+  matrix:{ label:'ECM / fibrosis', color:'#8a611d', terms:/ecm|matrix|fibrosis|collagen|mmp|tgf|focal adhesion|connective/i },
+  inflammation:{ label:'Inflammation / pain', color:'#d05a8a', terms:/inflamm|immune|pain|cytokine|macrophage|il-6|complement|tender/i },
+  clinical:{ label:'Clinical / diagnostic', color:'#3a4f82', terms:/diagnos|clinical|imaging|stage|classification|quality of life|treatment|surgery|compression/i }
+};
+
+function molecularCategoryForEntity(e) {
+  var text = [e.label, e.kind, e.pathway, e.topic, e.rationale, (e.aliases || []).join(' ')].join(' ');
+  var order = ['adipose','lymphatic','genetics','hormone','matrix','inflammation','clinical'];
+  for (var i = 0; i < order.length; i++) {
+    var cat = ATLAS_MOLECULAR_CATEGORIES[order[i]];
+    if (cat.terms.test(text)) return cat;
+  }
+  return { label:'Cross-domain / emerging', color:'#705848' };
+}
+
+function atlasGraphLegendHtml() {
+  var order = ['adipose','lymphatic','genetics','hormone','matrix','inflammation','clinical'];
+  return '<div class="atlas-graph-legend" aria-label="Knowledge graph colour legend">' + order.map(function(k) {
+    var c = ATLAS_MOLECULAR_CATEGORIES[k];
+    return '<span><i style="background:' + c.color + '"></i>' + atlasEsc(c.label) + '</span>';
+  }).join('') + '<span><i style="background:#705848"></i>Cross-domain / emerging</span></div>';
+}
+
 function renderKnowledgeGraph(entities, all) {
   var graphEl = document.getElementById('atlas-graph'); if (!graphEl) return;
   var topics = Object.keys(atlasTopicCounts(all)).sort(), topEntities = entities.slice(0, 16);
@@ -5078,10 +8804,10 @@ function renderKnowledgeGraph(entities, all) {
     html += '<g class="atlas-node" onclick="atlasSelectGraphNode(\'topic\',\'' + atlasEsc(t) + '\')"><circle cx="' + p.x + '" cy="' + p.y + '" r="' + (selected ? 22 : 18) + '" fill="' + tc.fill + '" opacity="' + (selected ? '1' : '0.88') + '"/><text x="' + p.x + '" y="' + (p.y + 36) + '" text-anchor="middle" fill="#463c36" font-size="10" font-weight="700">' + atlasEsc(t.length > 22 ? t.slice(0,20) + '...' : t) + '</text></g>';
   });
   topEntities.forEach(function(e) {
-    var p = entPos[e.key], selected = (_atlasSelectedGraph.kind === 'entity' && _atlasSelectedGraph.key === e.key), fill = e.kind.indexOf('Biomarker') !== -1 ? '#1e6b6b' : e.kind.indexOf('Pathway') !== -1 ? '#c4773a' : '#5e3d80';
+    var p = entPos[e.key], selected = (_atlasSelectedGraph.kind === 'entity' && _atlasSelectedGraph.key === e.key), cat = molecularCategoryForEntity(e), fill = cat.color;
     html += '<g class="atlas-node" onclick="atlasSelectGraphNode(\'entity\',\'' + atlasEsc(e.key) + '\')"><rect x="' + (p.x - 64) + '" y="' + (p.y - 17) + '" width="128" height="34" rx="9" fill="' + fill + '" opacity="' + (selected ? '1' : '0.9') + '" stroke="' + (selected ? '#1a1410' : 'transparent') + '" stroke-width="2"/><text x="' + p.x + '" y="' + (p.y + 4) + '" text-anchor="middle" fill="#fff" font-size="11" font-weight="800">' + atlasEsc(e.label.length > 16 ? e.label.slice(0,14) + '...' : e.label) + '</text><text x="' + p.x + '" y="' + (p.y + 28) + '" text-anchor="middle" fill="#706860" font-size="9">' + e.paperCount + ' papers</text></g>';
   });
-  graphEl.innerHTML = html + '</svg>';
+  graphEl.innerHTML = html + '</svg>' + atlasGraphLegendHtml();
   renderGraphDetail(entities, all);
 }
 
@@ -5098,7 +8824,8 @@ function renderGraphDetail(entities, all) {
   var e = entities.filter(function(x){ return x.key === key; })[0] || entities[0];
   if (!e) { el.innerHTML = '<h4>No entity selected</h4><p>Select a node in the graph.</p>'; return; }
   var lab = atlasEvidenceLabel(e.score);
-  el.innerHTML = '<h4>' + atlasEsc(e.label) + '</h4><p><span class="atlas-pill ' + lab[1] + '">' + lab[0] + '</span> <span class="atlas-pill">' + atlasEsc(e.kind) + '</span> <span class="atlas-pill">' + e.paperCount + ' papers</span></p><p><strong>Pathway:</strong> ' + atlasEsc(e.pathway) + '</p><p><strong>Why it matters:</strong> ' + atlasEsc(e.rationale) + '</p><p><strong>Score:</strong> ' + e.score + ' · topic breadth: ' + e.topicBreadth + ' · human-study support: ' + e.humanSupport + ' · omics/biomarker support: ' + e.omicsSupport + '</p>' + atlasPaperMiniList(e.papers);
+  var cat = molecularCategoryForEntity(e);
+  el.innerHTML = '<h4>' + atlasEsc(e.label) + '</h4><p><span class="atlas-pill ' + lab[1] + '">' + lab[0] + '</span> <span class="atlas-pill">' + atlasEsc(e.kind) + '</span> <span class="atlas-pill" style="border-color:' + cat.color + ';color:' + cat.color + '">' + atlasEsc(cat.label) + '</span> <span class="atlas-pill">' + e.paperCount + ' papers</span></p><p><strong>Pathway:</strong> ' + atlasEsc(e.pathway) + '</p><p><strong>Why it matters:</strong> ' + atlasEsc(e.rationale) + '</p><p><strong>Score:</strong> ' + e.score + ' · topic breadth: ' + e.topicBreadth + ' · human-study support: ' + e.humanSupport + ' · omics/biomarker support: ' + e.omicsSupport + '</p>' + atlasPaperMiniList(e.papers);
 }
 
 function atlasPaperMiniList(papers) {
@@ -5790,28 +9517,38 @@ function renderNotifDropdown() {
   scroll.innerHTML = html;
 }
 
-function toggleNotifDrop() {
+function toggleNotifDrop(e) {
+  if (e) e.stopPropagation();
   var drop = document.getElementById('notif-drop');
   if (!drop) return;
   var isOpen = drop.classList.contains('open');
-  // close any open dropdowns
-  document.querySelectorAll('.notif-drop.open').forEach(function(d){ d.classList.remove('open'); });
-  if (!isOpen) {
-    drop.classList.add('open');
-    renderNotifDropdown();
-    // close on outside click
-    setTimeout(function() {
-      document.addEventListener('click', closeNotifOnOutside, {once:true});
-    }, 50);
-  }
+  if (isOpen) { closeNotifDrop(); return; }
+  closeNotifDrop();
+  drop.classList.add('open');
+  renderNotifDropdown();
+  setTimeout(function() {
+    document.addEventListener('click', closeNotifOnOutside);
+    document.addEventListener('keydown', closeNotifOnEscape);
+  }, 50);
+}
+
+function closeNotifDrop(e) {
+  if (e) e.stopPropagation();
+  var drop = document.getElementById('notif-drop');
+  if (drop) drop.classList.remove('open');
+  document.removeEventListener('click', closeNotifOnOutside);
+  document.removeEventListener('keydown', closeNotifOnEscape);
 }
 
 function closeNotifOnOutside(e) {
   var wrap = document.getElementById('notif-wrap');
   if (wrap && !wrap.contains(e.target)) {
-    var drop = document.getElementById('notif-drop');
-    if (drop) drop.classList.remove('open');
+    closeNotifDrop();
   }
+}
+
+function closeNotifOnEscape(e) {
+  if (e && e.key === 'Escape') closeNotifDrop();
 }
 
 function openNotifItem(i) {
@@ -8792,6 +12529,19 @@ function updateAboutLiveStatus() {
 }
 
 // (updateAboutLiveStatus is called from the unified switchTab hook above)
+
+function scrollToTop() {
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function updateScrollTopButton() {
+  var btn = document.getElementById('scroll-top-btn');
+  if (!btn) return;
+  btn.classList.toggle('visible', window.scrollY > 520);
+}
+
+window.addEventListener('scroll', updateScrollTopButton, { passive:true });
+setTimeout(updateScrollTopButton, 400);
 
 // Run initially after delay
 setTimeout(updateAboutLiveStatus, 3000);
