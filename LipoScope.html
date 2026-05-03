@@ -1010,6 +1010,34 @@ select:focus{border-color:var(--rose)}
   .biofig-stage-sub { font-size:10.5px; color:var(--text-soft); line-height:1.45; margin-bottom:9px; }
   .biofig-stage-detail { font-size:10.5px; color:var(--text-mid); line-height:1.55; margin-top:9px; overflow-wrap:anywhere; }
   .biofig-study-box { margin-top:13px; background:#fff; border:1px solid #ebe5df; border-radius:10px; padding:12px 14px; font-size:11.5px; color:var(--text-mid); line-height:1.7; overflow-wrap:anywhere; }
+  .shared-banner {
+    max-width:1440px;
+    margin:12px auto 0;
+    background:#eef7f6;
+    border:1px solid #b8dede;
+    border-radius:12px;
+    padding:14px 18px;
+    box-shadow:var(--shadow-sm);
+  }
+  .shared-banner h3 { font-size:14px; color:var(--text); margin-bottom:5px; }
+  .shared-banner p { font-size:12px; color:var(--text-mid); line-height:1.7; margin-bottom:8px; }
+  .shared-banner-meta { font-size:11px; color:var(--text-soft); line-height:1.6; margin-bottom:10px; }
+  .shared-banner-actions { display:flex; flex-wrap:wrap; gap:8px; }
+  .shared-banner-btn {
+    padding:8px 12px;
+    border-radius:8px;
+    border:1px solid #b8dede;
+    background:#fff;
+    color:var(--teal);
+    font-size:11.5px;
+    font-weight:800;
+    cursor:pointer;
+  }
+  .shared-banner-btn.primary {
+    background:var(--teal);
+    border-color:var(--teal);
+    color:#fff;
+  }
   .evidence-note { background:#fff8ec; border:1px solid #e9cf9a; border-radius:10px; padding:12px 14px; font-size:12px; color:var(--text-mid); line-height:1.7; margin-top:12px; }
   .science-video {
     display:grid;
@@ -1126,6 +1154,7 @@ select:focus{border-color:var(--rose)}
   @media (max-width: 860px) {
     .science-video { grid-template-columns:1fr; }
     .walkthrough-slide { grid-template-columns:1fr; }
+    .shared-banner { margin:10px 14px 0; }
   }
 
 </style>
@@ -1189,6 +1218,7 @@ select:focus{border-color:var(--rose)}
 </nav>
 
 <div class="main-content">
+  <div id="shared-workspace-banner" class="shared-banner" style="display:none"></div>
 
   <!-- ═══ BROWSE PANEL ═══ -->
   <div class="panel" id="panel-browse">
@@ -1654,7 +1684,7 @@ select:focus{border-color:var(--rose)}
       <div class="about-section" style="border-color:var(--teal-light)">
         <h2>👤 Public Mode &amp; Optional Local Profile</h2>
         <p style="font-size:13px;color:var(--text-mid);line-height:1.8;margin-bottom:14px">
-          LipoScope opens immediately in <strong>Public Local Mode</strong>. No registration, login, account, server, or mandatory API key is required. Curated papers, hidden/shown preferences, optional notes, and user-added papers are stored only in your browser. You may optionally set a local profile label to separate browser-local collections on a shared computer. Local profile choices personalize Browse Papers, but they do not narrow the PubMed-wide Atlas, candidate, mechanism, omics, gap, or biology-figure views.
+          LipoScope opens immediately in <strong>Public Local Mode</strong>. No registration, login, account, server, or mandatory API key is required. Curated papers, hidden/shown preferences, optional notes, and user-added papers are stored only in your browser. You may optionally set a local profile label to separate browser-local collections on a shared computer. To let a colleague open the same <strong>Browse Papers</strong> curation, use <strong>Share Current Browse View</strong>: LipoScope creates a unique link that recreates that Browse setup in their browser without exporting a file. Local profile labels organize your own browser; they are not the sharing key. Atlas, candidate, mechanism, omics, gap, and biology-figure sections still use the PubMed-wide evidence layer and continue their automatic refresh cycle.
         </p>
         <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px">
           <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-soft);margin-bottom:8px">Current Profile</div>
@@ -1666,6 +1696,11 @@ select:focus{border-color:var(--rose)}
             </div>
             <button onclick="changeProfile()" style="margin-left:auto;padding:7px 16px;background:var(--teal);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer">✏️ Optional Local Label</button>
             <button onclick="returnToDefaultProfile()" style="padding:7px 16px;background:var(--surface);color:var(--teal);border:1.5px solid #b8dede;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer">↩ Default Website View</button>
+            <button onclick="shareCurrentBrowseView()" style="padding:7px 16px;background:var(--rose);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer">🔗 Share Current Browse View</button>
+            <button onclick="openSharedLinkPrompt()" style="padding:7px 16px;background:var(--surface);color:var(--rose);border:1.5px solid var(--rose-light);border-radius:7px;font-size:12px;font-weight:700;cursor:pointer">↗ Open Shared Browse Link</button>
+          </div>
+          <div style="font-size:11.5px;color:var(--text-soft);line-height:1.7;margin-top:10px">
+            <strong>How sharing works:</strong> a shared link recreates the same <strong>Browse Papers</strong> structure for another user. It does not require coding, import/export, or an account. The link does not replace the live PubMed-aware Atlas: Research Atlas sections continue to update from PubMed automatically.
           </div>
         </div>
       </div>
@@ -2051,7 +2086,7 @@ select:focus{border-color:var(--rose)}
 </div><!-- /.main-content -->
 
 <footer class="app-footer">
-  <span><strong>LipoScope</strong> <span id="app-version-label">v1.5.3</span> · Research atlas for lipoedema/lipedema literature, biology maps, and local evidence synthesis</span>
+  <span><strong>LipoScope</strong> <span id="app-version-label">v1.6.0</span> · Research atlas for lipoedema/lipedema literature, biology maps, and local evidence synthesis</span>
   <span>Updated <span id="app-updated-label">23 April 2026</span> · Public GitHub Pages build</span>
 </footer>
 <button class="scroll-top-btn" id="scroll-top-btn" onclick="scrollToTop()" title="Back to top" aria-label="Back to top">↑</button>
@@ -2092,7 +2127,7 @@ select:focus{border-color:var(--rose)}
 </div>
 
 <script>
-const LIPOSCOPE_VERSION = 'v1.5.3';
+const LIPOSCOPE_VERSION = 'v1.6.0';
 const LIPOSCOPE_UPDATED = '23 April 2026';
 
 const PAPERS = [
@@ -6609,6 +6644,80 @@ function recentLabel()  { return "Since " + recentCutoff(); }
 //  PROFILE / USER ISOLATION SYSTEM
 // ═══════════════════════════════════════════════════════════════════════
 var _profileId = null;  // optional local label, never a login or registration
+var _profileAliases = null;
+var _sharedWorkspace = null;
+var SHARED_BROWSE_SCHEMA = 'liposcope_shared_browse_v1';
+
+function loadProfileAliases() {
+  if (_profileAliases) return _profileAliases;
+  try { _profileAliases = JSON.parse(localStorage.getItem('lip_profile_aliases_v1') || '{}') || {}; }
+  catch(e) { _profileAliases = {}; }
+  return _profileAliases;
+}
+
+function saveProfileAliases() {
+  try { localStorage.setItem('lip_profile_aliases_v1', JSON.stringify(loadProfileAliases())); } catch(e) {}
+}
+
+function sanitizeProfileLabel(name) {
+  return String(name || '').trim().toLowerCase().replace(/[^a-z0-9_]/g, '_').replace(/_+/g, '_').replace(/^_+|_+$/g, '').slice(0, 30);
+}
+
+function displayNameFromProfileId(id) {
+  if (!id || id === 'default') return 'Public Local Mode';
+  var alias = getProfileAlias(id);
+  if (alias) return alias;
+  return id.replace(/_/g, ' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+}
+
+function profileKeyForId(pid, key) {
+  return 'lip_' + (pid || 'default') + '_' + key;
+}
+
+function getProfileAlias(id) {
+  return id ? (loadProfileAliases()[id] || '') : '';
+}
+
+function setProfileAlias(id, label) {
+  if (!id) return;
+  var aliases = loadProfileAliases();
+  label = String(label || '').trim();
+  if (label) aliases[id] = label.slice(0, 70);
+  else delete aliases[id];
+  saveProfileAliases();
+}
+
+function removeProfileAlias(id) {
+  if (!id) return;
+  var aliases = loadProfileAliases();
+  if (aliases[id]) {
+    delete aliases[id];
+    saveProfileAliases();
+  }
+}
+
+function profileIdExists(id) {
+  if (!id) return false;
+  if (_profileId === id) return true;
+  var aliases = loadProfileAliases();
+  if (aliases[id]) return true;
+  for (var i = 0; i < localStorage.length; i++) {
+    var key = localStorage.key(i) || '';
+    if (key.indexOf('lip_' + id + '_') === 0) return true;
+  }
+  return false;
+}
+
+function uniqueProfileId(baseLabel) {
+  var seed = sanitizeProfileLabel(baseLabel) || 'workspace';
+  var candidate = seed;
+  var suffix = 2;
+  while (profileIdExists(candidate)) {
+    var tail = '_' + suffix++;
+    candidate = (seed.slice(0, Math.max(1, 30 - tail.length)) + tail).slice(0, 30);
+  }
+  return candidate;
+}
 
 function getProfileId() {
   if (!_profileId) {
@@ -6617,45 +6726,111 @@ function getProfileId() {
   return _profileId;
 }
 
-function setProfileId(id) {
+function setProfileId(id, label) {
   _profileId = id;
-  localStorage.setItem('lip_profile_id_v1', id);
+  if (id) {
+    localStorage.setItem('lip_profile_id_v1', id);
+    if (label) setProfileAlias(id, label);
+  } else {
+    localStorage.removeItem('lip_profile_id_v1');
+  }
 }
 
 function profileKey(key) {
   var pid = getProfileId() || 'default';
-  return 'lip_' + pid + '_' + key;
+  return profileKeyForId(pid, key);
+}
+
+function clonePaperRecord(paper) {
+  return JSON.parse(JSON.stringify(paper || {}));
+}
+
+function clonePaperCollection(list) {
+  return Array.isArray(list) ? list.map(clonePaperRecord) : [];
+}
+
+function getWorkspaceStateSnapshot() {
+  return {
+    userPapers: clonePaperCollection(userPapers),
+    hiddenIds: Array.isArray(hiddenIds) ? hiddenIds.slice() : [],
+    expandedPapers: clonePaperCollection(expandedPapers),
+    defaultDisabled: !!localStorage.getItem(defaultCorpusKey('disabled_v1'))
+  };
+}
+
+function saveWorkspaceStateForProfile(profileId, state) {
+  if (!profileId || !state) return;
+  try { localStorage.setItem(profileKeyForId(profileId, 'user_papers_v3'), JSON.stringify(state.userPapers || [])); } catch(e) {}
+  try { localStorage.setItem(profileKeyForId(profileId, 'hidden_ids_v3'), JSON.stringify(state.hiddenIds || [])); } catch(e) {}
+  try { localStorage.setItem(profileKeyForId(profileId, 'expanded_default_papers_v1'), JSON.stringify(state.expandedPapers || [])); } catch(e) {}
+  if (state.defaultDisabled) localStorage.setItem(profileKeyForId(profileId, 'default_corpus_disabled_v1'), '1');
+  else localStorage.removeItem(profileKeyForId(profileId, 'default_corpus_disabled_v1'));
+  localStorage.setItem(profileKeyForId(profileId, 'default_corpus_checked_v1'), String(Date.now()));
+}
+
+function refreshWorkspaceView() {
+  filteredPapers = getAllPapers().slice();
+  renderPapers(filteredPapers);
+  syncUI();
+  updateAboutStats();
+  updateProfileUI();
+  updateSharedWorkspaceBanner();
+}
+
+function getAppBaseUrl() {
+  return window.location.href.replace(/[#?].*$/, '');
+}
+
+function clearSharedWorkspaceHash() {
+  if ((window.location.hash || '').indexOf('#shared=') === 0) {
+    history.replaceState(null, '', getAppBaseUrl());
+  }
+}
+
+function clearSharedWorkspaceState() {
+  _sharedWorkspace = null;
+  updateSharedWorkspaceBanner();
+}
+
+function buildSharedWorkspaceLabel() {
+  if (_sharedWorkspace && _sharedWorkspace.label) return _sharedWorkspace.label;
+  var pid = getProfileId();
+  return pid ? displayNameFromProfileId(pid) : 'Public Local Mode';
 }
 
 function promptForProfile(isChange) {
   var existing = getProfileId();
+  var existingLabel = existing ? displayNameFromProfileId(existing) : '';
   var msg = isChange
-    ? 'Enter an optional local profile label (current: ' + (existing || 'Public Local Mode') + '):\n\nThis is stored only in this browser and is not a login.'
-    : 'Optional local profile label:\n\nYou can leave this blank. LipoScope works immediately in Public Local Mode with no registration or login.\n\nProfile label:';
-  var name = window.prompt(msg, existing || '');
+    ? 'Enter an optional local profile label (current: ' + (existingLabel || 'Public Local Mode') + '):\n\nThis label stays only in this browser and is not a login. To share the same Browse Papers curation with someone else, use Share Current Browse View.'
+    : 'Optional local profile label:\n\nYou can leave this blank. LipoScope works immediately in Public Local Mode with no registration or login.\n\nThis local label organizes only this browser. Use Share Current Browse View when you want a colleague to open the same Browse setup.\n\nProfile label:';
+  var name = window.prompt(msg, existingLabel || '');
   if (!name || !name.trim()) {
-    if (!existing) {
-      updateProfileUI();
-    }
+    if (!existing) updateProfileUI();
     return;
   }
-  var newId = name.trim().toLowerCase().replace(/[^a-z0-9_]/g, '_').slice(0, 30);
-  setProfileId(newId);
-  // Reload stores for new profile
+  var newId = sanitizeProfileLabel(name);
+  if (!newId) {
+    showToast('Please use at least one letter or number in the local label.', 'warn');
+    return;
+  }
+  if (_sharedWorkspace) clearSharedWorkspaceHash();
+  clearSharedWorkspaceState();
+  setProfileId(newId, name.trim());
   loadStores();
-  filteredPapers = getAllPapers().slice();
-  renderPapers(filteredPapers);
-  syncUI();
-  updateProfileUI();
-  showToast('✅ Profile set to "' + name.trim() + '"', 'success');
+  refreshWorkspaceView();
+  showToast('✅ Local profile set to "' + name.trim() + '"', 'success');
 }
 
 function changeProfile() {
+  if (_sharedWorkspace && !confirm('You are currently viewing a shared Browse link. Switching labels will leave that shared view and return this browser to your own local workspace system. Continue?')) return;
   promptForProfile(true);
 }
 
 function returnToDefaultProfile() {
   if (!confirm('Return to the default public LipoScope view for this browser? Your named local profile data will remain stored and can be reopened by entering the same local label later.')) return;
+  clearSharedWorkspaceHash();
+  clearSharedWorkspaceState();
   _profileId = null;
   localStorage.removeItem('lip_profile_id_v1');
   loadStores();
@@ -6665,10 +6840,7 @@ function returnToDefaultProfile() {
   saveExpandedPapers();
   saveHiddenIds();
   _resourceFigurePreviewKey = '';
-  filteredPapers = getAllPapers().slice();
-  renderPapers(filteredPapers);
-  syncUI();
-  updateProfileUI();
+  refreshWorkspaceView();
   bootstrapDefaultCorpus(false);
   showToast('Default public LipoScope view restored with 211 built-in papers visible.', 'success');
 }
@@ -6676,12 +6848,20 @@ function returnToDefaultProfile() {
 function updateProfileUI() {
   var pid = getProfileId() || 'default';
   var isDefault = !getProfileId();
-  var displayName = isDefault ? 'Public Local Mode' : pid.replace(/_/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();});
+  var displayName = _sharedWorkspace ? ((_sharedWorkspace.label || 'Shared Browse View') + ' (Shared)') : displayNameFromProfileId(pid);
+  var subLabel = isDefault
+    ? 'No registration required · data stays in this browser'
+    : 'Local profile ID: ' + pid;
+  if (_sharedWorkspace) {
+    subLabel = 'Opened from a share link · Browse Papers snapshot only · Research Atlas stays PubMed-live';
+  }
   _set('profile-name-display', displayName);
-  _set('profile-id-display', isDefault ? 'No registration required · data stays in this browser' : 'Local profile ID: ' + pid);
-  _set('nav-profile-name', displayName);
+  _set('profile-id-display', subLabel);
+  _set('nav-profile-name', _sharedWorkspace ? 'Shared Browse View' : displayName);
   var avatars = document.querySelectorAll('#profile-avatar, #profile-avatar-large');
-  avatars.forEach(function(a) { if(a) a.textContent = isDefault ? 'L' : pid.charAt(0).toUpperCase(); });
+  avatars.forEach(function(a) {
+    if(a) a.textContent = _sharedWorkspace ? 'S' : (isDefault ? 'L' : pid.charAt(0).toUpperCase());
+  });
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -6726,6 +6906,406 @@ function getBuiltInPapers() {
 }
 function getAllPapers() {
   return getBuiltInPapers().filter(function(p) { return hiddenIds.indexOf(p.id) === -1; }).concat(userPapers);
+}
+
+function paperRefFromPaper(paper) {
+  return {
+    pmid: paper && paper.pmid ? String(paper.pmid) : '',
+    titleNorm: normalizePubMedTitle(paper && paper.title ? paper.title : '')
+  };
+}
+
+function paperMatchesRef(paper, ref) {
+  if (!paper || !ref) return false;
+  if (ref.pmid && paper.pmid && String(paper.pmid) === String(ref.pmid)) return true;
+  return !!ref.titleNorm && normalizePubMedTitle(paper.title || '') === ref.titleNorm;
+}
+
+function dedupeStringList(list) {
+  var seen = {}, out = [];
+  (list || []).forEach(function(v) {
+    var key = String(v || '').trim();
+    if (!key || seen[key]) return;
+    seen[key] = true;
+    out.push(key);
+  });
+  return out;
+}
+
+function generateSharedWorkspaceId() {
+  if (window.crypto && window.crypto.getRandomValues) {
+    var bytes = new Uint8Array(6);
+    window.crypto.getRandomValues(bytes);
+    var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    var out = 'LS-';
+    for (var i = 0; i < bytes.length; i++) out += chars.charAt(bytes[i] % chars.length);
+    return out;
+  }
+  return 'LS-' + Date.now().toString(36).toUpperCase();
+}
+
+function utf8ToBase64Url(str) {
+  var bytes = new TextEncoder().encode(str);
+  var bin = '';
+  for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/,'');
+}
+
+function base64UrlToUtf8(str) {
+  str = String(str || '').replace(/-/g, '+').replace(/_/g, '/');
+  while (str.length % 4) str += '=';
+  var bin = atob(str);
+  var bytes = new Uint8Array(bin.length);
+  for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+
+function buildShareSafePaper(paper) {
+  var keep = ['pmid','title','authors','firstAuthor','lastAuthor','journal','year','type','topic','summary','aims','methods','findings','doi','color','pmcid'];
+  var out = {};
+  keep.forEach(function(k) {
+    if (paper && paper[k] !== undefined) out[k] = clonePaperRecord(paper[k]);
+  });
+  return out;
+}
+
+function currentHiddenBuiltInRefs() {
+  var byId = {};
+  getBuiltInPapers().forEach(function(p) { byId[String(p.id)] = p; });
+  return hiddenIds.map(function(id) { return byId[String(id)]; }).filter(Boolean).map(paperRefFromPaper);
+}
+
+function buildSharedBrowsePayload() {
+  var userAddedPmids = [];
+  var userAddedInline = [];
+  userPapers.forEach(function(p) {
+    if (p && p.pmid) userAddedPmids.push(String(p.pmid));
+    else userAddedInline.push(buildShareSafePaper(p));
+  });
+  return {
+    schema: SHARED_BROWSE_SCHEMA,
+    appVersion: LIPOSCOPE_VERSION,
+    workspaceId: generateSharedWorkspaceId(),
+    label: buildSharedWorkspaceLabel(),
+    createdAt: new Date().toISOString(),
+    defaultDisabled: !!localStorage.getItem(defaultCorpusKey('disabled_v1')),
+    expandedPmids: dedupeStringList((expandedPapers || []).map(function(p) { return p && p.pmid ? String(p.pmid) : ''; })),
+    hiddenBuiltInRefs: currentHiddenBuiltInRefs(),
+    userAddedPmids: dedupeStringList(userAddedPmids),
+    userAddedInline: userAddedInline
+  };
+}
+
+function buildSharedBrowseLink(payload) {
+  return getAppBaseUrl() + '#shared=' + utf8ToBase64Url(JSON.stringify(payload));
+}
+
+function copyTextToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(text).then(function() { return true; }).catch(function() { return false; });
+  }
+  return Promise.resolve(false);
+}
+
+async function shareCurrentBrowseView() {
+  try {
+    var payload = buildSharedBrowsePayload();
+    var link = buildSharedBrowseLink(payload);
+    var copied = await copyTextToClipboard(link);
+    if (copied) {
+      showToast('Shared Browse link copied. Send it to a colleague to recreate this Browse Papers view.', 'success');
+    } else {
+      window.prompt('Copy and share this LipoScope Browse link:', link);
+    }
+    if (link.length > 12000) {
+      showToast('This shared link is long because it includes non-PubMed local records. It will still work, but shorter links happen when most added papers have PMIDs.', 'info');
+    }
+  } catch(err) {
+    showToast('Could not create a share link for this Browse view.', 'warn');
+  }
+}
+
+function extractSharedTokenFromString(raw) {
+  raw = String(raw || '').trim();
+  if (!raw) return '';
+  var m = raw.match(/[#?&]shared=([^&]+)/i);
+  if (m && m[1]) return m[1];
+  if (/^[A-Za-z0-9\-_]+$/.test(raw)) return raw;
+  return '';
+}
+
+function openSharedLinkPrompt() {
+  var raw = window.prompt('Paste a LipoScope shared Browse link here.\n\nThis will recreate the same Browse Papers curation in this browser. Research Atlas sections will still refresh from PubMed as usual.');
+  if (!raw || !raw.trim()) return;
+  var token = extractSharedTokenFromString(raw);
+  if (!token) {
+    showToast('That did not look like a valid LipoScope shared Browse link.', 'warn');
+    return;
+  }
+  applySharedBrowseFromToken(token, true);
+}
+
+function buildLocalPubMedPaperMap() {
+  var map = {};
+  []
+    .concat(PAPERS || [])
+    .concat(DEFAULT_EXPANDED_PAPERS || [])
+    .concat(expandedPapers || [])
+    .concat(livingAtlasPapers || [])
+    .concat(userPapers || [])
+    .forEach(function(p) {
+      var pm = String(p && p.pmid || '').trim();
+      if (pm && !map[pm]) map[pm] = clonePaperRecord(p);
+    });
+  return map;
+}
+
+async function fetchPubMedSummariesBatch(ids) {
+  if (!ids || !ids.length) return {};
+  var base = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/';
+  var resp = await fetch(base + 'esummary.fcgi?db=pubmed&id=' + ids.join(',') + '&retmode=json');
+  var data = await resp.json();
+  return (data && data.result) || {};
+}
+
+function sharedExpandedPaperFromSummary(r) {
+  var id = String(r && r.uid || '');
+  var doiObj = r && r.articleids ? r.articleids.filter(function(a){return a.idtype === 'doi';})[0] : null;
+  var allAuth = r && r.authors ? r.authors.map(function(a){ return a.name; }).join(', ') : 'N/A';
+  var topic = guessTopic((r && r.title || '') + ' ' + (r && r.fulljournalname || ''));
+  var type = guessType(r && r.title || '');
+  var year = parseInt(String(r && r.pubdate || '').slice(0,4), 10) || currentYear();
+  return {
+    id: 900000000 + (parseInt(id, 10) || 0),
+    pmid: id,
+    title: r && r.title || 'Untitled',
+    authors: allAuth,
+    firstAuthor: allAuth.split(',')[0].trim(),
+    lastAuthor: 'et al.',
+    journal: r && (r.fulljournalname || r.source) || '',
+    year: year,
+    type: type,
+    topic: topic,
+    summary: (r && r.title || 'PubMed-indexed lipoedema/lipedema paper') + '. PubMed-indexed default literature record; open PubMed/DOI for full abstract and details.',
+    aims: '',
+    methods: '',
+    findings: ['PubMed-indexed default literature record. Use Generate Summary or open PubMed/DOI for structured details.'],
+    doi: doiObj ? 'https://doi.org/' + doiObj.value : 'https://pubmed.ncbi.nlm.nih.gov/' + id + '/',
+    color: TOPIC_COLOR_MAP[topic] || '#1e6b6b',
+    defaultExpanded: true
+  };
+}
+
+function sharedUserPaperFromSummary(r, abstractText) {
+  var p = pubMedLivingPaperFromSummary(r, abstractText);
+  p.id = 800000000 + (parseInt(p.pmid, 10) || 0);
+  delete p.livingPubMed;
+  return p;
+}
+
+function assignSharedIdsToInline(list, base) {
+  return (list || []).map(function(p, idx) {
+    var copy = buildShareSafePaper(p);
+    copy.id = base + idx + 1;
+    if (!copy.summary && copy.title) copy.summary = copy.title;
+    if (!Array.isArray(copy.findings)) copy.findings = copy.findings ? [String(copy.findings)] : ['Shared local record imported from a LipoScope Browse link.'];
+    if (!copy.color) copy.color = TOPIC_COLOR_MAP[copy.topic] || '#1e6b6b';
+    return copy;
+  });
+}
+
+async function resolveSharedExpandedPapers(pmids) {
+  var orderedPmids = dedupeStringList(pmids);
+  if (!orderedPmids.length) return cloneDefaultExpandedPapers();
+  var localMap = buildLocalPubMedPaperMap();
+  var missing = [], outMap = {};
+  orderedPmids.forEach(function(pm) {
+    if (localMap[pm]) {
+      var copy = clonePaperRecord(localMap[pm]);
+      copy.id = 900000000 + (parseInt(pm, 10) || 0);
+      copy.defaultExpanded = true;
+      outMap[pm] = copy;
+    } else {
+      missing.push(pm);
+    }
+  });
+  for (var i = 0; i < missing.length; i += 80) {
+    var chunk = missing.slice(i, i + 80);
+    var summaries = await fetchPubMedSummariesBatch(chunk);
+    chunk.forEach(function(pm) {
+      var r = summaries[pm];
+      if (r && r.title) outMap[pm] = sharedExpandedPaperFromSummary(r);
+    });
+  }
+  return orderedPmids.map(function(pm) { return outMap[pm]; }).filter(Boolean);
+}
+
+async function resolveSharedUserPapers(payload) {
+  var userPmids = dedupeStringList(payload && payload.userAddedPmids || []);
+  var localMap = buildLocalPubMedPaperMap();
+  var out = [], missing = [];
+  userPmids.forEach(function(pm) {
+    if (localMap[pm]) {
+      var copy = clonePaperRecord(localMap[pm]);
+      copy.id = 800000000 + (parseInt(pm, 10) || 0);
+      out.push(copy);
+    } else {
+      missing.push(pm);
+    }
+  });
+  for (var i = 0; i < missing.length; i += 50) {
+    var chunk = missing.slice(i, i + 50);
+    var summaries = await fetchPubMedSummariesBatch(chunk);
+    var abstracts = await fetchPubMedAbstractsBatch(chunk);
+    chunk.forEach(function(pm) {
+      var r = summaries[pm];
+      if (r && r.title) out.push(sharedUserPaperFromSummary(r, abstracts[pm] || ''));
+    });
+  }
+  return out.concat(assignSharedIdsToInline(payload && payload.userAddedInline || [], 880000000));
+}
+
+function resolveSharedHiddenIds(hiddenRefs, builtInList) {
+  var ids = [];
+  (hiddenRefs || []).forEach(function(ref) {
+    for (var i = 0; i < builtInList.length; i++) {
+      if (paperMatchesRef(builtInList[i], ref)) {
+        ids.push(builtInList[i].id);
+        break;
+      }
+    }
+  });
+  return ids.filter(function(id, idx) { return ids.indexOf(id) === idx; });
+}
+
+function decodeSharedBrowsePayload(token) {
+  var payload = JSON.parse(base64UrlToUtf8(token));
+  if (!payload || payload.schema !== SHARED_BROWSE_SCHEMA) throw new Error('Unsupported shared workspace format.');
+  return payload;
+}
+
+async function applySharedBrowseFromToken(token, fromPrompt) {
+  try {
+    showToast('Opening shared Browse view...', 'info');
+    var payload = decodeSharedBrowsePayload(token);
+    var expanded = await resolveSharedExpandedPapers(payload.expandedPmids || []);
+    var importedUserPapers = await resolveSharedUserPapers(payload);
+    var builtInList = PAPERS.concat(expanded || []);
+    var sharedProfileId = 'shared_' + sanitizeProfileLabel(payload.workspaceId || generateSharedWorkspaceId()).slice(0, 23);
+    var previousProfileId = localStorage.getItem('lip_profile_id_v1') || null;
+    saveWorkspaceStateForProfile(sharedProfileId, {
+      userPapers: importedUserPapers,
+      hiddenIds: resolveSharedHiddenIds(payload.hiddenBuiltInRefs || [], builtInList),
+      expandedPapers: expanded,
+      defaultDisabled: !!payload.defaultDisabled
+    });
+    setProfileAlias(sharedProfileId, (payload.label || 'Shared Browse View') + ' (Shared)');
+    _profileId = sharedProfileId;
+    _sharedWorkspace = {
+      token: token,
+      label: payload.label || 'Shared Browse View',
+      workspaceId: payload.workspaceId || '',
+      createdAt: payload.createdAt || '',
+      tempProfileId: sharedProfileId,
+      previousProfileId: previousProfileId,
+      dismissed: false
+    };
+    loadStores();
+    refreshWorkspaceView();
+    if (fromPrompt || (window.location.hash || '') !== '#shared=' + token) {
+      history.replaceState(null, '', getAppBaseUrl() + '#shared=' + token);
+    }
+    var browseTab = document.getElementById('nav-browse');
+    if (browseTab) switchTab('browse', browseTab);
+    showToast('Shared Browse view opened. Research Atlas sections still refresh from PubMed.', 'success');
+  } catch(err) {
+    showToast('Could not open that shared Browse link. ' + err.message, 'warn');
+  }
+}
+
+function keepSharedWorkspaceHere() {
+  if (!_sharedWorkspace) return;
+  localStorage.setItem('lip_profile_id_v1', _sharedWorkspace.tempProfileId);
+  setProfileAlias(_sharedWorkspace.tempProfileId, _sharedWorkspace.label || 'Shared Browse View');
+  clearSharedWorkspaceHash();
+  clearSharedWorkspaceState();
+  updateProfileUI();
+  showToast('Shared Browse view kept as your current local workspace in this browser.', 'success');
+}
+
+function saveSharedWorkspaceAsNewProfile() {
+  if (!_sharedWorkspace) return;
+  var suggested = ((_sharedWorkspace.label || 'Shared Browse View') + ' copy').slice(0, 60);
+  var name = window.prompt('Choose a local label for this copied Browse view.\n\nThis saved copy will stay in your browser, while Research Atlas sections continue to refresh from PubMed.', suggested);
+  if (!name || !name.trim()) return;
+  var newId = uniqueProfileId(name);
+  saveWorkspaceStateForProfile(newId, getWorkspaceStateSnapshot());
+  setProfileId(newId, name.trim());
+  clearSharedWorkspaceHash();
+  clearSharedWorkspaceState();
+  loadStores();
+  refreshWorkspaceView();
+  showToast('Shared Browse view saved under your local label "' + name.trim() + '".', 'success');
+}
+
+function restorePreviousWorkspaceFromShared() {
+  if (!_sharedWorkspace) return;
+  var previous = _sharedWorkspace.previousProfileId || null;
+  clearSharedWorkspaceHash();
+  clearSharedWorkspaceState();
+  _profileId = previous;
+  if (previous) localStorage.setItem('lip_profile_id_v1', previous);
+  else localStorage.removeItem('lip_profile_id_v1');
+  loadStores();
+  refreshWorkspaceView();
+  bootstrapDefaultCorpus(false);
+  showToast(previous ? 'Returned to your previous local workspace.' : 'Returned to the default public LipoScope view.', 'success');
+}
+
+function dismissSharedWorkspaceBanner() {
+  if (_sharedWorkspace) _sharedWorkspace.dismissed = true;
+  var el = document.getElementById('shared-workspace-banner');
+  if (el) el.style.display = 'none';
+}
+
+function updateSharedWorkspaceBanner() {
+  var el = document.getElementById('shared-workspace-banner');
+  if (!el) return;
+  if (!_sharedWorkspace) {
+    el.style.display = 'none';
+    el.innerHTML = '';
+    return;
+  }
+  if (_sharedWorkspace.dismissed) {
+    el.style.display = 'none';
+    return;
+  }
+  var created = _sharedWorkspace.createdAt ? new Date(_sharedWorkspace.createdAt) : null;
+  var createdLabel = created && !isNaN(created.getTime()) ? created.toLocaleDateString('en-AU') : 'Today';
+  var visibleCount = getAllPapers().length;
+  var hiddenCount = hiddenIds.length;
+  el.innerHTML =
+    '<div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap">' +
+      '<div>' +
+        '<h3>Shared Browse view opened</h3>' +
+        '<p>This browser is currently showing a shared <strong>Browse Papers</strong> snapshot recreated from a link. You can keep this view here, save it under your own local label, or return to your previous workspace. <strong>Research Atlas</strong>, generated figures, candidate ranking, mechanisms, and gap views still refresh from the live PubMed-aware Atlas.</p>' +
+        '<div class="shared-banner-meta"><span><strong>Workspace:</strong> ' + escHtml(_sharedWorkspace.label || 'Shared Browse View') + '</span><span><strong>Share ID:</strong> ' + escHtml(_sharedWorkspace.workspaceId || 'Shared') + '</span><span><strong>Created:</strong> ' + escHtml(createdLabel) + '</span><span><strong>Visible papers:</strong> ' + visibleCount + '</span><span><strong>Hidden from Browse:</strong> ' + hiddenCount + '</span></div>' +
+      '</div>' +
+      '<button class="shared-banner-btn" onclick="dismissSharedWorkspaceBanner()" style="padding:6px 10px">Hide notice</button>' +
+    '</div>' +
+    '<div class="shared-banner-actions">' +
+      '<button class="shared-banner-btn primary" onclick="keepSharedWorkspaceHere()">Keep This View In This Browser</button>' +
+      '<button class="shared-banner-btn" onclick="saveSharedWorkspaceAsNewProfile()">Save Under My Own Local Label</button>' +
+      '<button class="shared-banner-btn" onclick="restorePreviousWorkspaceFromShared()">Return To My Previous Workspace</button>' +
+      '<button class="shared-banner-btn" onclick="returnToDefaultProfile()">Return To Default Public View</button>' +
+    '</div>';
+  el.style.display = 'block';
+}
+
+function maybeOpenSharedWorkspaceFromHash() {
+  var hash = window.location.hash || '';
+  var m = hash.match(/^#shared=([^&]+)/i);
+  if (m && m[1]) applySharedBrowseFromToken(m[1], false);
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -9517,8 +10097,17 @@ renderPapers(filteredPapers);
 syncUI();
 updateAboutStats();
 updateProfileUI();
+updateSharedWorkspaceBanner();
 renderResourcesPanel();
 updateLivingAtlasStatus(livingAtlasPapers.length ? 'ok' : '', livingAtlasPapers.length ? 'PubMed-wide Atlas ready' : 'PubMed-wide Atlas warming up');
+maybeOpenSharedWorkspaceFromHash();
+window.addEventListener('hashchange', function() {
+  var hash = window.location.hash || '';
+  var match = hash.match(/^#shared=([^&]+)/i);
+  if (match && match[1] && (!_sharedWorkspace || _sharedWorkspace.token !== match[1])) {
+    applySharedBrowseFromToken(match[1], false);
+  }
+});
 setTimeout(function(){ bootstrapDefaultCorpus(false); }, 900);
 setTimeout(function(){ refreshLivingAtlasFromPubMed(false); }, 1500);
 setInterval(function(){ refreshLivingAtlasFromPubMed(false); }, LIVING_ATLAS_TTL);
