@@ -1758,13 +1758,14 @@ select:focus{border-color:var(--rose)}
 
   <!-- ═══ RESOURCES & FIGURES PANEL ═══ -->
   <div class="panel active" id="panel-resources">
-    <div class="tab-guide"><strong>Welcome to LipoScope.</strong> This is an open lipoedema research atlas built to make the literature easier to explore, question, and reuse. You start with 211 curated lipoedema/lipedema papers, then shape the Browse workspace around your own focus: genetics, diagnosis, clinical care, lymphatics, adipose biology, pain, treatment, or any other research angle. You can hide the default corpus and curate from a clean slate, or keep the public corpus and expand it with selected PubMed or Google Scholar records. The Atlas and biology figures stay PubMed-wide, paper figures are only a few clicks away, and the local omics overlay lets you search a target gene or biomarker to see whether it has appeared in the lipoedema literature before.</div>
+    <div class="tab-guide"><strong>Welcome to LipoScope.</strong> This is an open lipoedema research atlas built to make the literature easier to explore, question, and reuse. You start with 211 curated lipoedema/lipedema papers, then shape the Browse workspace around your own focus: genetics, diagnosis, clinical care, lymphatics, adipose biology, pain, treatment, or any other research angle. You can hide the default corpus and curate from a clean slate, keep the public corpus and expand it with selected PubMed or Google Scholar records, or share the exact same <strong>Browse Papers</strong> structure with a colleague by sending a shared link. Local labels stay browser-local; shared links recreate the same Browse snapshot in another browser. The Atlas and biology figures stay PubMed-wide, paper figures are only a few clicks away, and the local omics overlay lets you search a target gene or biomarker to see whether it has appeared in the lipoedema literature before.</div>
     <div class="resource-hero">
       <h2>Welcome to LipoScope</h2>
-      <p>LipoScope brings the lipoedema literature into one practical workspace. You can browse the 211-paper public corpus, filter by topic or study design, open paper summaries and source links, check figures from open-access full text, follow genes and biomarkers through the PubMed-wide Research Atlas, and overlay your own gene or biomarker list locally in the browser. Nothing here requires registration, and your local additions stay on your device.</p>
-      <p>If the default corpus is not the right shape for your project, you can clear it from view and build a focused collection from PubMed, Google Scholar, or your own reading list. That makes the same app useful for a genetics project, a diagnostic review, a clinical service, a treatment-outcome study, or a molecular biology hypothesis.</p>
+      <p>LipoScope brings the lipoedema literature into one practical workspace. You can browse the 211-paper public corpus, filter by topic or study design, open paper summaries and source links, check figures from open-access full text, follow genes and biomarkers through the PubMed-wide Research Atlas, overlay your own gene or biomarker list locally in the browser, and now share the same <strong>Browse Papers</strong> curation with a colleague by sending a link. Nothing here requires registration, and your local additions stay on your device.</p>
+      <p>If the default corpus is not the right shape for your project, you can clear it from view and build a focused collection from PubMed, Google Scholar, or your own reading list. You can also keep your own browser-local label for separate collections on a shared computer, while shared links remain the simple way to let another user open the same curated Browse view. That makes the same app useful for a genetics project, a diagnostic review, a clinical service, a treatment-outcome study, or a molecular biology hypothesis.</p>
       <div class="hero-feature-list">
         <div class="hero-feature"><strong>211-paper public corpus</strong> Start with a broad lipoedema/lipedema literature set, then hide, restore, update, or expand it.</div>
+        <div class="hero-feature"><strong>Shared Browse links</strong> Use Share Current Browse View to recreate the same Browse Papers curation in another browser without import/export or an account.</div>
         <div class="hero-feature"><strong>Paper figures with minimal clicks</strong> Open a paper card and use figure lookup to reach available full-text figures and figure pages.</div>
         <div class="hero-feature"><strong>Gene and biomarker checking</strong> Paste or upload genes, proteins, variants, or biomarkers and see matching lipoedema papers with supporting links.</div>
         <div class="hero-feature"><strong>PubMed-wide research map</strong> Knowledge graph, candidate ranking, mechanisms, gaps, and generated biology figures stay anchored to the full lipoedema evidence layer.</div>
@@ -1966,7 +1967,7 @@ select:focus{border-color:var(--rose)}
         <div class="walkthrough-slide">
           <div class="walkthrough-copy">
             <h3>Use It As A Living Research Workspace</h3>
-            <p>New users can stay in the default public view. Researchers can optionally use local labels, add papers, hide records, export bundles, and return to the default curated view at any time.</p>
+            <p>New users can stay in the default public view. Researchers can optionally use local labels, add papers, hide records, share a curated Browse view by link, save a shared view under a new local label, export bundles, and return to the default curated view at any time.</p>
           </div>
           <div class="walkthrough-frame">
             <div class="walkthrough-mockbar"><span class="walkthrough-dot"></span><span class="walkthrough-dot"></span><span class="walkthrough-dot"></span></div>
@@ -1975,13 +1976,15 @@ select:focus{border-color:var(--rose)}
                 <div class="walk-main">
                   <div class="walk-mini-title">Public GitHub Pages build</div>
                   <div class="walk-card-mini"><strong>No registration</strong><br>opens immediately for readers and reviewers.</div>
-                  <div class="walk-card-mini"><strong>Local profile optional</strong><br>add papers without uploading private notes.</div>
+                  <div class="walk-card-mini"><strong>Local profile optional</strong><br>organize browser-local collections without uploading private notes.</div>
+                  <div class="walk-card-mini"><strong>Shared Browse links</strong><br>send a link so another user opens the same curated Browse structure.</div>
                 </div>
                 <div class="walk-panel-mini">
-                  <div class="walk-mini-title">Export bundle</div>
+                  <div class="walk-mini-title">Share or export</div>
                   <div class="walk-bar"><span style="width:88%"></span></div>
                   <div class="walk-bar"><span style="width:76%"></span></div>
                   <div class="walk-bar"><span style="width:64%"></span></div>
+                  <div class="walk-card-mini"><strong>Atlas stays live:</strong> shared Browse links do not turn off the PubMed-aware Atlas refresh cycle.</div>
                   <div class="walk-card-mini"><strong>Reset:</strong> return to default curated public view anytime.</div>
                 </div>
               </div>
@@ -2086,8 +2089,8 @@ select:focus{border-color:var(--rose)}
 </div><!-- /.main-content -->
 
 <footer class="app-footer">
-  <span><strong>LipoScope</strong> <span id="app-version-label">v1.6.0</span> · Research atlas for lipoedema/lipedema literature, biology maps, and local evidence synthesis</span>
-  <span>Updated <span id="app-updated-label">23 April 2026</span> · Public GitHub Pages build</span>
+  <span><strong>LipoScope</strong> <span id="app-version-label">v1.6.1</span> · Research atlas for lipoedema/lipedema literature, biology maps, and local evidence synthesis</span>
+  <span>Updated <span id="app-updated-label">3 May 2026</span> · Public GitHub Pages build</span>
 </footer>
 <button class="scroll-top-btn" id="scroll-top-btn" onclick="scrollToTop()" title="Back to top" aria-label="Back to top">↑</button>
 
@@ -2127,8 +2130,8 @@ select:focus{border-color:var(--rose)}
 </div>
 
 <script>
-const LIPOSCOPE_VERSION = 'v1.6.0';
-const LIPOSCOPE_UPDATED = '23 April 2026';
+const LIPOSCOPE_VERSION = 'v1.6.1';
+const LIPOSCOPE_UPDATED = '3 May 2026';
 
 const PAPERS = [
   {
