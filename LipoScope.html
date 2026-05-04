@@ -110,6 +110,7 @@ select:focus{border-color:var(--rose)}
 .badge-report{background:#f8f2ff;color:#6a3a98;border:1px solid #d8c4f0}
 .badge-consensus{background:var(--forest-pale);color:var(--forest);border:1px solid #b0d8b8}
 .badge-roadmap{background:#f4f0e4;color:#6a5820;border:1px solid #dcd0a0}
+.badge-local-pdf{background:#f5eefb;color:#6d28d9;border:1px solid #dcccf0}
 .topic-badge{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;border:1px solid}
 .card-title{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--text);margin-bottom:5px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .card-authors{font-size:11.5px;color:var(--text-soft);margin-bottom:3px;font-style:italic;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
@@ -381,6 +382,11 @@ select:focus{border-color:var(--rose)}
     font-size:10px; text-transform:uppercase; letter-spacing:0.06em;
     color:var(--text-soft); margin-top:4px; display:block;
   }
+  .pdf-manager-list { display:flex; flex-direction:column; gap:8px; margin-top:12px; }
+  .pdf-manager-item { display:flex; align-items:center; gap:10px; flex-wrap:wrap; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:9px 12px; }
+  .pdf-manager-item-main { flex:1 1 260px; min-width:0; }
+  .pdf-manager-item-title { font-size:12px; color:var(--text-mid); line-height:1.55; }
+  .pdf-manager-item-meta { font-size:10.5px; color:var(--text-faint); line-height:1.5; margin-top:4px; }
 
   /* ── LIVE TIP update ── */
   @media (max-width:640px) {
@@ -1260,7 +1266,7 @@ select:focus{border-color:var(--rose)}
 
   <!-- ═══ BROWSE PANEL ═══ -->
   <div class="panel" id="panel-browse">
-    <div class="tab-guide"><strong>Browse Papers:</strong> Search and filter the active LipoScope corpus. Paper cards open annotated aims, methods, findings, figure lookup, PubMed/DOI links, and local PDF-based figure preview when you supply a paper PDF in the browser. Your local additions and hidden-paper choices update this view immediately.</div>
+    <div class="tab-guide"><strong>Browse Papers:</strong> Search and filter the active LipoScope corpus. Paper cards open annotated aims, methods, findings, figure lookup, PubMed/DOI links, and local PDF-based figure preview when you supply a paper PDF in the browser. If you turn on device storage, those uploaded PDFs stay attached to the same local workspace on the same device after refresh. Your local additions and hidden-paper choices update this view immediately.</div>
     <div class="controls">
       <div class="search-row">
         <div class="search-wrap">
@@ -1677,7 +1683,7 @@ select:focus{border-color:var(--rose)}
       <div class="about-section">
         <h2>📖 About This Resource</h2>
         <p>This interactive literature database was developed to support research into <strong>lipoedema (lipedema)</strong> — a chronic, painful adipose tissue disorder affecting predominantly women, characterised by bilateral, symmetrical subcutaneous fat deposition in the limbs, accompanied by pain, bruising, and oedema.</p>
-        <p>The public default Browse collection contains <strong>200 lipoedema/lipedema papers</strong> spanning <strong id="about-year-range">2009–2026</strong>, combining a manually curated seed with a PubMed-expanded metadata layer. Each record includes topic and study-type classification, source links, open-access figure lookup where full-text access supports it, and optional local PDF-based figure preview in the browser.</p>
+        <p>The public default Browse collection contains <strong>200 lipoedema/lipedema papers</strong> spanning <strong id="about-year-range">2009–2026</strong>, combining a manually curated seed with a PubMed-expanded metadata layer. Each record includes topic and study-type classification, source links, open-access figure lookup where full-text access supports it, and optional local PDF-based figure preview in the browser. Uploaded PDFs can be kept on the same device for the same local workspace without ever being added to the public paper database or shared link payload.</p>
         <p>The <strong>Analytics</strong> tab separates the live PubMed landscape from your visible Browse workspace. The <strong>Research Atlas</strong>, candidate prioritizer, mechanism explorer, local omics overlay, research gap generator, and evidence-based biology figures use the PubMed-wide lipoedema evidence source, so they are not narrowed by hidden papers or locally added records. The <strong>Live Search</strong> tab lets you query PubMed directly, and papers found can be added to Browse with one click.</p>
       </div>
 
@@ -1722,7 +1728,7 @@ select:focus{border-color:var(--rose)}
       <div class="about-section" style="border-color:var(--teal-light)">
         <h2>👤 Public Mode &amp; Optional Local Profile</h2>
         <p style="font-size:13px;color:var(--text-mid);line-height:1.8;margin-bottom:14px">
-          LipoScope opens immediately in <strong>Public Local Mode</strong>. No registration, login, account, server, or mandatory API key is required. Curated papers, hidden/shown preferences, optional notes, and user-added papers are stored only in your browser. You may optionally set a local profile label to separate browser-local collections on a shared computer. To let a colleague open the same <strong>Browse Papers</strong> curation, use <strong>Share Current Browse View</strong>: LipoScope creates a unique link that recreates that Browse setup in their browser without exporting a file. Local profile labels organize your own browser; they are not the sharing key. Local PDF figure previews are handled separately: they stay only in the current browser session, are not written into the paper database, are not included in share links, and are cleared when you switch to another workspace context. Atlas, candidate, mechanism, omics, gap, and biology-figure sections still use the PubMed-wide evidence layer and continue their automatic refresh cycle.
+          LipoScope opens immediately in <strong>Public Local Mode</strong>. No registration, login, account, server, or mandatory API key is required. Curated papers, hidden/shown preferences, optional notes, and user-added papers are stored only in your browser. You may optionally set a local profile label to separate browser-local collections on a shared computer. To let a colleague open the same <strong>Browse Papers</strong> curation, use <strong>Share Current Browse View</strong>: LipoScope creates a unique link that recreates that Browse setup in their browser without exporting a file. Local profile labels organize your own browser; they are not the sharing key. Local PDF figure previews are handled separately: if you enable device storage, uploaded PDFs stay attached only to the same local workspace on the same device; they are not written into the paper database and are never included in shared links. Atlas, candidate, mechanism, omics, gap, and biology-figure sections still use the PubMed-wide evidence layer and continue their automatic refresh cycle.
         </p>
         <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px">
           <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-soft);margin-bottom:8px">Current Profile</div>
@@ -1738,7 +1744,7 @@ select:focus{border-color:var(--rose)}
             <button onclick="openSharedLinkPrompt()" style="padding:7px 16px;background:var(--surface);color:var(--rose);border:1.5px solid var(--rose-light);border-radius:7px;font-size:12px;font-weight:700;cursor:pointer">↗ Open Shared Browse Link</button>
           </div>
           <div style="font-size:11.5px;color:var(--text-soft);line-height:1.7;margin-top:10px">
-            <strong>How sharing works:</strong> a shared link recreates the same <strong>Browse Papers</strong> structure for another user. It does not require coding, import/export, or an account. The link does not replace the live PubMed-aware Atlas: Research Atlas sections continue to update from PubMed automatically.
+            <strong>How sharing works:</strong> a shared link recreates the same <strong>Browse Papers</strong> structure for another user. It does not require coding, import/export, or an account. The link does not replace the live PubMed-aware Atlas: Research Atlas sections continue to update from PubMed automatically. Local PDFs remain device-local and are never bundled into that share link.
           </div>
         </div>
       </div>
@@ -1758,14 +1764,40 @@ select:focus{border-color:var(--rose)}
             <span class="manage-stat-n" style="color:var(--rose)" id="hidden-count">0</span>
             <span class="manage-stat-l">Hidden</span>
           </div>
+          <div class="manage-stat" style="border-color:#dcccf0">
+            <span class="manage-stat-n" style="color:#6d28d9" id="local-pdf-count">0</span>
+            <span class="manage-stat-l">Local PDFs</span>
+          </div>
         </div>
         <p style="font-size:13px;color:var(--text-mid);line-height:1.7;margin:14px 0 16px">
           Papers you <strong>Hide</strong> are not permanently deleted — they are stored in your browser and can be restored below.
           Papers you <strong>Add</strong> from Live Search are saved locally in your browser across sessions.
+          Uploaded figure PDFs can now be kept on this device for the current local workspace, so figure previews survive refresh and reopen automatically for the same paper.
           Hiding all default literature lets you curate Browse Papers from a clean slate.
           Restoring hidden papers or using <strong>Restore 200 Default Corpus</strong> brings the public default Browse corpus back.
           These controls personalize Browse and visible-corpus Analytics; the PubMed-wide Atlas and evidence-based biology figures continue to use the broader lipoedema evidence layer.
         </p>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin:0 0 14px 0">
+          <div style="display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap">
+            <div style="flex:1 1 320px;min-width:0">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-soft);margin-bottom:6px">Local Figure PDF Library</div>
+              <div style="font-size:12.5px;color:var(--text-mid);line-height:1.72">
+                Keep uploaded figure PDFs on this device for the <strong>current local workspace</strong>. Stored PDFs are browser-local, not uploaded to GitHub, not included in shared Browse links, and can be removed at any time.
+              </div>
+            </div>
+            <label style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--border);border-radius:999px;padding:9px 12px;cursor:pointer">
+              <input type="checkbox" id="persist-local-pdf-toggle" onchange="togglePersistentLocalPdfSetting(this.checked)" style="width:16px;height:16px;accent-color:#6d28d9">
+              <span style="font-size:11.5px;font-weight:700;color:var(--text)">Keep uploaded PDF previews on this device</span>
+            </label>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px">
+            <span class="figure-mode-badge local" id="local-pdf-storage-badge">Local PDF library loading…</span>
+            <span class="figure-mode-badge session" id="local-pdf-scope-badge">Workspace scope loading…</span>
+            <button onclick="clearAllPersistentLocalPdfsForCurrentScope()" class="legato-btn secondary" style="font-size:11.5px;padding:8px 14px">🗑️ Clear Stored PDFs For This Workspace</button>
+          </div>
+          <div id="local-pdf-library-note" style="font-size:11px;color:var(--text-faint);line-height:1.65;margin-top:10px">Loading local PDF library details…</div>
+          <div id="local-pdf-library-list" class="pdf-manager-list"><p style="font-size:12px;color:var(--text-faint);font-style:italic">No local figure PDFs stored for this workspace.</p></div>
+        </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <button onclick="restoreAllHidden()" class="legato-btn" style="font-size:12.5px;padding:9px 18px">
             ♻️ Restore All Hidden Papers
@@ -1914,7 +1946,7 @@ select:focus{border-color:var(--rose)}
         <div class="walkthrough-slide active">
           <div class="walkthrough-copy">
             <h3>Start With The Literature</h3>
-            <p>Browse papers, filter by research topic, open structured annotations, and jump directly to PubMed, DOI, or figure lookup.</p>
+            <p>Browse papers, filter by research topic, open structured annotations, and jump directly to PubMed, DOI, figure lookup, or a device-local PDF preview for the same paper.</p>
           </div>
           <div class="walkthrough-frame">
             <div class="walkthrough-mockbar"><span class="walkthrough-dot"></span><span class="walkthrough-dot"></span><span class="walkthrough-dot"></span></div>
@@ -1929,9 +1961,10 @@ select:focus{border-color:var(--rose)}
                 <div class="walk-main">
                   <div class="walk-mini-title">Structured paper cards</div>
                   <div class="walk-card-stack">
-                    <div class="walk-card-mini"><strong>Open paper</strong><br>aims · methods · findings · figures</div>
-                    <div class="walk-card-mini"><strong>Trace provenance</strong><br>PubMed · DOI · Scholar · citations</div>
-                    <div class="walk-card-mini"><strong>Dynamic corpus</strong><br>add, hide, restore, export</div>
+                <div class="walk-card-mini"><strong>Open paper</strong><br>aims · methods · findings · figures</div>
+                <div class="walk-card-mini"><strong>Trace provenance</strong><br>PubMed · DOI · Scholar · citations</div>
+                <div class="walk-card-mini"><strong>Dynamic corpus</strong><br>add, hide, restore, export</div>
+                <div class="walk-card-mini"><strong>Local figure companion</strong><br>keep uploaded PDFs on this device for the same workspace</div>
                   </div>
                 </div>
               </div>
@@ -1996,7 +2029,7 @@ select:focus{border-color:var(--rose)}
               <div class="walk-card-stack">
                 <div class="walk-card-mini"><strong>Question:</strong> Which mechanisms connect lymphatics and pain?</div>
                 <div class="walk-card-mini"><strong>Evidence trail:</strong> ranked papers, structured findings, limits, and clickable provenance.</div>
-                <div class="walk-card-mini"><strong>Figure mode:</strong> open-access figure lookup plus optional local PDF page preview from paper records.</div>
+                <div class="walk-card-mini"><strong>Figure mode:</strong> open-access figure lookup plus optional local PDF page preview that can persist on the same device.</div>
                 <div class="walk-card-mini"><strong>Study mode:</strong> cohort variables, controls, endpoints, and minimum dataset fields.</div>
               </div>
             </div>
@@ -2005,7 +2038,7 @@ select:focus{border-color:var(--rose)}
         <div class="walkthrough-slide">
           <div class="walkthrough-copy">
             <h3>Use It As A Living Research Workspace</h3>
-            <p>New users can stay in the default public view. Researchers can optionally use local labels, add papers, hide records, share a curated Browse view by link, save a shared view under a new local label, export bundles, and return to the default curated view at any time.</p>
+            <p>New users can stay in the default public view. Researchers can optionally use local labels, add papers, hide records, share a curated Browse view by link, save a shared view under a new local label, keep figure PDFs on the same device for the same workspace, export bundles, and return to the default curated view at any time.</p>
           </div>
           <div class="walkthrough-frame">
             <div class="walkthrough-mockbar"><span class="walkthrough-dot"></span><span class="walkthrough-dot"></span><span class="walkthrough-dot"></span></div>
@@ -2023,6 +2056,7 @@ select:focus{border-color:var(--rose)}
                   <div class="walk-bar"><span style="width:76%"></span></div>
                   <div class="walk-bar"><span style="width:64%"></span></div>
                   <div class="walk-card-mini"><strong>Atlas stays live:</strong> shared Browse links do not turn off the PubMed-aware Atlas refresh cycle.</div>
+                  <div class="walk-card-mini"><strong>PDFs stay private:</strong> uploaded figure PDFs remain on each user’s own device and are not passed through shared links.</div>
                   <div class="walk-card-mini"><strong>Reset:</strong> return to default curated public view anytime.</div>
                 </div>
               </div>
@@ -2127,7 +2161,7 @@ select:focus{border-color:var(--rose)}
 </div><!-- /.main-content -->
 
 <footer class="app-footer">
-  <span><strong>LipoScope</strong> <span id="app-version-label">v1.6.4</span> · Research atlas for lipoedema/lipedema literature, biology maps, and local evidence synthesis</span>
+  <span><strong>LipoScope</strong> <span id="app-version-label">v1.7.0</span> · Research atlas for lipoedema/lipedema literature, biology maps, and local evidence synthesis</span>
   <span>Updated <span id="app-updated-label">4 May 2026</span> · Public GitHub Pages build</span>
 </footer>
 <button class="scroll-top-btn" id="scroll-top-btn" onclick="scrollToTop()" title="Back to top" aria-label="Back to top">↑</button>
@@ -2168,7 +2202,7 @@ select:focus{border-color:var(--rose)}
 </div>
 
 <script>
-const LIPOSCOPE_VERSION = 'v1.6.4';
+const LIPOSCOPE_VERSION = 'v1.7.0';
 const LIPOSCOPE_UPDATED = '4 May 2026';
 
 const PAPERS = [
@@ -6575,6 +6609,7 @@ function refreshWorkspaceView() {
   updateAboutStats();
   updateProfileUI();
   updateSharedWorkspaceBanner();
+  refreshLocalFigureLibraryState();
 }
 
 function getAppBaseUrl() {
@@ -6593,8 +6628,8 @@ function clearSharedWorkspaceState() {
 }
 
 function clearSessionFigurePreviewsForWorkspaceChange() {
-  if (!localFigurePdfCount()) return;
-  clearAllLocalFigurePdfState('Local PDF figure previews were cleared because you switched to a different workspace context. Shared links and saved Browse views never include uploaded PDFs.');
+  if (!Object.keys(PAPER_LOCAL_PDF_STORE).length && !Object.keys(PAPER_LOCAL_PDF_PREVIEW_CACHE).length) return;
+  clearAllLocalFigurePdfState('Any open local PDF previews were released because you switched workspace context. PDFs stored on this device stay attached only to their original local workspace and are never included in shared Browse links.');
 }
 
 function buildSharedWorkspaceLabel() {
@@ -6857,7 +6892,7 @@ async function shareCurrentBrowseView() {
       showToast('This shared link is long because it includes non-PubMed local records. It will still work, but shorter links happen when most added papers have PMIDs.', 'info');
     }
     if (localFigurePdfCount()) {
-      showToast('Local PDF figure previews stay only in this browser session and are not included in the shared Browse link.', 'info');
+      showToast('Shared Browse links never include local PDF figure files. Each user keeps or uploads PDFs separately on their own device.', 'info');
     }
   } catch(err) {
     showToast('Could not create a share link for this Browse view.', 'warn');
@@ -7063,24 +7098,30 @@ async function applySharedBrowseFromToken(token, fromPrompt) {
   }
 }
 
-function keepSharedWorkspaceHere() {
+async function keepSharedWorkspaceHere() {
   if (!_sharedWorkspace) return;
+  var fromScope = localFigureScopeKey();
+  var toScope = 'profile:' + (_sharedWorkspace.tempProfileId || '');
   localStorage.setItem('lip_profile_id_v1', _sharedWorkspace.tempProfileId);
   setProfileAlias(_sharedWorkspace.tempProfileId, _sharedWorkspace.label || 'Shared Browse View');
+  await migrateLocalFigureScope(fromScope, toScope);
   clearSharedWorkspaceHash();
   clearSharedWorkspaceState();
-  updateProfileUI();
+  loadStores();
+  refreshWorkspaceView();
   showToast('Shared Browse view kept as your current local workspace in this browser.', 'success');
 }
 
-function saveSharedWorkspaceAsNewProfile() {
+async function saveSharedWorkspaceAsNewProfile() {
   if (!_sharedWorkspace) return;
   var suggested = ((_sharedWorkspace.label || 'Shared Browse View') + ' copy').slice(0, 60);
   var name = window.prompt('Choose a local label for this copied Browse view.\n\nThis saved copy will stay in your browser, while Research Atlas sections continue to refresh from PubMed.', suggested);
   if (!name || !name.trim()) return;
+  var fromScope = localFigureScopeKey();
   var newId = uniqueProfileId(name);
   saveWorkspaceStateForProfile(newId, getWorkspaceStateSnapshot());
   setProfileId(newId, name.trim());
+  await migrateLocalFigureScope(fromScope, 'profile:' + newId);
   clearSharedWorkspaceHash();
   clearSharedWorkspaceState();
   loadStores();
@@ -7129,7 +7170,7 @@ function updateSharedWorkspaceBanner() {
     '<div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap">' +
       '<div>' +
         '<h3>Shared Browse view opened</h3>' +
-        '<p>This browser is currently showing a shared <strong>Browse Papers</strong> snapshot recreated from a link. You can keep this view here, save it under your own local label, or return to your previous workspace. <strong>Research Atlas</strong>, generated figures, candidate ranking, mechanisms, and gap views still refresh from the live PubMed-aware Atlas. Local PDF figure previews are not part of the shared link and must be uploaded separately by each user if needed.</p>' +
+        '<p>This browser is currently showing a shared <strong>Browse Papers</strong> snapshot recreated from a link. You can keep this view here, save it under your own local label, or return to your previous workspace. <strong>Research Atlas</strong>, generated figures, candidate ranking, mechanisms, and gap views still refresh from the live PubMed-aware Atlas. Local PDF figure previews are device-local only: they are never packed into the shared link, so each user keeps or uploads PDFs separately on their own device.</p>' +
         '<div class="shared-banner-meta"><span><strong>Workspace:</strong> ' + escHtml(_sharedWorkspace.label || 'Shared Browse View') + '</span><span><strong>Share ID:</strong> ' + escHtml(_sharedWorkspace.workspaceId || 'Shared') + '</span><span><strong>Created:</strong> ' + escHtml(createdLabel) + '</span><span><strong>Visible papers:</strong> ' + visibleCount + '</span><span><strong>Hidden from Browse:</strong> ' + hiddenCount + '</span></div>' +
       '</div>' +
       '<button class="shared-banner-btn" onclick="dismissSharedWorkspaceBanner()" style="padding:6px 10px">Hide notice</button>' +
@@ -7192,6 +7233,7 @@ function syncUI() {
   updateFilterDropdowns(all);
 
   updateAboutStats();
+  updateLocalFigureLibraryUI();
   renderHiddenPapersList();
 }
 
@@ -7310,6 +7352,7 @@ function renderPapers(papers) {
     html += '<span class="badge ' + tc2 + '">' + p.type + '</span>';
     html += '<span class="topic-badge" style="background:' + tc.bg + ';color:' + tc.text + ';border-color:' + tc.border + '">' + p.topic + '</span>';
     if (isUser) html += '<span class="user-added-badge">📥 Added</span>';
+    if (hasStoredLocalFigurePdfForPaper(p)) html += '<span class="badge badge-local-pdf">📄 PDF</span>';
     html += '</div>';
     html += '<div class="card-title">' + (p.title || '') + '</div>';
     html += '<div class="card-authors">' + auth + '</div>';
@@ -7636,6 +7679,14 @@ var PAPER_FIGURE_CACHE = {};
 var PAPER_LOCAL_PDF_STORE = {};
 var PAPER_LOCAL_PDF_PREVIEW_CACHE = {};
 var PDFJS_LOADER_PROMISE = null;
+var LOCAL_PDF_DB_NAME = 'LipoScopeLocalFigurePDFs';
+var LOCAL_PDF_DB_VERSION = 1;
+var LOCAL_PDF_STORE_NAME = 'pdfs';
+var LOCAL_PDF_PERSIST_KEY = 'lip_keep_local_pdf_v1';
+var LOCAL_PDF_DB_PROMISE = null;
+var _localFigureManifestScope = '';
+var _localFigureManifest = {};
+var _localFigureManifestStats = { count:0, size:0 };
 
 function jsStringEsc(str) {
   return String(str == null ? '' : str).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
@@ -7673,65 +7724,545 @@ function figureLabelPatterns(label) {
   return out.filter(function(v, i, arr) { return v && arr.indexOf(v) === i; });
 }
 
+function localPdfPersistEnabled() {
+  var raw = localStorage.getItem(LOCAL_PDF_PERSIST_KEY);
+  return raw === null ? true : raw === '1';
+}
+
+function setLocalPdfPersistEnabled(enabled) {
+  localStorage.setItem(LOCAL_PDF_PERSIST_KEY, enabled ? '1' : '0');
+}
+
+function localFigureScopeKey() {
+  if (_sharedWorkspace) return 'shared:' + (_sharedWorkspace.tempProfileId || _sharedWorkspace.workspaceId || 'shared');
+  var pid = getProfileId();
+  return pid ? ('profile:' + pid) : 'default';
+}
+
+function localFigureScopeLabel() {
+  if (_sharedWorkspace) return 'Shared Browse view on this device';
+  var pid = getProfileId();
+  return pid ? ('Local profile "' + displayNameFromProfileId(pid) + '" on this device') : 'Default public local workspace on this device';
+}
+
+function localFigurePaperKey(paper) {
+  if (!paper) return 'paper:unknown';
+  if (paper.pmid) return 'pmid:' + String(paper.pmid).trim();
+  var doi = paperDoiValue(paper);
+  if (doi) return 'doi:' + doi.toLowerCase();
+  return 'title:' + normalizePubMedTitle(paper.title || '');
+}
+
+function localFigureStorageKey(paper, scopeKey) {
+  return (scopeKey || localFigureScopeKey()) + '::' + localFigurePaperKey(paper);
+}
+
+function formatBytes(n) {
+  var num = Number(n || 0);
+  if (!num) return '0 B';
+  var units = ['B','KB','MB','GB'];
+  var idx = 0;
+  while (num >= 1024 && idx < units.length - 1) { num /= 1024; idx++; }
+  return (idx === 0 ? Math.round(num) : num.toFixed(num < 10 ? 1 : 0)) + ' ' + units[idx];
+}
+
+function openLocalFigurePdfDb() {
+  if (LOCAL_PDF_DB_PROMISE) return LOCAL_PDF_DB_PROMISE;
+  LOCAL_PDF_DB_PROMISE = new Promise(function(resolve, reject) {
+    if (!window.indexedDB) {
+      reject(new Error('IndexedDB is not available in this browser.'));
+      return;
+    }
+    var req = indexedDB.open(LOCAL_PDF_DB_NAME, LOCAL_PDF_DB_VERSION);
+    req.onupgradeneeded = function() {
+      var db = req.result;
+      var store = db.objectStoreNames.contains(LOCAL_PDF_STORE_NAME)
+        ? req.transaction.objectStore(LOCAL_PDF_STORE_NAME)
+        : db.createObjectStore(LOCAL_PDF_STORE_NAME, { keyPath:'id' });
+      if (!store.indexNames.contains('scopeKey')) store.createIndex('scopeKey', 'scopeKey', { unique:false });
+      if (!store.indexNames.contains('paperKey')) store.createIndex('paperKey', 'paperKey', { unique:false });
+    };
+    req.onsuccess = function() { resolve(req.result); };
+    req.onerror = function() { reject(req.error || new Error('Could not open the local PDF database.')); };
+  }).catch(function(err) {
+    LOCAL_PDF_DB_PROMISE = null;
+    throw err;
+  });
+  return LOCAL_PDF_DB_PROMISE;
+}
+
+function idbStoreRequest(mode, run) {
+  return openLocalFigurePdfDb().then(function(db) {
+    return new Promise(function(resolve, reject) {
+      var tx = db.transaction(LOCAL_PDF_STORE_NAME, mode);
+      var store = tx.objectStore(LOCAL_PDF_STORE_NAME);
+      run(store, resolve, reject);
+      tx.onerror = function() { reject(tx.error || new Error('IndexedDB transaction failed.')); };
+    });
+  });
+}
+
+function idbGetLocalFigureRecord(id) {
+  return idbStoreRequest('readonly', function(store, resolve, reject) {
+    var req = store.get(id);
+    req.onsuccess = function() { resolve(req.result || null); };
+    req.onerror = function() { reject(req.error || new Error('Could not read local PDF record.')); };
+  });
+}
+
+function idbPutLocalFigureRecord(record) {
+  return idbStoreRequest('readwrite', function(store, resolve, reject) {
+    var req = store.put(record);
+    req.onsuccess = function() { resolve(record); };
+    req.onerror = function() { reject(req.error || new Error('Could not save local PDF record.')); };
+  });
+}
+
+function idbDeleteLocalFigureRecord(id) {
+  return idbStoreRequest('readwrite', function(store, resolve, reject) {
+    var req = store.delete(id);
+    req.onsuccess = function() { resolve(true); };
+    req.onerror = function() { reject(req.error || new Error('Could not delete local PDF record.')); };
+  });
+}
+
+function idbListScopeLocalFigureRecords(scopeKey) {
+  return idbStoreRequest('readonly', function(store, resolve, reject) {
+    var req = store.index('scopeKey').getAll(scopeKey);
+    req.onsuccess = function() { resolve(req.result || []); };
+    req.onerror = function() { reject(req.error || new Error('Could not list local PDF records.')); };
+  });
+}
+
+function idbClearScopeLocalFigureRecords(scopeKey) {
+  return idbListScopeLocalFigureRecords(scopeKey).then(function(records) {
+    return Promise.all(records.map(function(rec) { return idbDeleteLocalFigureRecord(rec.id); }));
+  });
+}
+
+function serializeLocalFigureRecord(entry) {
+  return {
+    id: entry.storageKey,
+    scopeKey: entry.scopeKey,
+    paperKey: entry.paperKey,
+    paperTitle: entry.paperTitle || '',
+    pmid: entry.pmid || '',
+    doi: entry.doi || '',
+    titleNorm: entry.titleNorm || '',
+    fileName: entry.name || 'uploaded-paper.pdf',
+    size: entry.size || 0,
+    updatedAt: entry.updatedAt || Date.now(),
+    blob: entry.blob || null,
+    previewCache: entry.previewCache || null
+  };
+}
+
+function hydrateLocalFigureEntry(record) {
+  if (!record) return null;
+  var blob = record.blob instanceof Blob ? record.blob : (record.blob ? new Blob([record.blob], { type:'application/pdf' }) : null);
+  if (!blob) return null;
+  return {
+    storageKey: record.id,
+    scopeKey: record.scopeKey,
+    paperKey: record.paperKey,
+    paperTitle: record.paperTitle || '',
+    pmid: record.pmid || '',
+    doi: record.doi || '',
+    titleNorm: record.titleNorm || '',
+    name: record.fileName || 'uploaded-paper.pdf',
+    size: record.size || blob.size,
+    updatedAt: record.updatedAt || Date.now(),
+    blob: blob,
+    objectUrl: URL.createObjectURL(blob),
+    previewCache: record.previewCache || null
+  };
+}
+
 function getLocalFigurePdfEntry(paper) {
   if (!paper) return null;
-  return PAPER_LOCAL_PDF_STORE[figureCacheKey(paper)] || null;
+  return PAPER_LOCAL_PDF_STORE[localFigureStorageKey(paper)] || null;
+}
+
+function buildLocalFigureManifestMeta(entry) {
+  if (!entry) return null;
+  return {
+    storageKey: entry.storageKey || entry.id || '',
+    scopeKey: entry.scopeKey || '',
+    paperKey: entry.paperKey || '',
+    paperTitle: entry.paperTitle || '',
+    pmid: entry.pmid || '',
+    doi: entry.doi || '',
+    titleNorm: entry.titleNorm || '',
+    name: entry.name || entry.fileName || 'uploaded-paper.pdf',
+    size: entry.size || 0,
+    updatedAt: entry.updatedAt || Date.now(),
+    persistent: entry.persistent !== false
+  };
+}
+
+function combinedLocalFigureEntriesForScope() {
+  var scopeKey = localFigureScopeKey();
+  var map = {};
+  Object.keys(_localFigureManifest || {}).forEach(function(key) {
+    var meta = _localFigureManifest[key];
+    if (meta && meta.scopeKey === scopeKey) map[key] = Object.assign({}, meta);
+  });
+  Object.keys(PAPER_LOCAL_PDF_STORE).forEach(function(key) {
+    var entry = PAPER_LOCAL_PDF_STORE[key];
+    if (entry && entry.scopeKey === scopeKey) map[key] = entry;
+  });
+  return Object.keys(map).map(function(key) { return map[key]; }).sort(function(a, b) {
+    return (b.updatedAt || 0) - (a.updatedAt || 0);
+  });
+}
+
+function hasStoredLocalFigurePdfForPaper(paper) {
+  if (!paper) return false;
+  var key = localFigureStorageKey(paper);
+  return !!(PAPER_LOCAL_PDF_STORE[key] || (_localFigureManifest && _localFigureManifest[key]));
 }
 
 function localFigurePdfCount() {
-  return Object.keys(PAPER_LOCAL_PDF_STORE).length;
+  return combinedLocalFigureEntriesForScope().length;
 }
 
-function clearLocalFigurePreviewCache(paper) {
-  var prefix = figureCacheKey(paper) + ':localpdf:';
+function revokeLocalFigureEntry(entry) {
+  if (entry && entry.objectUrl) {
+    try { URL.revokeObjectURL(entry.objectUrl); } catch(e) {}
+  }
+}
+
+function clearLocalFigurePreviewCacheByStorageKey(storageKey) {
+  var prefix = String(storageKey || '') + ':localpdf:';
   Object.keys(PAPER_LOCAL_PDF_PREVIEW_CACHE).forEach(function(key) {
     if (key.indexOf(prefix) === 0) delete PAPER_LOCAL_PDF_PREVIEW_CACHE[key];
   });
 }
 
-function rememberLocalFigurePdf(paper, file, buffer) {
-  if (!paper || !buffer) return null;
-  var key = figureCacheKey(paper);
-  var prev = PAPER_LOCAL_PDF_STORE[key];
-  if (prev && prev.objectUrl) {
-    try { URL.revokeObjectURL(prev.objectUrl); } catch(e) {}
+function setLocalFigureManifestRecords(records, scopeKey) {
+  _localFigureManifestScope = scopeKey || localFigureScopeKey();
+  _localFigureManifest = {};
+  (records || []).forEach(function(record) {
+    var meta = buildLocalFigureManifestMeta(record);
+    if (meta && meta.storageKey) _localFigureManifest[meta.storageKey] = meta;
+  });
+  _localFigureManifestStats = {
+    count: Object.keys(_localFigureManifest).length,
+    size: Object.keys(_localFigureManifest).reduce(function(sum, key) {
+      return sum + Number((_localFigureManifest[key] && _localFigureManifest[key].size) || 0);
+    }, 0)
+  };
+}
+
+function upsertLocalFigureManifestEntry(entry) {
+  var meta = buildLocalFigureManifestMeta(entry);
+  if (!meta || !meta.storageKey) return;
+  if (!_localFigureManifest || _localFigureManifestScope !== meta.scopeKey) {
+    _localFigureManifest = {};
+    _localFigureManifestScope = meta.scopeKey;
   }
+  _localFigureManifest[meta.storageKey] = meta;
+  _localFigureManifestStats = {
+    count: Object.keys(_localFigureManifest).length,
+    size: Object.keys(_localFigureManifest).reduce(function(sum, key) {
+      return sum + Number((_localFigureManifest[key] && _localFigureManifest[key].size) || 0);
+    }, 0)
+  };
+}
+
+function removeLocalFigureManifestEntry(storageKey) {
+  if (_localFigureManifest && _localFigureManifest[storageKey]) delete _localFigureManifest[storageKey];
+  _localFigureManifestStats = {
+    count: Object.keys(_localFigureManifest || {}).length,
+    size: Object.keys(_localFigureManifest || {}).reduce(function(sum, key) {
+      return sum + Number((_localFigureManifest[key] && _localFigureManifest[key].size) || 0);
+    }, 0)
+  };
+}
+
+function clearLocalFigurePreviewCache(paper, storageKey) {
+  var prefix = (storageKey || localFigureStorageKey(paper)) + ':localpdf:';
+  Object.keys(PAPER_LOCAL_PDF_PREVIEW_CACHE).forEach(function(key) {
+    if (key.indexOf(prefix) === 0) delete PAPER_LOCAL_PDF_PREVIEW_CACHE[key];
+  });
+}
+
+function updateLocalFigureLibraryUI() {
+  var persistToggle = document.getElementById('persist-local-pdf-toggle');
+  var storageBadge = document.getElementById('local-pdf-storage-badge');
+  var scopeBadge = document.getElementById('local-pdf-scope-badge');
+  var noteEl = document.getElementById('local-pdf-library-note');
+  var listEl = document.getElementById('local-pdf-library-list');
+  var countEl = document.getElementById('local-pdf-count');
+  var entries = combinedLocalFigureEntriesForScope();
+  if (persistToggle) persistToggle.checked = localPdfPersistEnabled();
+  if (countEl) countEl.textContent = String(entries.length);
+  if (storageBadge) {
+    if (!window.indexedDB) storageBadge.textContent = 'IndexedDB unavailable — session-only fallback';
+    else if (localPdfPersistEnabled()) storageBadge.textContent = 'Auto-keep on this device is enabled';
+    else storageBadge.textContent = 'Session-only mode for new uploads';
+  }
+  if (scopeBadge) scopeBadge.textContent = localFigureScopeLabel();
+  if (noteEl) {
+    var base = localPdfPersistEnabled()
+      ? 'When you upload a paper PDF, LipoScope can keep it on this device for this local workspace so figure previews survive refresh. Stored PDFs are never written into the paper database or shared Browse links.'
+      : 'New uploaded PDFs stay only in this browser session until you turn device storage back on. Shared Browse links still never include PDFs.';
+    var extra = entries.length
+      ? (' This workspace currently has ' + entries.length + ' local PDF' + (entries.length === 1 ? '' : 's') + ' using about ' + formatBytes(entries.reduce(function(sum, item) { return sum + Number(item.size || 0); }, 0)) + '.')
+      : ' No local PDFs are stored for this workspace yet.';
+    noteEl.textContent = base + extra;
+  }
+  if (!listEl) return;
+  if (!entries.length) {
+    listEl.innerHTML = '<p style="font-size:12px;color:var(--text-faint);font-style:italic">No local figure PDFs stored for this workspace.</p>';
+    return;
+  }
+  listEl.innerHTML = entries.map(function(entry) {
+    var updated = entry.updatedAt ? new Date(entry.updatedAt).toLocaleString('en-AU') : 'Recently';
+    var persistentBadge = entry.persistent === false
+      ? '<span class="figure-mode-badge session">Session-only</span>'
+      : '<span class="figure-mode-badge local">Stored on this device</span>';
+    return '<div class="pdf-manager-item">' +
+      '<div class="pdf-manager-item-main">' +
+        '<div class="pdf-manager-item-title">' + escHtml(entry.paperTitle || entry.name || 'Local PDF') + '</div>' +
+        '<div class="pdf-manager-item-meta">' + escHtml(entry.name || 'uploaded-paper.pdf') + ' · ' + formatBytes(entry.size || 0) + ' · updated ' + escHtml(updated) + '</div>' +
+      '</div>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;align-items:center">' +
+        persistentBadge +
+        '<button type="button" class="shared-banner-btn" style="padding:6px 10px" onclick="openStoredLocalPdf(\'' + jsStringEsc(entry.storageKey) + '\')">Open PDF</button>' +
+        '<button type="button" class="shared-banner-btn" style="padding:6px 10px" onclick="removeLocalFigurePdfByStorageKey(\'' + jsStringEsc(entry.storageKey) + '\')">Remove</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+async function refreshLocalFigureLibraryState() {
+  var scopeKey = localFigureScopeKey();
+  if (!window.indexedDB) {
+    setLocalFigureManifestRecords([], scopeKey);
+    updateLocalFigureLibraryUI();
+    return [];
+  }
+  try {
+    var records = await idbListScopeLocalFigureRecords(scopeKey);
+    setLocalFigureManifestRecords(records, scopeKey);
+  } catch(err) {
+    setLocalFigureManifestRecords([], scopeKey);
+  }
+  updateLocalFigureLibraryUI();
+  return combinedLocalFigureEntriesForScope();
+}
+
+async function ensureLocalFigurePdfEntry(paper) {
+  if (!paper) return null;
+  var storageKey = localFigureStorageKey(paper);
+  if (PAPER_LOCAL_PDF_STORE[storageKey]) return PAPER_LOCAL_PDF_STORE[storageKey];
+  if (!window.indexedDB) return null;
+  try {
+    var record = await idbGetLocalFigureRecord(storageKey);
+    var hydrated = hydrateLocalFigureEntry(record);
+    if (!hydrated) return null;
+    hydrated.persistent = true;
+    PAPER_LOCAL_PDF_STORE[storageKey] = hydrated;
+    upsertLocalFigureManifestEntry(hydrated);
+    updateLocalFigureLibraryUI();
+    return hydrated;
+  } catch(err) {
+    return null;
+  }
+}
+
+async function writeLocalFigureRecord(entry) {
+  if (!entry || !window.indexedDB) return false;
+  await idbPutLocalFigureRecord(serializeLocalFigureRecord(entry));
+  entry.persistent = true;
+  upsertLocalFigureManifestEntry(entry);
+  updateLocalFigureLibraryUI();
+  return true;
+}
+
+async function rememberLocalFigurePdf(paper, file, buffer) {
+  if (!paper || !buffer) return null;
+  var storageKey = localFigureStorageKey(paper);
+  var prev = PAPER_LOCAL_PDF_STORE[storageKey];
+  revokeLocalFigureEntry(prev);
   var blob = new Blob([buffer], { type:'application/pdf' });
   var entry = {
+    storageKey: storageKey,
+    scopeKey: localFigureScopeKey(),
+    paperKey: localFigurePaperKey(paper),
+    paperTitle: paper.title || '',
+    pmid: paper.pmid ? String(paper.pmid) : '',
+    doi: paperDoiValue(paper),
+    titleNorm: normalizePubMedTitle(paper.title || ''),
     name: file && file.name ? file.name : 'uploaded-paper.pdf',
     size: file && file.size ? file.size : blob.size,
     updatedAt: Date.now(),
-    data: new Uint8Array(buffer),
-    objectUrl: URL.createObjectURL(blob)
+    blob: blob,
+    objectUrl: URL.createObjectURL(blob),
+    previewCache: null,
+    persistent: false
   };
-  PAPER_LOCAL_PDF_STORE[key] = entry;
-  clearLocalFigurePreviewCache(paper);
+  PAPER_LOCAL_PDF_STORE[storageKey] = entry;
+  clearLocalFigurePreviewCache(paper, storageKey);
+  if (localPdfPersistEnabled() && window.indexedDB) {
+    try {
+      await writeLocalFigureRecord(entry);
+    } catch(err) {
+      entry.persistent = false;
+      if (typeof showToast === 'function') showToast('Local PDF preview loaded, but this browser could not save it persistently. It will stay for this session only.', 'warn');
+    }
+  } else if (window.indexedDB) {
+    try { await idbDeleteLocalFigureRecord(storageKey); } catch(e) {}
+    removeLocalFigureManifestEntry(storageKey);
+  }
+  updateLocalFigureLibraryUI();
   return entry;
 }
 
-function removeLocalFigurePdf(paper) {
+async function removeLocalFigurePdf(paper) {
   if (!paper) return;
-  var key = figureCacheKey(paper);
-  var entry = PAPER_LOCAL_PDF_STORE[key];
-  if (entry && entry.objectUrl) {
-    try { URL.revokeObjectURL(entry.objectUrl); } catch(e) {}
+  var storageKey = localFigureStorageKey(paper);
+  revokeLocalFigureEntry(PAPER_LOCAL_PDF_STORE[storageKey]);
+  delete PAPER_LOCAL_PDF_STORE[storageKey];
+  clearLocalFigurePreviewCache(paper, storageKey);
+  removeLocalFigureManifestEntry(storageKey);
+  if (window.indexedDB) {
+    try { await idbDeleteLocalFigureRecord(storageKey); } catch(e) {}
   }
-  delete PAPER_LOCAL_PDF_STORE[key];
-  clearLocalFigurePreviewCache(paper);
+  updateLocalFigureLibraryUI();
 }
 
 function clearAllLocalFigurePdfState(reason) {
   Object.keys(PAPER_LOCAL_PDF_STORE).forEach(function(key) {
-    var entry = PAPER_LOCAL_PDF_STORE[key];
-    if (entry && entry.objectUrl) {
-      try { URL.revokeObjectURL(entry.objectUrl); } catch(e) {}
-    }
+    revokeLocalFigureEntry(PAPER_LOCAL_PDF_STORE[key]);
   });
   PAPER_LOCAL_PDF_STORE = {};
   PAPER_LOCAL_PDF_PREVIEW_CACHE = {};
+  updateLocalFigureLibraryUI();
   if (reason && typeof showToast === 'function') {
     showToast(reason, 'info');
   }
+}
+
+async function togglePersistentLocalPdfSetting(enabled) {
+  setLocalPdfPersistEnabled(!!enabled);
+  if (enabled && window.indexedDB) {
+    var currentEntries = combinedLocalFigureEntriesForScope().filter(function(entry) {
+      return entry && entry.blob && entry.persistent === false;
+    });
+    for (var i = 0; i < currentEntries.length; i++) {
+      try { await writeLocalFigureRecord(currentEntries[i]); } catch(e) {}
+    }
+  }
+  await refreshLocalFigureLibraryState();
+  updateLocalFigureLibraryUI();
+  if (typeof showToast === 'function') {
+    showToast(enabled
+      ? 'New uploaded PDFs will now be kept on this device for the current local workspace.'
+      : 'New uploaded PDFs will stay session-only. Any PDFs already stored on this device remain available until you remove them.',
+    'info');
+  }
+}
+
+async function openStoredLocalPdf(storageKey) {
+  if (!storageKey) return;
+  var entry = PAPER_LOCAL_PDF_STORE[storageKey];
+  if (!entry && window.indexedDB) {
+    try {
+      var record = await idbGetLocalFigureRecord(storageKey);
+      entry = hydrateLocalFigureEntry(record);
+      if (entry) {
+        entry.persistent = true;
+        PAPER_LOCAL_PDF_STORE[storageKey] = entry;
+      }
+    } catch(e) {}
+  }
+  if (!entry || !entry.objectUrl) {
+    if (typeof showToast === 'function') showToast('Could not open that local PDF in this browser.', 'warn');
+    return;
+  }
+  window.open(entry.objectUrl, '_blank', 'noopener');
+}
+
+async function removeLocalFigurePdfByStorageKey(storageKey) {
+  if (!storageKey) return;
+  if (!confirm('Remove this local PDF from this device for the current workspace?')) return;
+  revokeLocalFigureEntry(PAPER_LOCAL_PDF_STORE[storageKey]);
+  delete PAPER_LOCAL_PDF_STORE[storageKey];
+  clearLocalFigurePreviewCacheByStorageKey(storageKey);
+  removeLocalFigureManifestEntry(storageKey);
+  if (window.indexedDB) {
+    try { await idbDeleteLocalFigureRecord(storageKey); } catch(e) {}
+  }
+  updateLocalFigureLibraryUI();
+  var figureContainer = document.getElementById('modal-figures');
+  if (figureContainer && figureContainer.getAttribute('data-paper-id')) {
+    var activePaper = getPaperById(figureContainer.getAttribute('data-paper-id'));
+    if (activePaper && localFigureStorageKey(activePaper) === storageKey) {
+      renderPaperFiguresById(activePaper.id, 'modal-figures', true);
+    }
+  }
+  refreshWorkspaceView();
+  if (typeof showToast === 'function') showToast('Local PDF removed from this device for this workspace.', 'success');
+}
+
+async function clearAllPersistentLocalPdfsForCurrentScope() {
+  var entries = combinedLocalFigureEntriesForScope();
+  if (!entries.length) {
+    if (typeof showToast === 'function') showToast('No local PDFs are stored for this workspace.', 'info');
+    return;
+  }
+  if (!confirm('Remove all local PDFs stored for this workspace on this device?')) return;
+  var scopeKey = localFigureScopeKey();
+  entries.forEach(function(entry) {
+    revokeLocalFigureEntry(PAPER_LOCAL_PDF_STORE[entry.storageKey]);
+    delete PAPER_LOCAL_PDF_STORE[entry.storageKey];
+    clearLocalFigurePreviewCacheByStorageKey(entry.storageKey);
+  });
+  if (window.indexedDB) {
+    try { await idbClearScopeLocalFigureRecords(scopeKey); } catch(e) {}
+  }
+  setLocalFigureManifestRecords([], scopeKey);
+  updateLocalFigureLibraryUI();
+  var figureContainer = document.getElementById('modal-figures');
+  if (figureContainer && figureContainer.getAttribute('data-paper-id')) {
+    renderPaperFiguresById(figureContainer.getAttribute('data-paper-id'), 'modal-figures', true);
+  }
+  refreshWorkspaceView();
+  if (typeof showToast === 'function') showToast('Cleared local PDFs for this workspace on this device.', 'success');
+}
+
+async function migrateLocalFigureScope(fromScopeKey, toScopeKey) {
+  if (!fromScopeKey || !toScopeKey || fromScopeKey === toScopeKey) return;
+  var nextStore = {};
+  Object.keys(PAPER_LOCAL_PDF_STORE).forEach(function(key) {
+    var entry = PAPER_LOCAL_PDF_STORE[key];
+    if (!entry) return;
+    if (entry.scopeKey === fromScopeKey) {
+      clearLocalFigurePreviewCacheByStorageKey(entry.storageKey);
+      entry.scopeKey = toScopeKey;
+      entry.storageKey = toScopeKey + '::' + entry.paperKey;
+      nextStore[entry.storageKey] = entry;
+    } else {
+      nextStore[key] = entry;
+    }
+  });
+  PAPER_LOCAL_PDF_STORE = nextStore;
+  if (window.indexedDB) {
+    try {
+      var records = await idbListScopeLocalFigureRecords(fromScopeKey);
+      for (var i = 0; i < records.length; i++) {
+        var rec = Object.assign({}, records[i]);
+        var oldId = rec.id;
+        rec.scopeKey = toScopeKey;
+        rec.id = toScopeKey + '::' + rec.paperKey;
+        await idbPutLocalFigureRecord(rec);
+        if (oldId !== rec.id) await idbDeleteLocalFigureRecord(oldId);
+      }
+    } catch(e) {}
+  }
+  await refreshLocalFigureLibraryState();
 }
 
 function ensurePdfJsLoaded() {
@@ -7802,9 +8333,9 @@ async function renderPdfPreviewImage(pdf, pageNumber) {
 }
 
 async function buildLocalPdfPreviewData(paper, result) {
-  var entry = getLocalFigurePdfEntry(paper);
+  var entry = await ensureLocalFigurePdfEntry(paper);
   if (!entry) return null;
-  var cacheKey = figureCacheKey(paper) + ':localpdf:' + entry.name + ':' + entry.size + ':' + entry.updatedAt;
+  var cacheKey = entry.storageKey + ':localpdf:' + entry.name + ':' + entry.size + ':' + entry.updatedAt;
   if (PAPER_LOCAL_PDF_PREVIEW_CACHE[cacheKey]) return PAPER_LOCAL_PDF_PREVIEW_CACHE[cacheKey];
 
   var preview = {
@@ -7812,67 +8343,116 @@ async function buildLocalPdfPreviewData(paper, result) {
     objectUrl: entry.objectUrl,
     byFigure: {},
     items: [],
-    note: 'Local PDF previews stay in this browser session only; the PDF is not uploaded to a server.'
+    note: entry.persistent
+      ? 'This PDF is stored only on this device for the current local workspace. It is not uploaded to a server and is never included in shared Browse links.'
+      : 'This PDF is available only in the current browser session. It is not uploaded to a server and is never included in shared Browse links.'
   };
 
   try {
     var pdfjs = await ensurePdfJsLoaded();
-    var pdf = await pdfjs.getDocument({ data:entry.data }).promise;
-    var maxScan = Math.min(pdf.numPages, 24);
-    var pageTexts = [];
-    for (var i = 1; i <= maxScan; i++) {
-      var raw = '';
-      try { raw = await figurePdfPageText(pdf, i); } catch(e) {}
-      pageTexts.push({ pageNumber:i, raw:raw, norm:figureLookupNorm(raw) });
-    }
-
+    var pdfBuffer = await entry.blob.arrayBuffer();
+    var pdf = await pdfjs.getDocument({ data:new Uint8Array(pdfBuffer) }).promise;
     var seenPages = {};
-    if (result && result.figures && result.figures.length) {
-      for (var f = 0; f < result.figures.length; f++) {
-        var fig = result.figures[f];
-        var pageMatch = findFigurePageInPdf(fig, pageTexts);
-        if (!pageMatch) continue;
-        if (!seenPages[pageMatch.pageNumber]) {
-          seenPages[pageMatch.pageNumber] = await renderPdfPreviewImage(pdf, pageMatch.pageNumber);
+    if (entry.previewCache && Array.isArray(entry.previewCache.items) && entry.previewCache.items.length) {
+      preview.note = entry.previewCache.note || preview.note;
+      for (var ci = 0; ci < entry.previewCache.items.length; ci++) {
+        var cached = entry.previewCache.items[ci];
+        if (!seenPages[cached.pageNumber]) {
+          seenPages[cached.pageNumber] = await renderPdfPreviewImage(pdf, cached.pageNumber);
         }
-        var item = {
-          key: fig.id || fig.label || ('page-' + pageMatch.pageNumber),
-          pageNumber: pageMatch.pageNumber,
-          label: fig.label || ('Figure ' + (f + 1)),
-          caption: fig.caption || '',
-          previewUrl: seenPages[pageMatch.pageNumber],
-          matchMode: 'exact',
-          reason: 'Matched on uploaded PDF page ' + pageMatch.pageNumber + ' using the figure label or caption.'
+        var cachedItem = {
+          key: cached.key,
+          pageNumber: cached.pageNumber,
+          label: cached.label,
+          caption: cached.caption,
+          previewUrl: seenPages[cached.pageNumber],
+          matchMode: cached.matchMode || 'exact',
+          reason: cached.reason || ('Matched on uploaded PDF page ' + cached.pageNumber + '.')
         };
-        preview.items.push(item);
-        if (fig.id) preview.byFigure[fig.id] = item;
-        if (fig.label) preview.byFigure[fig.label] = item;
+        preview.items.push(cachedItem);
+        if (cached.figureId) preview.byFigure[cached.figureId] = cachedItem;
+        if (cached.figureLabel) preview.byFigure[cached.figureLabel] = cachedItem;
       }
-    }
+    } else {
+      var maxScan = Math.min(pdf.numPages, 24);
+      var pageTexts = [];
+      for (var i = 1; i <= maxScan; i++) {
+        var raw = '';
+        try { raw = await figurePdfPageText(pdf, i); } catch(e) {}
+        pageTexts.push({ pageNumber:i, raw:raw, norm:figureLookupNorm(raw) });
+      }
 
-    if (!preview.items.length) {
-      var fallbackPages = pageTexts.filter(function(page) {
-        return /\bfigure\b|\bfig\b/.test(page.norm);
-      }).slice(0, 6);
-      for (var fp = 0; fp < fallbackPages.length; fp++) {
-        var pageInfo = fallbackPages[fp];
-        if (!seenPages[pageInfo.pageNumber]) {
-          seenPages[pageInfo.pageNumber] = await renderPdfPreviewImage(pdf, pageInfo.pageNumber);
+      if (result && result.figures && result.figures.length) {
+        for (var f = 0; f < result.figures.length; f++) {
+          var fig = result.figures[f];
+          var pageMatch = findFigurePageInPdf(fig, pageTexts);
+          if (!pageMatch) continue;
+          if (!seenPages[pageMatch.pageNumber]) {
+            seenPages[pageMatch.pageNumber] = await renderPdfPreviewImage(pdf, pageMatch.pageNumber);
+          }
+          var item = {
+            key: fig.id || fig.label || ('page-' + pageMatch.pageNumber),
+            pageNumber: pageMatch.pageNumber,
+            label: fig.label || ('Figure ' + (f + 1)),
+            caption: fig.caption || '',
+            previewUrl: seenPages[pageMatch.pageNumber],
+            matchMode: 'exact',
+            reason: 'Matched on uploaded PDF page ' + pageMatch.pageNumber + ' using the figure label or caption.',
+            figureId: fig.id || '',
+            figureLabel: fig.label || ''
+          };
+          preview.items.push(item);
+          if (fig.id) preview.byFigure[fig.id] = item;
+          if (fig.label) preview.byFigure[fig.label] = item;
         }
-        preview.items.push({
-          key: 'pdf-page-' + pageInfo.pageNumber,
-          pageNumber: pageInfo.pageNumber,
-          label: 'Likely figure page ' + pageInfo.pageNumber,
-          caption: figurePdfExcerpt(pageInfo.raw) || 'The uploaded PDF contains figure-related text on this page.',
-          previewUrl: seenPages[pageInfo.pageNumber],
-          matchMode: 'likely',
-          reason: 'Detected figure-related text on the uploaded PDF page.'
-        });
+      }
+
+      if (!preview.items.length) {
+        var fallbackPages = pageTexts.filter(function(page) {
+          return /\bfigure\b|\bfig\b/.test(page.norm);
+        }).slice(0, 6);
+        for (var fp = 0; fp < fallbackPages.length; fp++) {
+          var pageInfo = fallbackPages[fp];
+          if (!seenPages[pageInfo.pageNumber]) {
+            seenPages[pageInfo.pageNumber] = await renderPdfPreviewImage(pdf, pageInfo.pageNumber);
+          }
+          preview.items.push({
+            key: 'pdf-page-' + pageInfo.pageNumber,
+            pageNumber: pageInfo.pageNumber,
+            label: 'Likely figure page ' + pageInfo.pageNumber,
+            caption: figurePdfExcerpt(pageInfo.raw) || 'The uploaded PDF contains figure-related text on this page.',
+            previewUrl: seenPages[pageInfo.pageNumber],
+            matchMode: 'likely',
+            reason: 'Detected figure-related text on the uploaded PDF page.',
+            figureId: '',
+            figureLabel: ''
+          });
+        }
       }
     }
 
     if (!preview.items.length) {
       preview.note = 'A PDF was uploaded locally, but LipoScope could not identify likely figure pages from the extractable PDF text. You can still open the uploaded PDF and use the figure source links.';
+    } else {
+      entry.previewCache = {
+        note: preview.note,
+        updatedAt: Date.now(),
+        items: preview.items.map(function(item) {
+          return {
+            key: item.key,
+            pageNumber: item.pageNumber,
+            label: item.label,
+            caption: item.caption,
+            matchMode: item.matchMode,
+            reason: item.reason,
+            figureId: item.figureId || '',
+            figureLabel: item.figureLabel || ''
+          };
+        })
+      };
+      if (entry.persistent && window.indexedDB) {
+        try { await writeLocalFigureRecord(entry); } catch(e) {}
+      }
     }
   } catch(err) {
     preview.error = err.message || 'Local PDF preview failed.';
@@ -7900,9 +8480,15 @@ async function handleLocalFigurePdfUpload(evt, paperId, containerId) {
   }
   try {
     var buffer = await file.arrayBuffer();
-    rememberLocalFigurePdf(paper, file, buffer);
+    await rememberLocalFigurePdf(paper, file, buffer);
     await renderPaperFiguresById(paperId, containerId, true);
-    if (typeof showToast === 'function') showToast('📄 Local PDF preview loaded for ' + (paper.firstAuthor || 'this paper') + '. Uploading another PDF for the same paper will replace this preview in the current browser session.', 'success');
+    refreshWorkspaceView();
+    if (typeof showToast === 'function') {
+      showToast(localPdfPersistEnabled()
+        ? '📄 Local PDF preview loaded for ' + (paper.firstAuthor || 'this paper') + ' and kept on this device for this workspace. Uploading another PDF for the same paper will replace the stored preview.'
+        : '📄 Local PDF preview loaded for ' + (paper.firstAuthor || 'this paper') + ' for this session only. Turn on device storage if you want it to survive refresh.',
+      'success');
+    }
   } catch(err) {
     if (container) {
       container.innerHTML = '<div class="figure-toolbar"><div class="figure-status">Local PDF preview failed: ' + escHtml(err.message || 'Unknown error') + '</div></div>';
@@ -7912,10 +8498,11 @@ async function handleLocalFigurePdfUpload(evt, paperId, containerId) {
   if (input) input.value = '';
 }
 
-function clearLocalFigurePdf(paperId, containerId) {
+async function clearLocalFigurePdf(paperId, containerId) {
   var paper = getPaperById(paperId);
   if (!paper) return;
-  removeLocalFigurePdf(paper);
+  await removeLocalFigurePdf(paper);
+  refreshWorkspaceView();
   renderPaperFiguresById(paperId, containerId || 'modal-figures', true);
   if (typeof showToast === 'function') showToast('Local PDF preview cleared.', 'info');
 }
@@ -8130,7 +8717,7 @@ function renderFigureResult(result, paper, containerId, pdfPreview) {
     html += '<div class="figure-mode-row">';
     if (result.figures.length) html += '<span class="figure-mode-badge open">Open-access XML parsed</span>';
     if (localPdf) html += '<span class="figure-mode-badge local">Local PDF loaded: ' + escHtml(localPdf.name) + '</span>';
-    if (localPdf) html += '<span class="figure-mode-badge session">Stays only in this browser session</span>';
+    if (localPdf) html += '<span class="figure-mode-badge session">' + (localPdf.persistent ? 'Stored on this device for this workspace' : 'Session-only until page close/refresh') + '</span>';
     if (localPdf) html += '<span class="figure-mode-badge caption">Not included in shared Browse links</span>';
     html += '</div>';
   }
@@ -8196,7 +8783,9 @@ function renderFigureResult(result, paper, containerId, pdfPreview) {
     html += '<div class="figure-session-note">' + escHtml(pdfPreview.note) + '</div>';
   }
   if (localPdf) {
-    html += '<div class="figure-session-note">Local PDF previews are tied to this browser session only. They are not written into the Browse paper database, they are not embedded in shared Browse links, and they are cleared when you switch to another local workspace or open a different shared Browse view.</div>';
+    html += '<div class="figure-session-note">' + (localPdf.persistent
+      ? 'This PDF is stored only on this device for the current local workspace. It is not written into the Browse paper database, not embedded in shared Browse links, and other users opening the public app will not receive it unless they upload their own copy.'
+      : 'This PDF is available only in the current browser session. It is not written into the Browse paper database, not embedded in shared Browse links, and other users opening the public app will not receive it unless they upload their own copy.') + '</div>';
   }
   return html;
 }
@@ -10423,6 +11012,7 @@ function showToast(msg, type) {
 // Public mode opens immediately. A local profile label is optional and never required.
 loadStores();
 loadLivingAtlasStore();
+refreshLocalFigureLibraryState();
 filteredPapers = getAllPapers().slice();
 renderPapers(filteredPapers);
 syncUI();
