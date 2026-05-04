@@ -1010,6 +1010,23 @@ select:focus{border-color:var(--rose)}
   .biofig-stage-sub { font-size:10.5px; color:var(--text-soft); line-height:1.45; margin-bottom:9px; }
   .biofig-stage-detail { font-size:10.5px; color:var(--text-mid); line-height:1.55; margin-top:9px; overflow-wrap:anywhere; }
   .biofig-study-box { margin-top:13px; background:#fff; border:1px solid #ebe5df; border-radius:10px; padding:12px 14px; font-size:11.5px; color:var(--text-mid); line-height:1.7; overflow-wrap:anywhere; }
+  .biofig-blueprint-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-top:12px; }
+  .biofig-blueprint-card { background:#fff; border:1px solid #ebe5df; border-radius:10px; padding:13px; box-shadow:var(--shadow-sm); min-height:170px; }
+  .biofig-kicker { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-faint); margin-bottom:7px; }
+  .biofig-blueprint-title { font-size:13px; font-weight:800; color:var(--text); line-height:1.4; margin-bottom:6px; overflow-wrap:anywhere; }
+  .biofig-blueprint-text { font-size:11px; color:var(--text-mid); line-height:1.7; overflow-wrap:anywhere; }
+  .biofig-blueprint-meta { font-size:10.5px; color:var(--text-soft); line-height:1.55; margin-top:8px; overflow-wrap:anywhere; }
+  .biofig-chip-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  .biofig-chip-btn { border:1px solid #d7d0c8; background:#fbfaf8; color:var(--text); border-radius:999px; padding:6px 10px; font-size:10.5px; font-weight:800; line-height:1.25; cursor:pointer; }
+  .biofig-chip-btn:hover { border-color:var(--teal-light); background:#fff; color:var(--teal); }
+  .biofig-action-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:11px; }
+  .biofig-study-plan { margin-top:13px; background:#fff; border:1px solid #ebe5df; border-left:6px solid #111827; border-radius:10px; padding:14px; box-shadow:var(--shadow-sm); }
+  .biofig-study-plan h4 { font-size:13px; color:var(--text); margin-bottom:6px; }
+  .biofig-study-plan p { font-size:11.2px; color:var(--text-mid); line-height:1.7; margin-bottom:10px; }
+  .biofig-plan-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; }
+  .biofig-plan-card { background:#fbfaf8; border:1px solid #ebe5df; border-radius:10px; padding:10px 11px; }
+  .biofig-plan-label { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-faint); margin-bottom:6px; }
+  .biofig-plan-value { font-size:11px; color:var(--text-mid); line-height:1.65; overflow-wrap:anywhere; }
   .shared-banner {
     max-width:1440px;
     margin:12px auto 0;
@@ -1607,7 +1624,7 @@ select:focus{border-color:var(--rose)}
 
   <!-- ═══ ABOUT PANEL ═══ -->
   <div class="panel" id="panel-about">
-    <div class="tab-guide"><strong>About:</strong> Review LipoScope’s scope, PubMed-wide Atlas logic, database management tools, and optional local profile controls. New visitors start in Public Local Mode with the 211-paper public corpus, while Atlas-level evidence views remain anchored to the broader lipoedema PubMed layer.</div>
+    <div class="tab-guide"><strong>About:</strong> Review LipoScope’s scope, PubMed-wide Atlas logic, database management tools, and optional local profile controls. New visitors start in Public Local Mode with the 200-paper public corpus, while Atlas-level evidence views remain anchored to the broader lipoedema PubMed layer.</div>
     <div class="about-wrap">
 
       <!-- ── Developer Credit ── -->
@@ -1629,7 +1646,7 @@ select:focus{border-color:var(--rose)}
       <!-- ── Live Database Stats ── -->
       <div class="about-section">
         <h2>📊 Live Database Summary <span style="font-size:11px;font-weight:400;color:var(--text-faint);margin-left:8px">PubMed · lipedema[tiab] OR lipoedema[tiab]</span></h2>
-        <p style="font-size:11.5px;color:var(--text-soft);margin-bottom:14px;line-height:1.7">These counts are retrieved live from PubMed and reflect papers where <strong>lipedema or lipoedema appears in the title or abstract</strong>. The "Curated Papers" count reflects your visible Browse workspace. Atlas-level tools use a separate PubMed-wide evidence source: the 211-record public seed plus an automatically refreshed lipoedema-focused PubMed layer. The PubMed-wide Atlas checks PubMed automatically every <strong>12 hours</strong> while the app is open.</p>
+        <p style="font-size:11.5px;color:var(--text-soft);margin-bottom:14px;line-height:1.7">These counts are retrieved live from PubMed and reflect papers where <strong>lipedema or lipoedema appears in the title or abstract</strong>. The "Curated Papers" count reflects your visible Browse workspace. Atlas-level tools use a separate PubMed-wide evidence source: the 200-record public seed plus an automatically refreshed lipoedema-focused PubMed layer. The PubMed-wide Atlas checks PubMed automatically every <strong>12 hours</strong> while the app is open.</p>
         <div class="about-stat-grid" id="about-stat-grid">
           <!-- Populated by updateAboutStats() -->
         </div>
@@ -1639,7 +1656,7 @@ select:focus{border-color:var(--rose)}
       <div class="about-section">
         <h2>📖 About This Resource</h2>
         <p>This interactive literature database was developed to support research into <strong>lipoedema (lipedema)</strong> — a chronic, painful adipose tissue disorder affecting predominantly women, characterised by bilateral, symmetrical subcutaneous fat deposition in the limbs, accompanied by pain, bruising, and oedema.</p>
-        <p>The public default Browse collection contains <strong>211 lipoedema/lipedema papers</strong> spanning <strong id="about-year-range">2009–2026</strong>, combining a manually curated seed with a PubMed-expanded metadata layer. Each record includes topic and study-type classification, source links, and figure lookup where full-text access supports it.</p>
+        <p>The public default Browse collection contains <strong>200 lipoedema/lipedema papers</strong> spanning <strong id="about-year-range">2009–2026</strong>, combining a manually curated seed with a PubMed-expanded metadata layer. Each record includes topic and study-type classification, source links, and figure lookup where full-text access supports it.</p>
         <p>The <strong>Analytics</strong> tab separates the live PubMed landscape from your visible Browse workspace. The <strong>Research Atlas</strong>, candidate prioritizer, mechanism explorer, local omics overlay, research gap generator, and evidence-based biology figures use the PubMed-wide lipoedema evidence source, so they are not narrowed by hidden papers or locally added records. The <strong>Live Search</strong> tab lets you query PubMed directly, and papers found can be added to Browse with one click.</p>
       </div>
 
@@ -1709,7 +1726,7 @@ select:focus{border-color:var(--rose)}
         <h2>🗂️ Database Management</h2>
         <div class="manage-stats-row">
           <div class="manage-stat">
-            <span class="manage-stat-n" id="about-total-papers">211</span>
+            <span class="manage-stat-n" id="about-total-papers">200</span>
             <span class="manage-stat-l">Visible Papers</span>
           </div>
           <div class="manage-stat" style="border-color:var(--teal-light)">
@@ -1725,7 +1742,7 @@ select:focus{border-color:var(--rose)}
           Papers you <strong>Hide</strong> are not permanently deleted — they are stored in your browser and can be restored below.
           Papers you <strong>Add</strong> from Live Search are saved locally in your browser across sessions.
           Hiding all default literature lets you curate Browse Papers from a clean slate.
-          Restoring hidden papers or using <strong>Restore 211 Default Corpus</strong> brings the public default Browse corpus back.
+          Restoring hidden papers or using <strong>Restore 200 Default Corpus</strong> brings the public default Browse corpus back.
           These controls personalize Browse and visible-corpus Analytics; the PubMed-wide Atlas and evidence-based biology figures continue to use the broader lipoedema evidence layer.
         </p>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
@@ -1742,7 +1759,7 @@ select:focus{border-color:var(--rose)}
             🔄 Update Default Literature
           </button>
           <button onclick="restoreBuiltInDefaultCorpus()" class="legato-btn secondary" style="font-size:12.5px;padding:9px 18px">
-            ↩ Restore 211 Default Corpus
+            ↩ Restore 200 Default Corpus
           </button>
         </div>
 
@@ -1758,13 +1775,13 @@ select:focus{border-color:var(--rose)}
 
   <!-- ═══ RESOURCES & FIGURES PANEL ═══ -->
   <div class="panel active" id="panel-resources">
-    <div class="tab-guide"><strong>Welcome to LipoScope.</strong> This is an open lipoedema research atlas built to make the literature easier to explore, question, and reuse. You start with 211 curated lipoedema/lipedema papers, then shape the Browse workspace around your own focus: genetics, diagnosis, clinical care, lymphatics, adipose biology, pain, treatment, or any other research angle. You can hide the default corpus and curate from a clean slate, keep the public corpus and expand it with selected PubMed or Google Scholar records, or share the exact same <strong>Browse Papers</strong> structure with a colleague by sending a shared link. Local labels stay browser-local; shared links recreate the same Browse snapshot in another browser. The Atlas and biology figures stay PubMed-wide, paper figures are only a few clicks away, and the local omics overlay lets you search a target gene or biomarker to see whether it has appeared in the lipoedema literature before.</div>
+    <div class="tab-guide"><strong>Welcome to LipoScope.</strong> This is an open lipoedema research atlas built to make the literature easier to explore, question, and reuse. You start with 200 curated lipoedema/lipedema papers, then shape the Browse workspace around your own focus: genetics, diagnosis, clinical care, lymphatics, adipose biology, pain, treatment, or any other research angle. You can hide the default corpus and curate from a clean slate, keep the public corpus and expand it with selected PubMed or Google Scholar records, or share the exact same <strong>Browse Papers</strong> structure with a colleague by sending a shared link. Local labels stay browser-local; shared links recreate the same Browse snapshot in another browser. The Atlas and biology figures stay PubMed-wide, paper figures are only a few clicks away, and the local omics overlay lets you search a target gene or biomarker to see whether it has appeared in the lipoedema literature before.</div>
     <div class="resource-hero">
       <h2>Welcome to LipoScope</h2>
-      <p>LipoScope brings the lipoedema literature into one practical workspace. You can browse the 211-paper public corpus, filter by topic or study design, open paper summaries and source links, check figures from open-access full text, follow genes and biomarkers through the PubMed-wide Research Atlas, overlay your own gene or biomarker list locally in the browser, and now share the same <strong>Browse Papers</strong> curation with a colleague by sending a link. Nothing here requires registration, and your local additions stay on your device.</p>
+      <p>LipoScope brings the lipoedema literature into one practical workspace. You can browse the 200-paper public corpus, filter by topic or study design, open paper summaries and source links, check figures from open-access full text, follow genes and biomarkers through the PubMed-wide Research Atlas, overlay your own gene or biomarker list locally in the browser, and now share the same <strong>Browse Papers</strong> curation with a colleague by sending a link. Nothing here requires registration, and your local additions stay on your device.</p>
       <p>If the default corpus is not the right shape for your project, you can clear it from view and build a focused collection from PubMed, Google Scholar, or your own reading list. You can also keep your own browser-local label for separate collections on a shared computer, while shared links remain the simple way to let another user open the same curated Browse view. That makes the same app useful for a genetics project, a diagnostic review, a clinical service, a treatment-outcome study, or a molecular biology hypothesis.</p>
       <div class="hero-feature-list">
-        <div class="hero-feature"><strong>211-paper public corpus</strong> Start with a broad lipoedema/lipedema literature set, then hide, restore, update, or expand it.</div>
+        <div class="hero-feature"><strong>200-paper public corpus</strong> Start with a broad lipoedema/lipedema literature set, then hide, restore, update, or expand it.</div>
         <div class="hero-feature"><strong>Shared Browse links</strong> Use Share Current Browse View to recreate the same Browse Papers curation in another browser without import/export or an account.</div>
         <div class="hero-feature"><strong>Paper figures with minimal clicks</strong> Open a paper card and use figure lookup to reach available full-text figures and figure pages.</div>
         <div class="hero-feature"><strong>Gene and biomarker checking</strong> Paste or upload genes, proteins, variants, or biomarkers and see matching lipoedema papers with supporting links.</div>
@@ -2080,7 +2097,7 @@ select:focus{border-color:var(--rose)}
       <div class="biofig-wrap">
         <div class="biofig-title">Figure 3. Research translation map</div>
         <div id="biofig3-dynamic"></div>
-        <div class="biofig-caption" id="biofig3-caption">This translation map is generated from the PubMed-wide lipoedema evidence source used by the Atlas tools. The counts, top signals, and suggested next-study pattern update after PubMed refresh.</div>
+        <div class="biofig-caption" id="biofig3-caption">This live translation blueprint is generated from the PubMed-wide lipoedema evidence source used by the Atlas tools. It updates the field-stage counts, top domains, leading mechanism, candidate anchors, and gap-driven study route after PubMed refresh.</div>
         <div class="figure-note" id="biofig3-source-note"></div>
       </div>
     </div>
@@ -2089,8 +2106,8 @@ select:focus{border-color:var(--rose)}
 </div><!-- /.main-content -->
 
 <footer class="app-footer">
-  <span><strong>LipoScope</strong> <span id="app-version-label">v1.6.1</span> · Research atlas for lipoedema/lipedema literature, biology maps, and local evidence synthesis</span>
-  <span>Updated <span id="app-updated-label">3 May 2026</span> · Public GitHub Pages build</span>
+  <span><strong>LipoScope</strong> <span id="app-version-label">v1.6.2</span> · Research atlas for lipoedema/lipedema literature, biology maps, and local evidence synthesis</span>
+  <span>Updated <span id="app-updated-label">4 May 2026</span> · Public GitHub Pages build</span>
 </footer>
 <button class="scroll-top-btn" id="scroll-top-btn" onclick="scrollToTop()" title="Back to top" aria-label="Back to top">↑</button>
 
@@ -2130,8 +2147,8 @@ select:focus{border-color:var(--rose)}
 </div>
 
 <script>
-const LIPOSCOPE_VERSION = 'v1.6.1';
-const LIPOSCOPE_UPDATED = '3 May 2026';
+const LIPOSCOPE_VERSION = 'v1.6.2';
+const LIPOSCOPE_UPDATED = '4 May 2026';
 
 const PAPERS = [
   {
@@ -6365,237 +6382,6 @@ const DEFAULT_EXPANDED_PAPERS = [
     "color": "#1e6b6b",
     "defaultExpanded": true
   },
-  {
-    "id": 942047836,
-    "pmid": "42047836",
-    "title": "Comorbidities in lipedema: toward a systemic perspective - a narrative review.",
-    "authors": "Fiengo E, Sbarbati A",
-    "firstAuthor": "Fiengo E",
-    "lastAuthor": "et al.",
-    "journal": "Clinical and experimental medicine",
-    "year": 2026,
-    "type": "Narrative Review",
-    "topic": "Epidemiology & Registry",
-    "summary": "Comorbidities in lipedema: toward a systemic perspective - a narrative review. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
-    "aims": "",
-    "methods": "",
-    "findings": [
-      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
-    ],
-    "doi": "https://doi.org/10.1007/s10238-026-02157-9",
-    "color": "#505050",
-    "defaultExpanded": true
-  },
-  {
-    "id": 942024001,
-    "pmid": "42024001",
-    "title": "Scarless Infragluteal Fixation (SIF): Correction of Post-Liposuction Infragluteal Deformity.",
-    "authors": "Mostofizadeh-Haghighi G, Daneshmand A, Jafari M",
-    "firstAuthor": "Mostofizadeh-Haghighi G",
-    "lastAuthor": "et al.",
-    "journal": "Plastic and reconstructive surgery",
-    "year": 2026,
-    "type": "Original Research",
-    "topic": "Treatment & Surgery",
-    "summary": "Scarless Infragluteal Fixation (SIF): Correction of Post-Liposuction Infragluteal Deformity. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
-    "aims": "",
-    "methods": "",
-    "findings": [
-      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
-    ],
-    "doi": "https://doi.org/10.1097/PRS.0000000000013139",
-    "color": "#2f6a3c",
-    "defaultExpanded": true
-  },
-  {
-    "id": 941523866,
-    "pmid": "41523866",
-    "title": "[Results and limitations in surgery for Lipedema, Lymphedema and Elephantiasis of the lower limbs in a resource-limited country: Democratic Republic of Congo, 2010 to 2025].",
-    "authors": "Kibadi-Kapay A",
-    "firstAuthor": "Kibadi-Kapay A",
-    "lastAuthor": "et al.",
-    "journal": "The Pan African medical journal",
-    "year": 2025,
-    "type": "Original Research",
-    "topic": "Lymphatics & Vasculature",
-    "summary": "[Results and limitations in surgery for Lipedema, Lymphedema and Elephantiasis of the lower limbs in a resource-limited country: Democratic Republic of Congo, 2010 to 2025]. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
-    "aims": "",
-    "methods": "",
-    "findings": [
-      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
-    ],
-    "doi": "https://doi.org/10.11604/pamj.2025.52.88.49056",
-    "color": "#6a5020",
-    "defaultExpanded": true
-  },
-  {
-    "id": 939296611,
-    "pmid": "39296611",
-    "title": "Characteristics and Clinical Features of Patients with Lipedema in Saudi Arabia: A Cross-sectional Comprehensive Assessment.",
-    "authors": "Alosaimi K, Mortada H, Alshomer F",
-    "firstAuthor": "Alosaimi K",
-    "lastAuthor": "et al.",
-    "journal": "Plastic and reconstructive surgery. Global open",
-    "year": 2024,
-    "type": "Original Research",
-    "topic": "Treatment & Surgery",
-    "summary": "Characteristics and Clinical Features of Patients with Lipedema in Saudi Arabia: A Cross-sectional Comprehensive Assessment. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
-    "aims": "",
-    "methods": "",
-    "findings": [
-      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
-    ],
-    "doi": "https://doi.org/10.1097/GOX.0000000000006173",
-    "color": "#2f6a3c",
-    "defaultExpanded": true
-  },
-  {
-    "id": 939292078,
-    "pmid": "39292078",
-    "title": "Lipedema: clinical characteristics, complications, and the importance of evidence-based practice.",
-    "authors": "Paula ACP, Oliveira J",
-    "firstAuthor": "Paula ACP",
-    "lastAuthor": "et al.",
-    "journal": "Revista da Associacao Medica Brasileira (1992)",
-    "year": 2024,
-    "type": "Original Research",
-    "topic": "Pathophysiology",
-    "summary": "Lipedema: clinical characteristics, complications, and the importance of evidence-based practice. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
-    "aims": "",
-    "methods": "",
-    "findings": [
-      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
-    ],
-    "doi": "https://doi.org/10.1590/1806-9282.20240801",
-    "color": "#1e6b6b",
-    "defaultExpanded": true
-  },
-  {
-    "id": 939188170,
-    "pmid": "39188170",
-    "title": "S2k guideline lipedema.",
-    "authors": "Faerber G, Rapprich S, Bertsch T, Sattler G, Cornely M, Augustin M, Reich-Schupke S, Harmanec D, Pilz L, Ghods M, Fink J, Schmeller W, Dadras M, Reichrath J, Krause K",
-    "firstAuthor": "Faerber G",
-    "lastAuthor": "et al.",
-    "journal": "Journal der Deutschen Dermatologischen Gesellschaft = Journal of the German Society of Dermatology : JDDG",
-    "year": 2024,
-    "type": "Guidelines",
-    "topic": "Guidelines & Consensus",
-    "summary": "S2k guideline lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
-    "aims": "",
-    "methods": "",
-    "findings": [
-      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
-    ],
-    "doi": "https://doi.org/10.1111/ddg.15513",
-    "color": "#6a3a98",
-    "defaultExpanded": true
-  },
-  {
-    "id": 939173577,
-    "pmid": "39173577",
-    "title": "Comparing the safety and effectiveness of different liposuction techniques for lipedema.",
-    "authors": "Fijany AJ, Gould DJ, Lau FH, Ejikeme U, Chan LS, Borud L",
-    "firstAuthor": "Fijany AJ",
-    "lastAuthor": "et al.",
-    "journal": "Journal of plastic, reconstructive & aesthetic surgery : JPRAS",
-    "year": 2024,
-    "type": "Original Research",
-    "topic": "Treatment & Surgery",
-    "summary": "Comparing the safety and effectiveness of different liposuction techniques for lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
-    "aims": "",
-    "methods": "",
-    "findings": [
-      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
-    ],
-    "doi": "https://doi.org/10.1016/j.bjps.2024.07.038",
-    "color": "#2f6a3c",
-    "defaultExpanded": true
-  },
-  {
-    "id": 939161914,
-    "pmid": "39161914",
-    "title": "A retrospective comparative study of patient-reported outcome measures, pre-treatment and twelve months post-treatment using tumescent liposuction for the management of lower limb lipoedema.",
-    "authors": "Malcolm L",
-    "firstAuthor": "Malcolm L",
-    "lastAuthor": "et al.",
-    "journal": "JPRAS open",
-    "year": 2024,
-    "type": "Original Research",
-    "topic": "Treatment & Surgery",
-    "summary": "A retrospective comparative study of patient-reported outcome measures, pre-treatment and twelve months post-treatment using tumescent liposuction for the management of lower limb lipoedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
-    "aims": "",
-    "methods": "",
-    "findings": [
-      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
-    ],
-    "doi": "https://doi.org/10.1016/j.jpra.2024.05.007",
-    "color": "#2f6a3c",
-    "defaultExpanded": true
-  },
-  {
-    "id": 939108357,
-    "pmid": "39108357",
-    "title": "Standardization of body composition parameters between GE Lunar iDXA and Hologic Horizon A and their clinical impact.",
-    "authors": "Vendrami C, Lambe J, Pettersen C, Grigoriadis D, Davies JH, Brice G, Hoggard N, Agne-Djigo A, McCarthy C, Gunatilake S, Johnson G, Riches K",
-    "firstAuthor": "Vendrami C",
-    "lastAuthor": "et al.",
-    "journal": "JBMR plus",
-    "year": 2024,
-    "type": "Original Research",
-    "topic": "Pathophysiology",
-    "summary": "Standardization of body composition parameters between GE Lunar iDXA and Hologic Horizon A and their clinical impact. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
-    "aims": "",
-    "methods": "",
-    "findings": [
-      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
-    ],
-    "doi": "https://doi.org/10.1093/jbmrpl/ziae088",
-    "color": "#1e6b6b",
-    "defaultExpanded": true
-  },
-  {
-    "id": 939063608,
-    "pmid": "39063608",
-    "title": "Micromassage Compression Leggings Associated with Physical Exercise: Pilot Study and Example of Evaluation of the Clinical and Instrumental Effectiveness of Conservative Treatment in Lipedema.",
-    "authors": "Ricolfi L, Galluzzo M, Bordoni B, Giannetti S, Giordano M, Fagiolo U, Marinelli C, Ruggiero M, Gnessi L",
-    "firstAuthor": "Ricolfi L",
-    "lastAuthor": "et al.",
-    "journal": "Life (Basel, Switzerland)",
-    "year": 2024,
-    "type": "Original Research",
-    "topic": "Treatment & Surgery",
-    "summary": "Micromassage Compression Leggings Associated with Physical Exercise: Pilot Study and Example of Evaluation of the Clinical and Instrumental Effectiveness of Conservative Treatment in Lipedema. PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
-    "aims": "",
-    "methods": "",
-    "findings": [
-      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
-    ],
-    "doi": "https://doi.org/10.3390/life14070854",
-    "color": "#2f6a3c",
-    "defaultExpanded": true
-  },
-  {
-    "id": 938958868,
-    "pmid": "38958868",
-    "title": "The Role of Physical Exercise as a Therapeutic Tool to Improve Lipedema: A Consensus Statement from the Italian Society of Motor and Sports Sciences (SISMES) and the Italian Society of Phlebology (SIFL).",
-    "authors": "Annunziata G, Toscano C, Rizzo M, Visciano M, Vano M, Muscogiuri G, Colao A, Di Renzo L, Mollica C, Bernetti A, Sica G, Migliaccio S",
-    "firstAuthor": "Annunziata G",
-    "lastAuthor": "et al.",
-    "journal": "Current obesity reports",
-    "year": 2024,
-    "type": "Guidelines",
-    "topic": "Treatment & Surgery",
-    "summary": "The Role of Physical Exercise as a Therapeutic Tool to Improve Lipedema: A Consensus Statement from the Italian Society of Motor and Sports Sciences (SISMES) and the Italian Society of Phlebology (SIFL). PubMed-indexed default literature record; open PubMed/DOI for abstract, full provenance, and figure lookup where available.",
-    "aims": "",
-    "methods": "",
-    "findings": [
-      "PubMed-indexed default literature record. Open PubMed/DOI for abstract and full record details."
-    ],
-    "doi": "https://doi.org/10.1007/s13679-024-00579-8",
-    "color": "#2f6a3c",
-    "defaultExpanded": true
-  }
 ];
 
 // ═══════════════════════════════════════════════════════
@@ -6835,7 +6621,7 @@ function returnToDefaultProfile() {
   _resourceFigurePreviewKey = '';
   refreshWorkspaceView();
   bootstrapDefaultCorpus(false);
-  showToast('Default public LipoScope view restored with 211 built-in papers visible.', 'success');
+  showToast('Default public LipoScope view restored with ' + DEFAULT_CORPUS_TARGET + ' built-in papers visible.', 'success');
 }
 
 function updateProfileUI() {
@@ -6863,7 +6649,20 @@ function updateProfileUI() {
 var userPapers = [];
 var hiddenIds  = [];
 var expandedPapers = [];
-var DEFAULT_CORPUS_TARGET = 211;
+var DEFAULT_CORPUS_TARGET = PAPERS.length + DEFAULT_EXPANDED_PAPERS.length;
+var DEFAULT_EXPANDED_REMOVED_PMIDS = {
+  '42047836': true,
+  '42024001': true,
+  '41523866': true,
+  '39296611': true,
+  '39292078': true,
+  '39188170': true,
+  '39173577': true,
+  '39161914': true,
+  '39108357': true,
+  '39063608': true,
+  '38958868': true
+};
 
 function cloneDefaultExpandedPapers() {
   return (DEFAULT_EXPANDED_PAPERS || []).map(function(p) {
@@ -6873,12 +6672,28 @@ function cloneDefaultExpandedPapers() {
   });
 }
 
+function normalizeExpandedDefaultStore(list) {
+  if (!Array.isArray(list)) return cloneDefaultExpandedPapers();
+  var changed = false;
+  var normalized = list.filter(function(p) {
+    var remove = !!(p && p.pmid && DEFAULT_EXPANDED_REMOVED_PMIDS[String(p.pmid)]);
+    if (remove) changed = true;
+    return !remove;
+  }).map(function(p) {
+    return Object.assign({}, p, {
+      findings: Array.isArray(p.findings) ? p.findings.slice() : []
+    });
+  });
+  if (!normalized.length) return cloneDefaultExpandedPapers();
+  return changed ? normalized : list;
+}
+
 function loadStores() {
   try { var s = localStorage.getItem(profileKey('user_papers_v3')); if (s) userPapers = JSON.parse(s); else userPapers = []; } catch(e) { userPapers = []; }
   try { var s = localStorage.getItem(profileKey('hidden_ids_v3'));  if (s) hiddenIds  = JSON.parse(s); else hiddenIds  = []; } catch(e) { hiddenIds = []; }
   try {
     var s = localStorage.getItem(profileKey('expanded_default_papers_v1'));
-    if (s) expandedPapers = JSON.parse(s);
+    if (s) expandedPapers = normalizeExpandedDefaultStore(JSON.parse(s));
     else expandedPapers = cloneDefaultExpandedPapers();
   } catch(e) { expandedPapers = cloneDefaultExpandedPapers(); }
   if (!localStorage.getItem(defaultCorpusKey('disabled_v1')) && (!Array.isArray(expandedPapers) || !expandedPapers.length)) {
@@ -7540,7 +7355,7 @@ function hideAllBuiltInPapers() {
 }
 
 function restoreBuiltInDefaultCorpus() {
-  if (!confirm('Restore the public 211-paper default corpus for this browser profile? User-added papers will remain.')) return;
+  if (!confirm('Restore the public ' + DEFAULT_CORPUS_TARGET + '-paper default corpus for this browser profile? User-added papers will remain.')) return;
   expandedPapers = cloneDefaultExpandedPapers();
   localStorage.removeItem(defaultCorpusKey('disabled_v1'));
   var builtIds = {};
@@ -7551,7 +7366,7 @@ function restoreBuiltInDefaultCorpus() {
   filteredPapers = getAllPapers().slice();
   renderPapers(filteredPapers);
   syncUI();
-  showToast('211-paper default corpus restored.', 'success');
+  showToast(DEFAULT_CORPUS_TARGET + '-paper default corpus restored.', 'success');
 }
 
 function defaultCorpusKey(k) { return profileKey('default_corpus_' + k); }
@@ -9122,7 +8937,7 @@ function renderResourceFigurePreview(force) {
   if (!el) return;
   var papers = selectResourceFigurePapers();
   if (!papers.length) {
-    el.innerHTML = '<div class="evidence-note">No papers with PMID, DOI, or PMCID are currently available for figure lookup. Restore the 211-paper default corpus or add PubMed-linked papers.</div>';
+    el.innerHTML = '<div class="evidence-note">No papers with PMID, DOI, or PMCID are currently available for figure lookup. Restore the ' + DEFAULT_CORPUS_TARGET + '-paper default corpus or add PubMed-linked papers.</div>';
     return;
   }
   var key = papers.map(function(p){ return p.id; }).join('|');
@@ -9243,6 +9058,50 @@ function renderBioFigure1(all, entities) {
   el.innerHTML = html;
 }
 
+function atlasScrollIntoView(id) {
+  var el = document.getElementById(id);
+  if (el && el.scrollIntoView) el.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function openAtlasTopicFromFigure(topic) {
+  var tab = document.getElementById('nav-atlas');
+  if (tab) switchTab('atlas', tab);
+  setTimeout(function() {
+    atlasSelectGraphNode('topic', topic);
+    atlasScrollIntoView('atlas-graph');
+  }, 90);
+}
+
+function openAtlasCandidateFromFigure(key) {
+  var tab = document.getElementById('nav-atlas');
+  if (tab) switchTab('atlas', tab);
+  setTimeout(function() {
+    showCandidateEntityDetail(key);
+    atlasScrollIntoView('atlas-candidate-detail');
+  }, 90);
+}
+
+function openAtlasMechanismFromFigure(key) {
+  var tab = document.getElementById('nav-atlas');
+  if (tab) switchTab('atlas', tab);
+  setTimeout(function() {
+    selectAtlasMechanism(key);
+    atlasScrollIntoView('atlas-mechanism-detail');
+  }, 90);
+}
+
+function openAtlasGapsFromFigure() {
+  var tab = document.getElementById('nav-atlas');
+  if (tab) switchTab('atlas', tab);
+  setTimeout(function() {
+    atlasScrollIntoView('atlas-gap-table');
+  }, 90);
+}
+
+function biofigPriorityClass(priority) {
+  return priority === 'High' ? 'hot' : priority === 'Moderate' ? 'ok' : 'warn';
+}
+
 function renderBioFigure3(all, entities) {
   var el = document.getElementById('biofig3-dynamic');
   if (!el) return;
@@ -9254,20 +9113,24 @@ function renderBioFigure3(all, entities) {
   var highDesign = all.filter(function(p){ return atlasDesignWeight(p.type) >= 4; }).length;
   var recent = all.filter(function(p){ return (p.year || 0) >= currentYear() - 2; }).length;
   var clinical = all.filter(function(p){ return /diagnos|treatment|outcome|QoL|quality of life|surgery|compression|trial|guideline/i.test(atlasPaperText(p)); }).length;
-  var topCandidates = entities.slice(0, 4).map(function(e){ return e.label; });
+  var topEntities = entities.slice(0, 4);
+  var topCandidates = topEntities.map(function(e){ return e.label; });
   var topGap = gaps[0] || ['Medium','replication and standardization','Evidence map is still loading.','Use standardized phenotyping and matched controls.'];
   var highGapCount = gaps.filter(function(g){ return g[0] === 'High'; }).length;
-  var topMechanism = mechanisms[0] ? mechanisms[0].label : 'mechanism evidence';
-  var nextStudy = 'Best next study pattern: address "' + topGap[1] + '" by testing ' + topMechanism + ' with matched controls, minimum dataset fields, imaging, and serum/adipose omics' + (topCandidates.length ? ' focused on ' + topCandidates.join(', ') : '') + '.';
+  var topMechanism = mechanisms[0] || null;
+  var topMechanismLabel = topMechanism ? topMechanism.label : 'mechanism evidence';
+  var topMechanismCount = topMechanism ? topMechanism._count : 0;
+  var topTopics = topics.slice(0, 3);
+  var nextStudy = 'Best next study pattern: address "' + topGap[1] + '" by testing ' + topMechanismLabel + ' with matched controls, minimum dataset fields, imaging, and serum/adipose omics' + (topCandidates.length ? ' focused on ' + topCandidates.join(', ') : '') + '.';
   var stages = [
-    {label:'Discovery', n:all.length, sub:'PubMed-wide records', detail:'Largest domain: ' + topTopic, color:'#1e6b6b'},
-    {label:'Evidence triage', n:highDesign, sub:'higher-design records', detail:'Recent records: ' + recent, color:'#8a611d'},
-    {label:'Mechanism testing', n:mechanisms.length, sub:'active mechanisms', detail:'Top signal: ' + topMechanism, color:'#5e3d80'},
-    {label:'Gap signals', n:gaps.length, sub:'prioritized opportunities', detail:highGapCount + ' high-priority trigger(s). This is not a no-gap statement.', color:'#b83c52'}
+    {label:'Discovery', n:all.length, sub:'PubMed-wide records', detail:'Top domains: ' + (topTopics.length ? topTopics.map(function(t){ return t + ' (' + topicCounts[t].total + ')'; }).join(' · ') : topTopic), color:'#0d9488'},
+    {label:'Evidence triage', n:highDesign, sub:'higher-design records', detail:'Recent records: ' + recent + ' · clinical/outcome-linked: ' + clinical, color:'#2563eb'},
+    {label:'Mechanism testing', n:mechanisms.length, sub:'active mechanisms', detail:'Top signal: ' + topMechanismLabel + (topMechanismCount ? ' (' + topMechanismCount + ' papers)' : ''), color:'#6d28d9'},
+    {label:'Gap signals', n:gaps.length, sub:'prioritized opportunities', detail:highGapCount + ' high-priority trigger(s) · top gap: ' + topGap[1], color:'#c2185b'}
   ];
   var max = Math.max.apply(null, stages.map(function(s){ return s.n || 1; }));
   var html = '<div class="biofig-generated" role="img" aria-label="Generated PubMed-wide lipoedema research translation map">';
-  html += '<div class="biofig-generated-head"><h3>Generated translation map: from PubMed signals to lipoedema study design</h3><p>Each stage is recalculated from the PubMed-wide Atlas source; local Browse hiding or additions do not narrow these values.</p></div>';
+  html += '<div class="biofig-generated-head"><h3>Generated translation blueprint: from PubMed signals to lipoedema study design</h3><p>Each block is recalculated from the PubMed-wide Atlas source. It now shows where the field is strongest, which mechanism is most ready for validation, which candidates anchor the next study, and which gap should drive design choices.</p></div>';
   html += '<div class="biofig-translation-grid">';
   stages.forEach(function(stage, idx) {
     var barW = Math.max(4, Math.round((stage.n / Math.max(1, max)) * 100));
@@ -9280,7 +9143,18 @@ function renderBioFigure3(all, entities) {
     html += '</div>';
   });
   html += '</div>';
-  html += '<div class="biofig-study-box"><strong>Best next study pattern:</strong> ' + atlasEsc(nextStudy.replace(/^Best next study pattern:\s*/i, '')) + '</div>';
+  html += '<div class="biofig-blueprint-grid">';
+  html += '<div class="biofig-blueprint-card"><div class="biofig-kicker">Signal-rich domains</div><div class="biofig-blueprint-title">Where the literature is currently deepest</div><div class="biofig-blueprint-text">These topic domains currently carry the strongest PubMed-wide lipoedema signal. Click a domain to open the Knowledge Graph on that literature cluster.</div><div class="biofig-chip-row">' + (topTopics.length ? topTopics.map(function(t){ return '<button type="button" class="biofig-chip-btn" onclick="openAtlasTopicFromFigure(\'' + atlasEsc(t) + '\')">' + atlasEsc(t) + ' (' + topicCounts[t].total + ')</button>'; }).join('') : '<span class="biofig-blueprint-meta">No topic domains available yet.</span>') + '</div></div>';
+  html += '<div class="biofig-blueprint-card"><div class="biofig-kicker">Mechanism priority</div><div class="biofig-blueprint-title">' + atlasEsc(topMechanismLabel) + '</div><div class="biofig-blueprint-text">' + atlasEsc((topMechanism && topMechanism.hypothesis) || 'Mechanism-level evidence is still loading from the PubMed-wide Atlas source.') + '</div><div class="biofig-blueprint-meta">' + (topMechanismCount ? topMechanismCount + ' supporting papers' : 'Support count loading') + ' · Missing evidence: ' + atlasEsc((topMechanism && topMechanism.missing) || 'No mechanism-specific missing-evidence statement yet.') + '</div><div class="biofig-action-row">' + (topMechanism ? '<button type="button" class="atlas-btn" onclick="openAtlasMechanismFromFigure(\'' + atlasEsc(topMechanism.key) + '\')">Open Mechanism Explorer</button>' : '') + '</div></div>';
+  html += '<div class="biofig-blueprint-card"><div class="biofig-kicker">Candidates to validate</div><div class="biofig-blueprint-title">Entity anchors for the next experiment</div><div class="biofig-blueprint-text">These are the highest-ranked candidates in the current PubMed-wide Atlas. Click a candidate to inspect score rationale and supporting papers.</div><div class="biofig-chip-row">' + (topEntities.length ? topEntities.map(function(e){ return '<button type="button" class="biofig-chip-btn" onclick="openAtlasCandidateFromFigure(\'' + atlasEsc(e.key) + '\')">' + atlasEsc(e.label) + ' (' + e.paperCount + ')</button>'; }).join('') : '<span class="biofig-blueprint-meta">No candidate entities are ready yet.</span>') + '</div></div>';
+  html += '<div class="biofig-blueprint-card"><div class="biofig-kicker">Gap-led study route</div><div class="biofig-blueprint-title"><span class="atlas-pill ' + biofigPriorityClass(topGap[0]) + '">' + atlasEsc(topGap[0]) + '</span> ' + atlasEsc(topGap[1]) + '</div><div class="biofig-blueprint-text">' + atlasEsc(topGap[3]) + '</div><div class="biofig-blueprint-meta">Evidence trigger: ' + atlasEsc(topGap[2]) + '</div><div class="biofig-action-row"><button type="button" class="atlas-btn" onclick="openAtlasGapsFromFigure()">Open Research Gaps</button></div></div>';
+  html += '</div>';
+  html += '<div class="biofig-study-plan"><h4>Live study blueprint</h4><p>' + atlasEsc(nextStudy) + ' This blueprint is regenerated from the current PubMed-wide Atlas source, so the recommended route changes when new lipoedema evidence shifts the strongest mechanism, top candidates, or dominant gaps.</p><div class="biofig-plan-grid">';
+  html += '<div class="biofig-plan-card"><div class="biofig-plan-label">Current hypothesis</div><div class="biofig-plan-value">' + atlasEsc((topMechanism && topMechanism.hypothesis) || 'Waiting for mechanism evidence to load.') + '</div></div>';
+  html += '<div class="biofig-plan-card"><div class="biofig-plan-label">Missing evidence</div><div class="biofig-plan-value">' + atlasEsc((topMechanism && topMechanism.missing) || topGap[2]) + '</div></div>';
+  html += '<div class="biofig-plan-card"><div class="biofig-plan-label">Suggested study package</div><div class="biofig-plan-value">' + atlasEsc((topMechanism && topMechanism.studies) || topGap[3]) + '</div></div>';
+  html += '<div class="biofig-plan-card"><div class="biofig-plan-label">Priority anchors</div><div class="biofig-plan-value">Top domain: ' + atlasEsc(topTopic) + '. Candidate anchors: ' + atlasEsc(topCandidates.length ? topCandidates.join(', ') : 'loading') + '. Higher-design records: ' + highDesign + '. Recent records: ' + recent + '.</div></div>';
+  html += '</div></div>';
   html += '</div>';
   el.innerHTML = html;
 }
@@ -9425,14 +9299,16 @@ function buildAtlasGraphData(entities, all) {
 }
 
 var ATLAS_MOLECULAR_CATEGORIES = {
-  adipose:{ label:'Adipose biology', color:'#c4773a', terms:/adipose|adipocyte|fat|lipid|lipolysis|adipogenesis|ppar|leptin|svf|metabol/i },
-  lymphatic:{ label:'Lymphatic / vascular biology', color:'#1e6b6b', terms:/lymph|vascular|endothelial|vegf|fluid|microcirculation|vessel|pf4|cxcl4/i },
-  genetics:{ label:'Genetics / omics', color:'#5e3d80', terms:/gene|genetic|gwas|variant|omics|transcript|methyl|sequenc|epigen|mirna|rna/i },
-  hormone:{ label:'Hormone signalling', color:'#b83c52', terms:/hormone|estrogen|oestrogen|progesterone|menopause|puberty|pregnancy|receptor|akr1c/i },
-  matrix:{ label:'ECM / fibrosis', color:'#8a611d', terms:/ecm|matrix|fibrosis|collagen|mmp|tgf|focal adhesion|connective/i },
-  inflammation:{ label:'Inflammation / pain', color:'#d05a8a', terms:/inflamm|immune|pain|cytokine|macrophage|il-6|complement|tender/i },
-  clinical:{ label:'Clinical / diagnostic', color:'#3a4f82', terms:/diagnos|clinical|imaging|stage|classification|quality of life|treatment|surgery|compression/i }
+  adipose:{ label:'Adipose biology', color:'#c97a12', terms:/adipose|adipocyte|fat|lipid|lipolysis|adipogenesis|ppar|leptin|svf|metabol/i },
+  lymphatic:{ label:'Lymphatic / vascular biology', color:'#0d9488', terms:/lymph|vascular|endothelial|vegf|fluid|microcirculation|vessel|pf4|cxcl4/i },
+  genetics:{ label:'Genetics / omics', color:'#6d28d9', terms:/gene|genetic|gwas|variant|omics|transcript|methyl|sequenc|epigen|mirna|rna/i },
+  hormone:{ label:'Hormone signalling', color:'#c2185b', terms:/hormone|estrogen|oestrogen|progesterone|menopause|puberty|pregnancy|receptor|akr1c/i },
+  matrix:{ label:'ECM / fibrosis', color:'#6b8e23', terms:/ecm|matrix|fibrosis|collagen|mmp|tgf|focal adhesion|connective/i },
+  inflammation:{ label:'Inflammation / pain', color:'#d9480f', terms:/inflamm|immune|pain|cytokine|macrophage|il-6|complement|tender/i },
+  clinical:{ label:'Clinical / diagnostic', color:'#2563eb', terms:/diagnos|clinical|imaging|stage|classification|quality of life|treatment|surgery|compression/i }
 };
+var ATLAS_CROSS_DOMAIN_CATEGORY = { label:'Cross-domain / emerging', color:'#475569' };
+var ATLAS_DISEASE_NODE_COLOR = '#111827';
 
 function molecularCategoryForEntity(e) {
   var text = [e.label, e.kind, e.pathway, e.topic, e.rationale, (e.aliases || []).join(' ')].join(' ');
@@ -9441,7 +9317,7 @@ function molecularCategoryForEntity(e) {
     var cat = ATLAS_MOLECULAR_CATEGORIES[order[i]];
     if (cat.terms.test(text)) return cat;
   }
-  return { label:'Cross-domain / emerging', color:'#705848' };
+  return ATLAS_CROSS_DOMAIN_CATEGORY;
 }
 
 function atlasGraphLegendHtml() {
@@ -9449,7 +9325,7 @@ function atlasGraphLegendHtml() {
   return '<div class="atlas-graph-legend" aria-label="Knowledge graph colour legend">' + order.map(function(k) {
     var c = ATLAS_MOLECULAR_CATEGORIES[k];
     return '<span><i style="background:' + c.color + '"></i>' + atlasEsc(c.label) + '</span>';
-  }).join('') + '<span><i style="background:#705848"></i>Cross-domain / emerging</span></div>';
+  }).join('') + '<span><i style="background:' + ATLAS_CROSS_DOMAIN_CATEGORY.color + '"></i>' + atlasEsc(ATLAS_CROSS_DOMAIN_CATEGORY.label) + '</span></div>';
 }
 
 function renderKnowledgeGraph(entities, all) {
@@ -9470,7 +9346,7 @@ function renderKnowledgeGraph(entities, all) {
     var tp = topicPos[e.topic] || {x:cx,y:cy};
     html += '<line x1="' + x + '" y1="' + y + '" x2="' + tp.x + '" y2="' + tp.y + '" stroke="#b8c9c9" stroke-width="1" opacity="0.65"/>';
   });
-  html += '<g class="atlas-node" onclick="atlasSelectGraphNode(\'disease\',\'Lipoedema\')" filter="url(#atlas-shadow)"><circle cx="' + cx + '" cy="' + cy + '" r="52" fill="#b83c52"/><text x="' + cx + '" y="' + (cy - 4) + '" text-anchor="middle" fill="#fff" font-size="17" font-weight="800">Lipoedema</text><text x="' + cx + '" y="' + (cy + 15) + '" text-anchor="middle" fill="rgba(255,255,255,0.78)" font-size="11">' + all.length + ' records</text></g>';
+  html += '<g class="atlas-node" onclick="atlasSelectGraphNode(\'disease\',\'Lipoedema\')" filter="url(#atlas-shadow)"><circle cx="' + cx + '" cy="' + cy + '" r="54" fill="' + ATLAS_DISEASE_NODE_COLOR + '" stroke="#e5e7eb" stroke-width="4"/><text x="' + cx + '" y="' + (cy - 4) + '" text-anchor="middle" fill="#fff" font-size="17" font-weight="800">Lipoedema</text><text x="' + cx + '" y="' + (cy + 15) + '" text-anchor="middle" fill="rgba(255,255,255,0.78)" font-size="11">' + all.length + ' records</text></g>';
   topics.forEach(function(t) {
     var p = topicPos[t], tc = TOPIC_COLORS[t] || {fill:'#777'}, selected = (_atlasSelectedGraph.kind === 'topic' && _atlasSelectedGraph.key === t);
     html += '<g class="atlas-node" onclick="atlasSelectGraphNode(\'topic\',\'' + atlasEsc(t) + '\')"><circle cx="' + p.x + '" cy="' + p.y + '" r="' + (selected ? 22 : 18) + '" fill="' + tc.fill + '" opacity="' + (selected ? '1' : '0.88') + '"/><text x="' + p.x + '" y="' + (p.y + 36) + '" text-anchor="middle" fill="#463c36" font-size="10" font-weight="700">' + atlasEsc(t.length > 22 ? t.slice(0,20) + '...' : t) + '</text></g>';
@@ -9491,7 +9367,7 @@ function renderGraphDetail(entities, all) {
     el.innerHTML = '<h4>' + atlasEsc(key) + '</h4><p><strong>' + papers.length + '</strong> PubMed-wide lipoedema records in this domain. Click a record to inspect provenance.</p>' + atlasPaperMiniList(papers); return;
   }
   if (kind === 'disease') {
-    el.innerHTML = '<h4>Lipoedema PubMed-wide Atlas</h4><p>The graph centers on the 211-record public seed corpus plus the automatically refreshed lipoedema PubMed layer, then links each topic to candidate molecular, cellular, clinical, and translational entities. Local Browse choices do not narrow this graph.</p>' + atlasPaperMiniList(all.slice().sort(function(a,b){return b.year-a.year;})); return;
+    el.innerHTML = '<h4>Lipoedema PubMed-wide Atlas</h4><p>The graph centers on the ' + DEFAULT_CORPUS_TARGET + '-record public seed corpus plus the automatically refreshed lipoedema PubMed layer, then links each topic to candidate molecular, cellular, clinical, and translational entities. Local Browse choices do not narrow this graph.</p>' + atlasPaperMiniList(all.slice().sort(function(a,b){return b.year-a.year;})); return;
   }
   var e = entities.filter(function(x){ return x.key === key; })[0] || entities[0];
   if (!e) { el.innerHTML = '<h4>No entity selected</h4><p>Select a node in the graph.</p>'; return; }

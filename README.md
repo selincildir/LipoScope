@@ -4,7 +4,7 @@ LipoScope is an open, browser-based lipoedema research atlas for literature expl
 
 The app is designed for researchers, clinicians, reviewers, and patient-facing research organizations who need a lightweight way to explore the lipoedema/lipedema literature without registration, server upload, or installation.
 
-Current app version: `v1.6.1`
+Current app version: `v1.6.2`
 
 ## Web App
 
@@ -44,7 +44,7 @@ User-added papers, hidden-paper choices, profile labels, and local notes are sto
 
 LipoScope combines:
 
-- a curated 211-record default lipoedema/lipedema literature seed,
+- a curated 200-record default lipoedema/lipedema literature seed,
 - PubMed live searches and an automatically refreshed lipoedema-focused PubMed Atlas layer,
 - locally added user records,
 - browser-local omics or biomarker lists supplied by the user.
