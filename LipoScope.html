@@ -1011,6 +1011,7 @@ select:focus{border-color:var(--rose)}
   .biofig-stage-tag { display:inline-block; margin:2px 0 9px; padding:4px 8px; border-radius:999px; background:#f4efe9; color:var(--text-soft); font-size:10px; font-weight:800; line-height:1.2; }
   .biofig-stage-detail { font-size:10.5px; color:var(--text-mid); line-height:1.55; margin-top:9px; overflow-wrap:anywhere; }
   .biofig-stage-how { font-size:10.3px; color:var(--text-soft); line-height:1.55; margin-top:10px; overflow-wrap:anywhere; }
+  .biofig-stage-interpret { margin-top:10px; background:#fbfaf8; border:1px solid #ebe5df; border-radius:9px; padding:9px 10px; font-size:10.4px; color:var(--text-mid); line-height:1.62; overflow-wrap:anywhere; }
   .biofig-stage-why { font-size:10.8px; color:var(--text-mid); line-height:1.65; margin-top:9px; padding-top:8px; border-top:1px dashed #e4dbd3; overflow-wrap:anywhere; }
   .biofig-translation-note { margin-top:11px; background:#fff; border:1px solid #ebe5df; border-radius:10px; padding:11px 13px; font-size:11px; color:var(--text-mid); line-height:1.7; overflow-wrap:anywhere; }
   .biofig-study-box { margin-top:13px; background:#fff; border:1px solid #ebe5df; border-radius:10px; padding:12px 14px; font-size:11.5px; color:var(--text-mid); line-height:1.7; overflow-wrap:anywhere; }
@@ -9129,6 +9130,11 @@ function renderBioFigure3(all, entities) {
   var highDesignPct = ((highDesign / total) * 100).toFixed(1);
   var recentPct = ((recent / total) * 100).toFixed(1);
   var clinicalPct = ((clinical / total) * 100).toFixed(1);
+  var evidenceInterpretation = highDesignPct < 12
+    ? 'Interpretation: a low share here means the lipoedema field is still led mainly by mixed or earlier-stage evidence. This supports caution when reading mechanisms, biomarkers, and treatment claims as settled.'
+    : highDesignPct < 25
+      ? 'Interpretation: this suggests a usable stronger-design layer is present, but it is not yet dominant. Field-level patterns are informative, although many still need targeted replication and better harmonization.'
+      : 'Interpretation: a relatively large stronger-design share suggests the field now has a more stable evidence backbone for comparing mechanisms, candidates, and outcome patterns across studies.';
   var evidenceWhy = highDesignPct < 12
     ? 'Why it matters: stronger-design evidence still forms a small share of the field, so many lipoedema claims should still be read as provisional and in need of replication.'
     : highDesignPct < 25
@@ -9159,9 +9165,10 @@ function renderBioFigure3(all, entities) {
       label:'Evidence triage',
       n:highDesign,
       sub:'Higher-design evidence records',
-      tag:highDesignPct + '% of the current Atlas',
+      tag:'Systematic reviews + GWAS/cohorts + guidelines',
       detail:'Recent records: ' + recent + ' (' + recentPct + '%) · clinical/outcome-linked: ' + clinical + ' (' + clinicalPct + '%)',
       how:'How counted: records the app classifies as systematic review, GWAS/cohort, or guideline-level evidence based on the current study-type rules.',
+      interpretation:evidenceInterpretation + ' The current share is ' + highDesignPct + '% of the PubMed-wide Atlas. This is not a formal risk-of-bias or methodological-quality score for individual papers.',
       why:evidenceWhy,
       color:'#2563eb'
     },
@@ -9201,6 +9208,7 @@ function renderBioFigure3(all, entities) {
     html += '<div class="biofig-bar"><span style="width:' + barW + '%;background:' + stage.color + '"></span></div>';
     html += '<div class="biofig-stage-detail">' + atlasEsc(stage.detail) + '</div>';
     if (stage.how) html += '<div class="biofig-stage-how">' + atlasEsc(stage.how) + '</div>';
+    if (stage.interpretation) html += '<div class="biofig-stage-interpret">' + atlasEsc(stage.interpretation) + '</div>';
     if (stage.why) html += '<div class="biofig-stage-why">' + atlasEsc(stage.why) + '</div>';
     html += '</div>';
   });
