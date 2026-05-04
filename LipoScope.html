@@ -1008,7 +1008,11 @@ select:focus{border-color:var(--rose)}
   .biofig-stage-label { font-size:12.5px; font-weight:800; line-height:1.35; margin-bottom:8px; }
   .biofig-stage-number { font-size:26px; font-weight:800; color:var(--text); line-height:1; margin-bottom:4px; }
   .biofig-stage-sub { font-size:10.5px; color:var(--text-soft); line-height:1.45; margin-bottom:9px; }
+  .biofig-stage-tag { display:inline-block; margin:2px 0 9px; padding:4px 8px; border-radius:999px; background:#f4efe9; color:var(--text-soft); font-size:10px; font-weight:800; line-height:1.2; }
   .biofig-stage-detail { font-size:10.5px; color:var(--text-mid); line-height:1.55; margin-top:9px; overflow-wrap:anywhere; }
+  .biofig-stage-how { font-size:10.3px; color:var(--text-soft); line-height:1.55; margin-top:10px; overflow-wrap:anywhere; }
+  .biofig-stage-why { font-size:10.8px; color:var(--text-mid); line-height:1.65; margin-top:9px; padding-top:8px; border-top:1px dashed #e4dbd3; overflow-wrap:anywhere; }
+  .biofig-translation-note { margin-top:11px; background:#fff; border:1px solid #ebe5df; border-radius:10px; padding:11px 13px; font-size:11px; color:var(--text-mid); line-height:1.7; overflow-wrap:anywhere; }
   .biofig-study-box { margin-top:13px; background:#fff; border:1px solid #ebe5df; border-radius:10px; padding:12px 14px; font-size:11.5px; color:var(--text-mid); line-height:1.7; overflow-wrap:anywhere; }
   .biofig-blueprint-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-top:12px; }
   .biofig-blueprint-card { background:#fff; border:1px solid #ebe5df; border-radius:10px; padding:13px; box-shadow:var(--shadow-sm); min-height:170px; }
@@ -2097,7 +2101,7 @@ select:focus{border-color:var(--rose)}
       <div class="biofig-wrap">
         <div class="biofig-title">Figure 3. Research translation map</div>
         <div id="biofig3-dynamic"></div>
-        <div class="biofig-caption" id="biofig3-caption">This live translation blueprint is generated from the PubMed-wide lipoedema evidence source used by the Atlas tools. It updates the field-stage counts, top domains, leading mechanism, candidate anchors, and gap-driven study route after PubMed refresh.</div>
+        <div class="biofig-caption" id="biofig3-caption">This live translation blueprint is generated from the PubMed-wide lipoedema evidence source used by the Atlas tools. After PubMed refresh, it updates not only the field-stage counts, top domains, leading mechanism, candidate anchors, and gap-driven study route, but also the explanation of how each signal was counted and why it matters for study design.</div>
         <div class="figure-note" id="biofig3-source-note"></div>
       </div>
     </div>
@@ -9121,16 +9125,71 @@ function renderBioFigure3(all, entities) {
   var topMechanismLabel = topMechanism ? topMechanism.label : 'mechanism evidence';
   var topMechanismCount = topMechanism ? topMechanism._count : 0;
   var topTopics = topics.slice(0, 3);
+  var total = Math.max(1, all.length);
+  var highDesignPct = ((highDesign / total) * 100).toFixed(1);
+  var recentPct = ((recent / total) * 100).toFixed(1);
+  var clinicalPct = ((clinical / total) * 100).toFixed(1);
+  var evidenceWhy = highDesignPct < 12
+    ? 'Why it matters: stronger-design evidence still forms a small share of the field, so many lipoedema claims should still be read as provisional and in need of replication.'
+    : highDesignPct < 25
+      ? 'Why it matters: a usable higher-design layer exists, but much of the field still rests on mixed design quality, so interpretation should stay anchored to provenance.'
+      : 'Why it matters: higher-design evidence now makes up a substantial slice of the field, which strengthens confidence in cross-paper signals and candidate prioritization.';
+  var mechanismWhy = topMechanismCount
+    ? 'Why it matters: this shows where the literature is currently most ready for mechanistic follow-up, but the signal reflects literature support rather than experimental proof.'
+    : 'Why it matters: mechanism mapping is still loading, so no literature-supported mechanistic lead is available yet.';
+  var gapWhy = highGapCount
+    ? 'Why it matters: these rule triggers mark missing evidence that should directly shape the next cohort, validation, or harmonization study.'
+    : 'Why it matters: no high-priority shortage rule fired in this refresh, but medium-priority gaps still remain and should guide better standardization and validation.';
+  var discoveryWhy = topTopics.length
+    ? 'Why it matters: the field is currently deepest in ' + topTopics[0] + ', so less-populated domains may still need deliberately targeted cohorts, assays, or synthesis.'
+    : 'Why it matters: this is the current literature base the Atlas is reasoning over.';
   var nextStudy = 'Best next study pattern: address "' + topGap[1] + '" by testing ' + topMechanismLabel + ' with matched controls, minimum dataset fields, imaging, and serum/adipose omics' + (topCandidates.length ? ' focused on ' + topCandidates.join(', ') : '') + '.';
   var stages = [
-    {label:'Discovery', n:all.length, sub:'PubMed-wide records', detail:'Top domains: ' + (topTopics.length ? topTopics.map(function(t){ return t + ' (' + topicCounts[t].total + ')'; }).join(' · ') : topTopic), color:'#0d9488'},
-    {label:'Evidence triage', n:highDesign, sub:'higher-design records', detail:'Recent records: ' + recent + ' · clinical/outcome-linked: ' + clinical, color:'#2563eb'},
-    {label:'Mechanism testing', n:mechanisms.length, sub:'active mechanisms', detail:'Top signal: ' + topMechanismLabel + (topMechanismCount ? ' (' + topMechanismCount + ' papers)' : ''), color:'#6d28d9'},
-    {label:'Gap signals', n:gaps.length, sub:'prioritized opportunities', detail:highGapCount + ' high-priority trigger(s) · top gap: ' + topGap[1], color:'#c2185b'}
+    {
+      label:'Discovery',
+      n:all.length,
+      sub:'PubMed-wide Atlas records',
+      tag:'Current live literature base',
+      detail:'Largest domains: ' + (topTopics.length ? topTopics.map(function(t){ return t + ' (' + topicCounts[t].total + ')'; }).join(' · ') : topTopic),
+      how:'How counted: all lipoedema-focused records currently loaded into the Atlas after deduplicating the built-in public corpus and the auto-refreshed PubMed layer.',
+      why:discoveryWhy,
+      color:'#0d9488'
+    },
+    {
+      label:'Evidence triage',
+      n:highDesign,
+      sub:'Higher-design evidence records',
+      tag:highDesignPct + '% of the current Atlas',
+      detail:'Recent records: ' + recent + ' (' + recentPct + '%) · clinical/outcome-linked: ' + clinical + ' (' + clinicalPct + '%)',
+      how:'How counted: records the app classifies as systematic review, GWAS/cohort, or guideline-level evidence based on the current study-type rules.',
+      why:evidenceWhy,
+      color:'#2563eb'
+    },
+    {
+      label:'Mechanism testing',
+      n:mechanisms.length,
+      sub:'Mechanism-supported domains',
+      tag:(topMechanismCount ? topMechanismCount + ' papers in the top signal' : 'Top signal still loading'),
+      detail:'Top mechanism: ' + topMechanismLabel + (topMechanismCount ? ' (' + topMechanismCount + ' matching papers)' : ''),
+      how:'How counted: mechanism buckets with at least one supporting lipoedema paper in the current Atlas source; one paper can support more than one bucket.',
+      why:mechanismWhy,
+      color:'#6d28d9'
+    },
+    {
+      label:'Gap signals',
+      n:gaps.length,
+      sub:'Current gap rules triggered',
+      tag:highGapCount + ' high-priority trigger(s)',
+      detail:'Lead gap: ' + topGap[1],
+      how:'How counted: rule-based research gaps triggered by the current PubMed-wide evidence mix. This is not a count of every possible unanswered question in lipoedema.',
+      why:gapWhy,
+      color:'#c2185b'
+    }
   ];
   var max = Math.max.apply(null, stages.map(function(s){ return s.n || 1; }));
   var html = '<div class="biofig-generated" role="img" aria-label="Generated PubMed-wide lipoedema research translation map">';
-  html += '<div class="biofig-generated-head"><h3>Generated translation blueprint: from PubMed signals to lipoedema study design</h3><p>Each block is recalculated from the PubMed-wide Atlas source. It now shows where the field is strongest, which mechanism is most ready for validation, which candidates anchor the next study, and which gap should drive design choices.</p></div>';
+  html += '<div class="biofig-generated-head"><h3>Generated translation blueprint: from PubMed signals to lipoedema study design</h3><p>Each block is recalculated from the PubMed-wide Atlas source. It shows where the field is strongest, how much of it currently sits in higher-design evidence, which mechanism is most ready for validation, and which gap should now shape study design.</p></div>';
+  html += '<div class="biofig-translation-note"><strong>How to read these signals:</strong> these counts overlap and do not add up to 100%. Right now, ' + highDesign + ' of ' + all.length + ' records (' + highDesignPct + '%) are in higher-design evidence buckets, ' + recent + ' (' + recentPct + '%) are recent records, and ' + clinical + ' (' + clinicalPct + '%) are clinically or outcome-linked. A single paper can contribute to several blocks at once.</div>';
   html += '<div class="biofig-translation-grid">';
   stages.forEach(function(stage, idx) {
     var barW = Math.max(4, Math.round((stage.n / Math.max(1, max)) * 100));
@@ -9138,8 +9197,11 @@ function renderBioFigure3(all, entities) {
     html += '<div class="biofig-stage-label" style="color:' + stage.color + '">' + atlasEsc(stage.label) + '</div>';
     html += '<div class="biofig-stage-number">' + atlasEsc(stage.n) + '</div>';
     html += '<div class="biofig-stage-sub">' + atlasEsc(stage.sub) + '</div>';
+    if (stage.tag) html += '<div class="biofig-stage-tag">' + atlasEsc(stage.tag) + '</div>';
     html += '<div class="biofig-bar"><span style="width:' + barW + '%;background:' + stage.color + '"></span></div>';
     html += '<div class="biofig-stage-detail">' + atlasEsc(stage.detail) + '</div>';
+    if (stage.how) html += '<div class="biofig-stage-how">' + atlasEsc(stage.how) + '</div>';
+    if (stage.why) html += '<div class="biofig-stage-why">' + atlasEsc(stage.why) + '</div>';
     html += '</div>';
   });
   html += '</div>';
