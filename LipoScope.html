@@ -64,26 +64,25 @@ header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;ba
 
 /* ── NAV ── */
 nav{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 22px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:var(--shadow-sm)}
-.nav-main{display:flex;flex-wrap:nowrap;align-items:stretch;gap:12px;min-width:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;-webkit-overflow-scrolling:touch;padding-bottom:2px}
-.nav-group{display:flex;align-items:center;gap:6px;padding:6px;background:#fcfaf8;border:1px solid var(--border);border-radius:14px;min-width:0;flex:0 0 auto}
-.nav-group-label{display:flex;align-items:center;align-self:stretch;padding:0 9px;border-right:1px solid var(--border);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-soft);white-space:nowrap}
-.nav-group-guide .nav-group-label{color:var(--rose)}
-.nav-group-workspace .nav-group-label{color:var(--teal)}
-.nav-group-atlas .nav-group-label{color:var(--indigo)}
-.nav-tab{padding:9px 12px;border:1px solid transparent;border-radius:10px;font-size:13px;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all 0.2s;user-select:none;display:flex;align-items:center;gap:8px;min-height:52px;min-width:0;flex:0 0 auto}
-.nav-tab:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}
-.nav-tab.active{font-weight:700}
+.nav-main{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:stretch;gap:8px;min-width:0}
+.nav-tab{padding:8px 10px 9px;border:1px solid var(--border);border-top:3px solid transparent;border-radius:10px;font-size:13px;font-weight:600;color:var(--text-soft);cursor:pointer;transition:all 0.2s;user-select:none;display:flex;align-items:center;justify-content:center;gap:7px;min-height:52px;min-width:0;background:#fcfaf8}
+.nav-tab:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm);border-color:var(--rose-light)}
+.nav-tab.active{font-weight:700;background:var(--surface);box-shadow:var(--shadow-sm)}
 .nav-tab .tab-icon{font-size:15px;line-height:1;flex-shrink:0}
-.nav-tab-copy{display:flex;flex-direction:column;align-items:flex-start;gap:1px;min-width:0}
+.nav-tab-copy{display:flex;flex-direction:column;align-items:center;gap:1px;min-width:0;text-align:center}
 .nav-tab-title{font-size:12.5px;line-height:1.15;color:inherit;white-space:nowrap}
-.nav-tab-meta{font-size:10px;line-height:1.2;color:var(--text-faint);font-weight:600;letter-spacing:0.04em;text-transform:uppercase}
+.nav-tab-title-short{display:none}
+.nav-tab-meta{font-size:9.5px;line-height:1.2;color:var(--text-faint);font-weight:700;letter-spacing:0.05em;text-transform:uppercase}
 .nav-tab.active .nav-tab-meta{color:inherit;opacity:0.75}
-.nav-guide:hover{color:var(--rose)}
-.nav-guide.active{background:var(--rose-pale);border-color:var(--rose-light);color:var(--rose-deep)}
-.nav-workspace:hover{color:var(--teal)}
-.nav-workspace.active{background:var(--teal-pale);border-color:#b8dede;color:var(--teal)}
-.nav-atlas:hover{color:var(--indigo)}
-.nav-atlas.active{background:var(--indigo-pale);border-color:#c0d0e8;color:var(--indigo)}
+.nav-guide{border-top-color:var(--rose-light)}
+.nav-workspace{border-top-color:var(--teal-light)}
+.nav-atlas{border-top-color:var(--indigo)}
+.nav-guide:hover,.nav-guide.active{color:var(--rose-deep)}
+.nav-guide.active{background:var(--rose-pale);border-color:var(--rose-light);border-top-color:var(--rose)}
+.nav-workspace:hover,.nav-workspace.active{color:var(--teal)}
+.nav-workspace.active{background:var(--teal-pale);border-color:#b8dede;border-top-color:var(--teal)}
+.nav-atlas:hover,.nav-atlas.active{color:var(--indigo)}
+.nav-atlas.active{background:var(--indigo-pale);border-color:#c0d0e8;border-top-color:var(--indigo)}
 .nav-count-badge{font-size:10px;background:var(--rose);color:#fff;padding:1px 6px;border-radius:10px;font-weight:700;vertical-align:middle;line-height:1.6;flex-shrink:0}
 .nav-count-badge:empty{display:none}
 .nav-tools{padding:4px 6px 4px 0;display:flex;align-items:center;gap:10px;flex:0 0 auto;min-width:0}
@@ -275,6 +274,8 @@ select:focus{border-color:var(--rose)}
 @media(max-width:1200px){
   .analytics-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .analytics-grid.two-col,.analytics-grid.wide-sidebar{grid-template-columns:1fr}
+  nav{grid-template-columns:minmax(0,1fr)}
+  .nav-tools{width:100%;justify-content:flex-end;padding:0}
 }
 
 @media(max-width:900px){
@@ -282,10 +283,10 @@ select:focus{border-color:var(--rose)}
   .header-stats{margin-left:0;gap:12px}
   .main-content{padding:16px 16px 40px}
   nav{padding:10px 16px;gap:10px;grid-template-columns:minmax(0,1fr)}
-  .nav-main{gap:10px}
-  .nav-group{padding:6px}
+  .nav-main{gap:6px}
   .nav-tab{padding:8px 10px;min-height:48px}
-  .nav-tab-title{font-size:12px}
+  .nav-tab-title{font-size:11.5px}
+  .nav-tab-meta{font-size:9px}
   .nav-tools{width:100%;justify-content:space-between;padding:0}
   .papers-grid{grid-template-columns:1fr}
   .analytics-grid{grid-template-columns:1fr}
@@ -299,11 +300,14 @@ select:focus{border-color:var(--rose)}
 @media(max-width:640px){
   .author-bar{font-size:10.5px;line-height:1.6;padding:8px 14px}
   .orcid-badge{margin-left:0}
-  .nav-group-label{display:none}
-  .nav-group{padding:5px}
+  .nav-main{gap:4px}
   .nav-tab{min-height:44px}
+  .nav-tab-title-long{display:none}
+  .nav-tab-title-short{display:inline}
   .nav-tab-meta{display:none}
+  .nav-count-badge{display:none}
   .nav-tools{justify-content:space-between;gap:8px;flex-wrap:wrap}
+  #nav-profile-name{display:none}
   .search-row{flex-wrap:wrap}
   .results-count{width:100%}
   .live-search-bar{flex-wrap:wrap}
@@ -1272,60 +1276,54 @@ select:focus{border-color:var(--rose)}
 
 <nav>
   <div class="nav-main">
-    <div class="nav-group nav-group-guide">
-      <div class="nav-group-label">Start</div>
-      <div class="nav-tab nav-guide active" id="nav-resources" onclick="switchTab('resources',this)">
-        <span class="tab-icon">🧬</span>
-        <span class="nav-tab-copy">
-          <span class="nav-tab-title">Start Here</span>
-          <span class="nav-tab-meta">Orientation</span>
-        </span>
-      </div>
+    <div class="nav-tab nav-guide active" id="nav-resources" onclick="switchTab('resources',this)">
+      <span class="tab-icon">🧬</span>
+      <span class="nav-tab-copy">
+        <span class="nav-tab-title nav-tab-title-long">Start Here</span>
+        <span class="nav-tab-title nav-tab-title-short">Start</span>
+        <span class="nav-tab-meta">Guide</span>
+      </span>
     </div>
-    <div class="nav-group nav-group-workspace">
-      <div class="nav-group-label">Your Workspace</div>
-      <div class="nav-tab nav-workspace" id="nav-browse" onclick="switchTab('browse',this)">
-        <span class="tab-icon">📚</span>
-        <span class="nav-tab-copy">
-          <span class="nav-tab-title">Browse Papers</span>
-          <span class="nav-tab-meta">Local curation</span>
-        </span>
-        <span id="nav-count" class="nav-count-badge"></span>
-      </div>
-      <div class="nav-tab nav-workspace" id="nav-live" onclick="switchTab('live',this)">
-        <span class="tab-icon">🔴</span>
-        <span class="nav-tab-copy">
-          <span class="nav-tab-title">Live Search</span>
-          <span class="nav-tab-meta">Add papers</span>
-        </span>
-      </div>
+    <div class="nav-tab nav-workspace" id="nav-browse" onclick="switchTab('browse',this)">
+      <span class="tab-icon">📚</span>
+      <span class="nav-tab-copy">
+        <span class="nav-tab-title nav-tab-title-long">Browse Papers</span>
+        <span class="nav-tab-title nav-tab-title-short">Browse</span>
+        <span class="nav-tab-meta">Workspace</span>
+      </span>
+      <span id="nav-count" class="nav-count-badge"></span>
     </div>
-    <div class="nav-group nav-group-atlas">
-      <div class="nav-group-label">Broad Lipoedema Atlas</div>
-      <div class="nav-tab nav-atlas" id="nav-analytics" onclick="switchTab('analytics',this)">
-        <span class="tab-icon">📊</span>
-        <span class="nav-tab-copy">
-          <span class="nav-tab-title">Analytics</span>
-          <span class="nav-tab-meta">Field + local views</span>
-        </span>
-      </div>
-      <div class="nav-tab nav-atlas" id="nav-atlas" onclick="switchTab('atlas',this)">
-        <span class="tab-icon">🧭</span>
-        <span class="nav-tab-copy">
-          <span class="nav-tab-title">Research Atlas</span>
-          <span class="nav-tab-meta">PubMed-wide</span>
-        </span>
-      </div>
+    <div class="nav-tab nav-workspace" id="nav-live" onclick="switchTab('live',this)">
+      <span class="tab-icon">🔴</span>
+      <span class="nav-tab-copy">
+        <span class="nav-tab-title nav-tab-title-long">Live Search</span>
+        <span class="nav-tab-title nav-tab-title-short">Search</span>
+        <span class="nav-tab-meta">Workspace</span>
+      </span>
     </div>
-    <div class="nav-group nav-group-guide">
-      <div class="nav-group-label">Support</div>
-      <div class="nav-tab nav-guide" id="nav-about" onclick="switchTab('about',this)">
-        <span class="tab-icon">ℹ️</span>
-        <span class="nav-tab-copy">
-          <span class="nav-tab-title">About</span>
-          <span class="nav-tab-meta">Settings + logic</span>
-        </span>
-      </div>
+    <div class="nav-tab nav-atlas" id="nav-analytics" onclick="switchTab('analytics',this)">
+      <span class="tab-icon">📊</span>
+      <span class="nav-tab-copy">
+        <span class="nav-tab-title nav-tab-title-long">Analytics</span>
+        <span class="nav-tab-title nav-tab-title-short">Analytics</span>
+        <span class="nav-tab-meta">Atlas</span>
+      </span>
+    </div>
+    <div class="nav-tab nav-atlas" id="nav-atlas" onclick="switchTab('atlas',this)">
+      <span class="tab-icon">🧭</span>
+      <span class="nav-tab-copy">
+        <span class="nav-tab-title nav-tab-title-long">Research Atlas</span>
+        <span class="nav-tab-title nav-tab-title-short">Atlas</span>
+        <span class="nav-tab-meta">Atlas</span>
+      </span>
+    </div>
+    <div class="nav-tab nav-guide" id="nav-about" onclick="switchTab('about',this)">
+      <span class="tab-icon">ℹ️</span>
+      <span class="nav-tab-copy">
+        <span class="nav-tab-title nav-tab-title-long">About</span>
+        <span class="nav-tab-title nav-tab-title-short">About</span>
+        <span class="nav-tab-meta">Support</span>
+      </span>
     </div>
   </div>
   <div class="nav-tools">
