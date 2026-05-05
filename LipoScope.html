@@ -1649,20 +1649,17 @@ select:focus{border-color:var(--rose)}
       <div style="margin-top:28px;padding-top:24px;border-top:2px dashed var(--border)">
         <div class="live-page-header" style="margin-bottom:12px">
           <h2>🔍 Auto-Discovery Engine <span class="live-badge" style="background:#eef7f6;color:#1e6b6b;border-color:#b8dede">Auto</span></h2>
-          <p>Automatically search <strong>PubMed</strong> and <strong>Scopus</strong> across all 10 research topics, while enforcing a strict <strong>lipedema/lipoedema disease scope</strong>. Topic terms such as lymphatic, adipose, hormone, or fibrosis are only accepted when the record also discusses lipedema/lipoedema. Results are classified from title + abstract text and deduplicated before import.</p>
+          <p>Automatically search <strong>PubMed</strong> across all 10 research topics, while enforcing a strict <strong>lipedema/lipoedema disease scope</strong>. Topic terms such as lymphatic, adipose, hormone, or fibrosis are only accepted when the record also discusses lipedema/lipoedema. Results are classified from title + abstract text and deduplicated before import.</p>
         </div>
 
         <!-- Source selection & settings -->
         <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:flex-end">
           <div style="flex:1;min-width:180px">
-            <label style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-soft);display:block;margin-bottom:4px">Search Sources</label>
+            <label style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-soft);display:block;margin-bottom:4px">Search Source</label>
             <div style="display:flex;gap:8px">
-              <label style="display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--text);cursor:pointer;background:var(--surface);border:1.5px solid var(--border);padding:8px 14px;border-radius:8px">
-                <input type="checkbox" id="disc-src-pubmed" checked> 🔬 PubMed
-              </label>
-              <label style="display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--text);cursor:pointer;background:var(--surface);border:1.5px solid var(--border);padding:8px 14px;border-radius:8px">
-                <input type="checkbox" id="disc-src-scopus"> 🎓 Scopus
-              </label>
+              <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text);background:var(--surface);border:1.5px solid #b8dede;padding:8px 14px;border-radius:8px;font-weight:700">
+                <span>🔬</span> <span>PubMed-only discovery</span>
+              </div>
             </div>
           </div>
           <div style="min-width:120px">
@@ -1685,16 +1682,6 @@ select:focus{border-color:var(--rose)}
               <option value="2025">2025+</option>
             </select>
           </div>
-        </div>
-
-        <!-- Scopus API Key (shown if Scopus checked) -->
-        <div id="scopus-key-row" style="display:none;margin-bottom:14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px">
-          <label style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-soft);display:block;margin-bottom:4px">Scopus API Key <span style="text-transform:none;font-weight:400;color:var(--text-faint)">(from <a href="https://dev.elsevier.com/" target="_blank" style="color:var(--scholar)">dev.elsevier.com</a>)</span></label>
-          <div style="display:flex;gap:8px">
-            <input type="password" id="scopus-api-key" placeholder="Paste your Elsevier/Scopus API key…" style="flex:1;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;font-family:'DM Mono',monospace;outline:none">
-            <button onclick="saveScopusKey()" style="padding:8px 14px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">💾 Save</button>
-          </div>
-          <div style="font-size:11px;color:var(--text-faint);margin-top:5px" id="scopus-key-status"></div>
         </div>
 
         <!-- Topic selection grid -->
@@ -2257,8 +2244,8 @@ select:focus{border-color:var(--rose)}
 </div><!-- /.main-content -->
 
 <footer class="app-footer">
-  <span><strong>LipoScope</strong> <span id="app-version-label">v1.7.1</span> · Research atlas for lipoedema/lipedema literature, biology maps, and local evidence synthesis</span>
-  <span>Updated <span id="app-updated-label">4 May 2026</span> · Public GitHub Pages build</span>
+  <span><strong>LipoScope</strong> <span id="app-version-label">v1.7.2</span> · Research atlas for lipoedema/lipedema literature, biology maps, and local evidence synthesis</span>
+  <span>Updated <span id="app-updated-label">5 May 2026</span> · Public GitHub Pages build</span>
 </footer>
 <button class="scroll-top-btn" id="scroll-top-btn" onclick="scrollToTop()" title="Back to top" aria-label="Back to top">↑</button>
 
@@ -2298,8 +2285,8 @@ select:focus{border-color:var(--rose)}
 </div>
 
 <script>
-const LIPOSCOPE_VERSION = 'v1.7.1';
-const LIPOSCOPE_UPDATED = '4 May 2026';
+const LIPOSCOPE_VERSION = 'v1.7.2';
+const LIPOSCOPE_UPDATED = '5 May 2026';
 
 const PAPERS = [
   {
@@ -9733,6 +9720,7 @@ var LIVING_ATLAS_TARGET = 1500;
 var LIVING_ATLAS_TTL = 12 * 60 * 60 * 1000;
 
 function livingAtlasStorageKey(k) { return 'liposcope_living_atlas_' + k; }
+try { localStorage.removeItem('lip_scopus_api_key_v1'); } catch(e) {}
 function loadLivingAtlasStore() {
   try {
     var s = localStorage.getItem(livingAtlasStorageKey('papers_v1'));
@@ -13114,7 +13102,7 @@ loadChatSessions();
 
 
 // ═══════════════════════════════════════════════════════════════════════
-//  AUTO-DISCOVERY ENGINE — Topic-Based PubMed + Scopus Crawler
+//  AUTO-DISCOVERY ENGINE — Topic-Based PubMed Crawler
 // ═══════════════════════════════════════════════════════════════════════
 
 // ── Topic-specific PubMed query fragments ──
@@ -13174,25 +13162,6 @@ function classifyPaperType(title, abstract) {
 function isLipedemaSpecificText(title, abstract) {
   return /\b(lipedema|lipoedema|lipedematous|lipoedematous)\b/i.test((title || '') + ' ' + (abstract || ''));
 }
-
-// ── Scopus Key Management ──
-function getScopusKey()  { return localStorage.getItem('lip_scopus_api_key_v1') || ''; }
-function saveScopusKey() {
-  var val = (document.getElementById('scopus-api-key')||{value:''}).value.trim();
-  if (!val) return;
-  localStorage.setItem('lip_scopus_api_key_v1', val);
-  var s = document.getElementById('scopus-key-status');
-  if (s) { s.textContent = '✅ Scopus API key saved.'; s.style.color = '#2a7a2a'; }
-  showToast('✅ Scopus API key saved.', 'success');
-}
-
-// Toggle Scopus key field visibility
-document.getElementById('disc-src-scopus').addEventListener('change', function() {
-  var row = document.getElementById('scopus-key-row');
-  if (row) row.style.display = this.checked ? 'block' : 'none';
-  var key = getScopusKey();
-  if (key) { var el = document.getElementById('scopus-api-key'); if (el) el.value = key; }
-});
 
 // ── Build topic checkbox grid ──
 (function buildTopicGrid() {
@@ -13327,12 +13296,8 @@ async function runAutoDiscovery() {
   document.querySelectorAll('.disc-topic-cb:checked').forEach(function(cb) { selectedTopics.push(cb.value); });
   if (!selectedTopics.length) { showToast('Please select at least one topic.', 'warn'); _discRunning = false; return; }
 
-  var usePubMed = document.getElementById('disc-src-pubmed').checked;
-  var useScopus = document.getElementById('disc-src-scopus').checked;
   var maxPerTopic = parseInt(document.getElementById('disc-max-per-topic').value) || 20;
   var yearFrom = document.getElementById('disc-year-from').value;
-
-  if (!usePubMed && !useScopus) { showToast('Select at least one source.', 'warn'); _discRunning = false; return; }
 
   // Show progress UI
   document.getElementById('disc-progress').style.display = 'block';
@@ -13341,181 +13306,106 @@ async function runAutoDiscovery() {
   document.getElementById('disc-run-btn').disabled = true;
   document.getElementById('disc-stop-btn').style.display = 'inline-flex';
 
-  var totalSteps = selectedTopics.length * (usePubMed ? 1 : 0) + selectedTopics.length * (useScopus ? 1 : 0);
+  var totalSteps = selectedTopics.length;
   var currentStep = 0;
 
   discLog('🚀 Starting Auto-Discovery across ' + selectedTopics.length + ' topics…');
-  discLog('Sources: ' + (usePubMed?'PubMed ':'') + (useScopus?'Scopus ':'') + '| Max/topic: ' + maxPerTopic + (yearFrom?' | From: '+yearFrom:''));
+  discLog('Source: PubMed | Max/topic: ' + maxPerTopic + (yearFrom?' | From: '+yearFrom:''));
 
   var allFoundPmids = {}; // track across topics to avoid inter-topic dupes
 
   // ── PubMed Discovery ──
-  if (usePubMed) {
-    for (var i = 0; i < selectedTopics.length; i++) {
-      if (_discStopped) break;
-      var topic = selectedTopics[i];
-      currentStep++;
-      var pct = Math.round((currentStep / totalSteps) * 100);
-      updateDiscProgress(pct, 'PubMed: ' + topic, 'Searching for ' + topic + ' papers…');
-      discLog('🔬 PubMed → <strong>' + topic + '</strong>…');
+  for (var i = 0; i < selectedTopics.length; i++) {
+    if (_discStopped) break;
+    var topic = selectedTopics[i];
+    currentStep++;
+    var pct = Math.round((currentStep / totalSteps) * 100);
+    updateDiscProgress(pct, 'PubMed: ' + topic, 'Searching for ' + topic + ' papers…');
+    discLog('🔬 PubMed → <strong>' + topic + '</strong>…');
 
-      try {
-        var results = await searchPubMedForTopic(topic, maxPerTopic, yearFrom);
-        _discStats.searched += results.totalHits;
-        discLog('  Found ' + results.totalHits + ' hits, fetching top ' + results.papers.length + '…');
+    try {
+      var results = await searchPubMedForTopic(topic, maxPerTopic, yearFrom);
+      _discStats.searched += results.totalHits;
+      discLog('  Found ' + results.totalHits + ' hits, fetching top ' + results.papers.length + '…');
 
-        // Fetch abstracts and add papers
-        for (var j = 0; j < results.papers.length; j++) {
-          if (_discStopped) break;
-          var pd = results.papers[j];
-
-          // Deduplication check
-          if (allFoundPmids[pd.pmid] || isDuplicateInDB(pd.pmid, pd.title)) {
-            _discStats.skipped++;
-            continue;
-          }
-          allFoundPmids[pd.pmid] = true;
-          _discStats.found++;
-
-          updateDiscProgress(pct, 'PubMed: ' + topic + ' (' + (j+1) + '/' + results.papers.length + ')', 'Processing: ' + pd.title.slice(0,60) + '…');
-
-          // Fetch full abstract
-          var abstractData = await fetchPubMedAbstract(pd.pmid);
-          await sleep(200); // rate limiting
-
-          if (!isLipedemaSpecificText(pd.title, abstractData.fullText)) {
-            _discStats.skipped++;
-            discLog('  ↳ Skipped non-lipoedema-specific record: ' + pd.title.slice(0,70));
-            continue;
-          }
-
-          // Classify using enhanced classifier
-          var assignedTopic = classifyPaperTopic(pd.title, abstractData.fullText);
-          var assignedType  = classifyPaperType(pd.title, abstractData.fullText);
-
-          // Parse structured abstract
-          var aims = '', methods = '', findings = [];
-          if (abstractData.sections && Object.keys(abstractData.sections).length) {
-            var secs = abstractData.sections;
-            var keys = Object.keys(secs);
-            var getS = function() {
-              for (var a = 0; a < arguments.length; a++) {
-                for (var k = 0; k < keys.length; k++) { if (keys[k].indexOf(arguments[a]) !== -1) return secs[keys[k]]; }
-              }
-              return '';
-            };
-            aims    = getS('BACKGROUND','OBJECTIVE','AIM','PURPOSE','INTRODUCTION') || Object.values(secs)[0] || '';
-            methods = getS('METHOD','DESIGN','MATERIAL','PARTICIPANT') || '';
-            var resText = getS('RESULT','FINDING','CONCLUSION','OUTCOME') || Object.values(secs).slice(-1)[0] || '';
-            findings = extractBullets(resText);
-            if (!findings.length) findings = extractBullets(aims);
-          } else if (abstractData.fullText) {
-            aims = abstractData.fullText.slice(0,400) + (abstractData.fullText.length > 400 ? '…' : '');
-            findings = extractBullets(abstractData.fullText);
-          }
-          if (!findings.length) findings = ['Abstract available — see full text for detailed findings.'];
-
-          // Create paper object
-          var allNow = getAllPapers();
-          var maxId = 5000;
-          for (var k = 0; k < allNow.length; k++) { if ((allNow[k].id||0) > maxId) maxId = allNow[k].id; }
-          var newId = maxId + 1;
-
-          var paper = {
-            id: newId, pmid: pd.pmid, title: pd.title,
-            authors: pd.authors, firstAuthor: pd.authors.split(',')[0].trim(),
-            lastAuthor: 'et al.', journal: pd.journal,
-            year: parseInt(pd.year) || currentYear(),
-            type: assignedType, topic: assignedTopic,
-            summary: (aims || pd.title).slice(0,200) + '…',
-            aims: aims, methods: methods, findings: findings,
-            doi: pd.doi ? 'https://doi.org/' + pd.doi : 'https://pubmed.ncbi.nlm.nih.gov/' + pd.pmid + '/',
-            color: TOPIC_COLOR_MAP[assignedTopic] || '#1e6b6b',
-            userAdded: true, autoDiscovered: true
-          };
-
-          userPapers.push(paper);
-          saveUserPapers();
-          _discStats.added++;
-          discLog('  ✅ Added: <em>' + pd.title.slice(0,65) + '…</em> → ' + assignedTopic + ' (' + assignedType + ')');
-        }
-      } catch(err) {
-        _discStats.errors++;
-        discLog('  ⚠️ Error on ' + topic + ': ' + err.message);
-      }
-    }
-  }
-
-  // ── Scopus Discovery ──
-  if (useScopus && !_discStopped) {
-    var scopusKey = getScopusKey();
-    if (!scopusKey) {
-      discLog('⚠️ Scopus: No API key provided — skipping. Get one at dev.elsevier.com');
-    } else {
-      for (var si = 0; si < selectedTopics.length; si++) {
+      // Fetch abstracts and add papers
+      for (var j = 0; j < results.papers.length; j++) {
         if (_discStopped) break;
-        var sTopic = selectedTopics[si];
-        currentStep++;
-        var sPct = Math.round((currentStep / totalSteps) * 100);
-        updateDiscProgress(sPct, 'Scopus: ' + sTopic, 'Searching Scopus for ' + sTopic + '…');
-        discLog('🎓 Scopus → <strong>' + sTopic + '</strong>…');
+        var pd = results.papers[j];
 
-        try {
-          var sResults = await searchScopusForTopic(sTopic, maxPerTopic, yearFrom, scopusKey);
-          _discStats.searched += sResults.length;
-          discLog('  Found ' + sResults.length + ' Scopus results.');
-
-          for (var sj = 0; sj < sResults.length; sj++) {
-            if (_discStopped) break;
-            var sp = sResults[sj];
-            if (!sp.title) continue;
-            if (!isLipedemaSpecificText(sp.title, sp.abstract || '')) {
-              _discStats.skipped++;
-              discLog('  ↳ [Scopus] Skipped non-lipoedema-specific record: ' + sp.title.slice(0,70));
-              continue;
-            }
-
-            if (isDuplicateInDB(null, sp.title) || allFoundPmids['scopus_' + (sp.scopusId||sp.title.slice(0,40))]) {
-              _discStats.skipped++;
-              continue;
-            }
-            allFoundPmids['scopus_' + (sp.scopusId||sp.title.slice(0,40))] = true;
-            _discStats.found++;
-
-            var sAssignedTopic = classifyPaperTopic(sp.title, sp.abstract || '');
-            var sAssignedType  = classifyPaperType(sp.title, sp.abstract || '');
-
-            var sFindings = extractBullets(sp.abstract || '');
-            if (!sFindings.length) sFindings = ['Abstract available — see full text for detailed findings.'];
-
-            var sAllNow = getAllPapers();
-            var sMaxId = 5000;
-            for (var sk = 0; sk < sAllNow.length; sk++) { if ((sAllNow[sk].id||0) > sMaxId) sMaxId = sAllNow[sk].id; }
-
-            var sPaper = {
-              id: sMaxId + 1, pmid: sp.pmid || '', title: sp.title,
-              authors: sp.authors || '', firstAuthor: (sp.authors||'').split(',')[0].trim(),
-              lastAuthor: 'et al.', journal: sp.journal || '',
-              year: parseInt(sp.year) || currentYear(),
-              type: sAssignedType, topic: sAssignedTopic,
-              summary: (sp.abstract || sp.title).slice(0,200) + '…',
-              aims: sp.abstract || '', methods: '', findings: sFindings,
-              doi: sp.doi ? 'https://doi.org/' + sp.doi : '',
-              color: TOPIC_COLOR_MAP[sAssignedTopic] || '#1e6b6b',
-              userAdded: true, autoDiscovered: true, source: 'scopus'
-            };
-
-            userPapers.push(sPaper);
-            saveUserPapers();
-            _discStats.added++;
-            discLog('  ✅ [Scopus] Added: <em>' + sp.title.slice(0,65) + '…</em> → ' + sAssignedTopic);
-          }
-        } catch(err) {
-          _discStats.errors++;
-          discLog('  ⚠️ Scopus error on ' + sTopic + ': ' + err.message);
+        // Deduplication check
+        if (allFoundPmids[pd.pmid] || isDuplicateInDB(pd.pmid, pd.title)) {
+          _discStats.skipped++;
+          continue;
         }
-        await sleep(300);
+        allFoundPmids[pd.pmid] = true;
+        _discStats.found++;
+
+        updateDiscProgress(pct, 'PubMed: ' + topic + ' (' + (j+1) + '/' + results.papers.length + ')', 'Processing: ' + pd.title.slice(0,60) + '…');
+
+        // Fetch full abstract
+        var abstractData = await fetchPubMedAbstract(pd.pmid);
+        await sleep(200); // rate limiting
+
+        if (!isLipedemaSpecificText(pd.title, abstractData.fullText)) {
+          _discStats.skipped++;
+          discLog('  ↳ Skipped non-lipoedema-specific record: ' + pd.title.slice(0,70));
+          continue;
+        }
+
+        // Classify using enhanced classifier
+        var assignedTopic = classifyPaperTopic(pd.title, abstractData.fullText);
+        var assignedType  = classifyPaperType(pd.title, abstractData.fullText);
+
+        // Parse structured abstract
+        var aims = '', methods = '', findings = [];
+        if (abstractData.sections && Object.keys(abstractData.sections).length) {
+          var secs = abstractData.sections;
+          var keys = Object.keys(secs);
+          var getS = function() {
+            for (var a = 0; a < arguments.length; a++) {
+              for (var k = 0; k < keys.length; k++) { if (keys[k].indexOf(arguments[a]) !== -1) return secs[keys[k]]; }
+            }
+            return '';
+          };
+          aims    = getS('BACKGROUND','OBJECTIVE','AIM','PURPOSE','INTRODUCTION') || Object.values(secs)[0] || '';
+          methods = getS('METHOD','DESIGN','MATERIAL','PARTICIPANT') || '';
+          var resText = getS('RESULT','FINDING','CONCLUSION','OUTCOME') || Object.values(secs).slice(-1)[0] || '';
+          findings = extractBullets(resText);
+          if (!findings.length) findings = extractBullets(aims);
+        } else if (abstractData.fullText) {
+          aims = abstractData.fullText.slice(0,400) + (abstractData.fullText.length > 400 ? '…' : '');
+          findings = extractBullets(abstractData.fullText);
+        }
+        if (!findings.length) findings = ['Abstract available — see full text for detailed findings.'];
+
+        // Create paper object
+        var allNow = getAllPapers();
+        var maxId = 5000;
+        for (var k = 0; k < allNow.length; k++) { if ((allNow[k].id||0) > maxId) maxId = allNow[k].id; }
+        var newId = maxId + 1;
+
+        var paper = {
+          id: newId, pmid: pd.pmid, title: pd.title,
+          authors: pd.authors, firstAuthor: pd.authors.split(',')[0].trim(),
+          lastAuthor: 'et al.', journal: pd.journal,
+          year: parseInt(pd.year) || currentYear(),
+          type: assignedType, topic: assignedTopic,
+          summary: (aims || pd.title).slice(0,200) + '…',
+          aims: aims, methods: methods, findings: findings,
+          doi: pd.doi ? 'https://doi.org/' + pd.doi : 'https://pubmed.ncbi.nlm.nih.gov/' + pd.pmid + '/',
+          color: TOPIC_COLOR_MAP[assignedTopic] || '#1e6b6b',
+          userAdded: true, autoDiscovered: true
+        };
+
+        userPapers.push(paper);
+        saveUserPapers();
+        _discStats.added++;
+        discLog('  ✅ Added: <em>' + pd.title.slice(0,65) + '…</em> → ' + assignedTopic + ' (' + assignedType + ')');
       }
+    } catch(err) {
+      _discStats.errors++;
+      discLog('  ⚠️ Error on ' + topic + ': ' + err.message);
     }
   }
 
@@ -13539,7 +13429,7 @@ async function runAutoDiscovery() {
   if (resPanel) resPanel.style.display = 'block';
   if (resTitle) resTitle.textContent = '✅ Discovery Complete — ' + _discStats.added + ' New Paper(s) Added';
   if (resBody)  resBody.innerHTML =
-    '<strong>Total PubMed/Scopus hits searched:</strong> ' + _discStats.searched + '<br>' +
+    '<strong>Total PubMed hits searched:</strong> ' + _discStats.searched + '<br>' +
     '<strong>Unique papers found:</strong> ' + _discStats.found + '<br>' +
     '<strong>Added to database:</strong> ' + _discStats.added + '<br>' +
     '<strong>Skipped (duplicates):</strong> ' + _discStats.skipped + '<br>' +
@@ -13619,56 +13509,6 @@ async function fetchPubMedAbstract(pmid) {
   } catch(e) {
     return { sections: {}, fullText: '' };
   }
-}
-
-// ═══════════════════════════════════════════════════════════════════════
-//  Scopus Topic Search
-// ═══════════════════════════════════════════════════════════════════════
-async function searchScopusForTopic(topic, maxResults, yearFrom, apiKey) {
-  var diseaseQ = 'TITLE-ABS-KEY(lipedema OR lipoedema)';
-  var topicMap = {
-    'Genetics & Genomics':      'TITLE-ABS-KEY(gene OR genetic OR genomic OR GWAS OR variant OR mutation OR epigenetic)',
-    'Pathophysiology':           'TITLE-ABS-KEY(pathophysiology OR mechanism OR inflammation OR fibrosis OR cytokine)',
-    'Hormones & Estrogen':       'TITLE-ABS-KEY(hormone OR estrogen OR progesterone OR menopause OR endocrine)',
-    'Diagnosis & Clinical':      'TITLE-ABS-KEY(diagnosis OR clinical OR staging OR classification OR imaging OR biomarker)',
-    'Treatment & Surgery':       'TITLE-ABS-KEY(treatment OR surgery OR liposuction OR therapy OR compression OR exercise)',
-    'Lymphatics & Vasculature':  'TITLE-ABS-KEY(lymphatic OR vascular OR endothelial OR lymph vessel)',
-    'Adipose Biology':           'TITLE-ABS-KEY(adipocyte OR adipose OR lipogenesis OR adipogenesis OR stem cell)',
-    'Epidemiology & Registry':   'TITLE-ABS-KEY(epidemiology OR prevalence OR registry OR cohort OR survey)',
-    'Guidelines & Consensus':    'TITLE-ABS-KEY(guideline OR consensus OR recommendation OR Delphi)',
-    'Comorbidities & QoL':       'TITLE-ABS-KEY(quality AND life OR comorbidity OR pain OR psychology OR depression)'
-  };
-  var topicQ = topicMap[topic] || '';
-  var fullQ  = diseaseQ + ' AND ' + topicQ;
-  if (yearFrom) fullQ += ' AND PUBYEAR > ' + (parseInt(yearFrom)-1);
-
-  var url = 'https://api.elsevier.com/content/search/scopus?query=' + encodeURIComponent(fullQ) +
-    '&count=' + maxResults + '&sort=-coverDate&apiKey=' + apiKey;
-
-  var resp = await fetch(url, {
-    headers: { 'Accept': 'application/json', 'X-ELS-APIKey': apiKey }
-  });
-
-  if (!resp.ok) {
-    var errTxt = await resp.text().catch(function(){ return ''; });
-    throw new Error('Scopus HTTP ' + resp.status + (errTxt ? ': ' + errTxt.slice(0,100) : ''));
-  }
-
-  var data = await resp.json();
-  var entries = (data['search-results'] && data['search-results']['entry']) || [];
-
-  return entries.map(function(e) {
-    return {
-      scopusId: e['dc:identifier'] || '',
-      title:    e['dc:title'] || '',
-      authors:  e['dc:creator'] || '',
-      journal:  e['prism:publicationName'] || '',
-      year:     (e['prism:coverDate']||'').slice(0,4),
-      doi:      e['prism:doi'] || null,
-      pmid:     '', // Scopus doesn't always provide PMID
-      abstract: e['dc:description'] || ''
-    };
-  }).filter(function(e) { return e.title; });
 }
 
 // ═══════════════════════════════════════════════════════════════════════
