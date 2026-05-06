@@ -86,6 +86,7 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);padding:10px
 .nav-count-badge{font-size:10px;background:var(--rose);color:#fff;padding:1px 6px;border-radius:10px;font-weight:700;vertical-align:middle;line-height:1.6;flex-shrink:0}
 .nav-count-badge:empty{display:none}
 .nav-tools{padding:4px 6px 4px 0;display:flex;align-items:center;gap:10px;flex:0 0 auto;min-width:0}
+.nav-profile-trigger{display:flex;align-items:center;gap:8px;cursor:pointer;min-width:0}
 
 /* ── MAIN CONTENT ── */
 .main-content{max-width:1440px;margin:0 auto;padding:28px 40px 60px}
@@ -297,21 +298,42 @@ select:focus{border-color:var(--rose)}
   .category-key{grid-template-columns:1fr}
 }
 
-@media(max-width:640px){
-  .author-bar{font-size:10.5px;line-height:1.6;padding:8px 14px}
-  .orcid-badge{margin-left:0}
+@media(max-width:760px){
+  nav{padding:9px 12px}
   .nav-main{gap:4px}
-  .nav-tab{min-height:44px}
+  .nav-tab{padding:7px 4px;min-height:54px;flex-direction:column;gap:3px}
+  .nav-tab .tab-icon{font-size:14px}
+  .nav-tab-copy{gap:0}
+  .nav-tab-title{font-size:10px;line-height:1.05;white-space:normal}
   .nav-tab-title-long{display:none}
   .nav-tab-title-short{display:inline}
   .nav-tab-meta{display:none}
   .nav-count-badge{display:none}
-  .nav-tools{justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .nav-tools{justify-content:space-between;gap:8px;padding:0}
+}
+
+@media(max-width:640px){
+  .author-bar{font-size:10.5px;line-height:1.6;padding:8px 14px}
+  .orcid-badge{margin-left:0}
+  .nav-main{gap:3px}
+  .nav-tab{padding:6px 2px;min-height:50px;border-radius:8px}
+  .nav-tab .tab-icon{font-size:13px}
+  .nav-tab-title{font-size:9.5px}
+  .nav-tools{justify-content:space-between;gap:8px;flex-wrap:nowrap}
+  .nav-profile-trigger{gap:6px}
+  .notif-btn{width:34px;height:34px;font-size:14px}
   #nav-profile-name{display:none}
   .search-row{flex-wrap:wrap}
   .results-count{width:100%}
   .live-search-bar{flex-wrap:wrap}
   .live-btn{width:100%}
+}
+
+@media(max-width:380px){
+  nav{padding:8px 8px}
+  .nav-main{gap:2px}
+  .nav-tab{min-height:48px}
+  .nav-tab-title{font-size:9px}
 }
 
   /* ── ADD TO BROWSE BUTTON ── */
@@ -1305,7 +1327,7 @@ select:focus{border-color:var(--rose)}
       <span class="tab-icon">📊</span>
       <span class="nav-tab-copy">
         <span class="nav-tab-title nav-tab-title-long">Analytics</span>
-        <span class="nav-tab-title nav-tab-title-short">Analytics</span>
+        <span class="nav-tab-title nav-tab-title-short">Stats</span>
         <span class="nav-tab-meta">Atlas</span>
       </span>
     </div>
@@ -1349,7 +1371,7 @@ select:focus{border-color:var(--rose)}
       </div>
     </div>
     <!-- Profile -->
-    <div style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="switchTab('about',document.getElementById('nav-about'))" title="Your profile">
+    <div class="nav-profile-trigger" onclick="switchTab('about',document.getElementById('nav-about'))" title="Your profile">
       <div id="profile-avatar" style="width:28px;height:28px;border-radius:50%;background:var(--rose);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">?</div>
       <span style="font-size:11.5px;color:var(--text-soft)" id="nav-profile-name">My Profile</span>
     </div>
@@ -2244,8 +2266,8 @@ select:focus{border-color:var(--rose)}
 </div><!-- /.main-content -->
 
 <footer class="app-footer">
-  <span><strong>LipoScope</strong> <span id="app-version-label">v1.7.2</span> · Research atlas for lipoedema/lipedema literature, biology maps, and local evidence synthesis</span>
-  <span>Updated <span id="app-updated-label">5 May 2026</span> · Public GitHub Pages build</span>
+  <span><strong>LipoScope</strong> <span id="app-version-label">v1.7.3</span> · Research atlas for lipoedema/lipedema literature, biology maps, and local evidence synthesis</span>
+  <span>Updated <span id="app-updated-label">6 May 2026</span> · Public GitHub Pages build</span>
 </footer>
 <button class="scroll-top-btn" id="scroll-top-btn" onclick="scrollToTop()" title="Back to top" aria-label="Back to top">↑</button>
 
@@ -2285,8 +2307,8 @@ select:focus{border-color:var(--rose)}
 </div>
 
 <script>
-const LIPOSCOPE_VERSION = 'v1.7.2';
-const LIPOSCOPE_UPDATED = '5 May 2026';
+const LIPOSCOPE_VERSION = 'v1.7.3';
+const LIPOSCOPE_UPDATED = '6 May 2026';
 
 const PAPERS = [
   {
