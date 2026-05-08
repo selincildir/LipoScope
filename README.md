@@ -97,8 +97,6 @@ This means the app remains openly available for public use, while stronger copyl
 
 Third-party publications, PubMed metadata, abstracts, external links, DOI-linked content, paper figures, publisher material, and other third-party content are not relicensed by this repository. They remain subject to their original copyright, license, database, publisher, and access terms. See `NOTICE.md`.
 
-Note: earlier snapshots of the repository may have been distributed under different terms. Those prior grants are not retroactively withdrawn for copies already received under those terms.
-
 ## Author
 
 Developed by Selin Cildir, Centre for Cancer Biology, Adelaide University.
