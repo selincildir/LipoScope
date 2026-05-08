@@ -68,29 +68,36 @@ LipoScope is intended for research, education, study planning, and literature na
 - `LipoScope.html` - the full application.
 - `index.html` - GitHub Pages entry point that opens `LipoScope.html`.
 - `README.md` - project overview and deployment notes.
-- `LICENSE` - MIT License for the software/code.
-- `CONTENT_LICENSE.md` - CC BY 4.0 license notice for original non-code content.
+- `LICENSE` - GNU Affero General Public License v3.0 (AGPL-3.0) for the software/code.
+- `CONTENT_LICENSE.md` - CC BY-NC 4.0 license notice for original non-code content.
 - `NOTICE.md` - third-party content and use notice.
+- `CITATION.cff` - preferred citation metadata for GitHub and research reuse.
 
 ## Citation
 
-If you use LipoScope in research, please cite the project page and the relevant primary papers surfaced through the app. 
+If you use LipoScope in research, teaching, presentations, or derivative scholarly work, please cite the software repository and, when available, the associated publication, alongside the relevant primary papers surfaced through the app.
 
-Suggested attribution:
+Preferred software citation until the journal article is available:
 
 ```text
-LipoScope content by Selin Cildir, licensed under CC BY 4.0.
+Cildir S. (2026). LipoScope (Version 1.7.4) [Software].
 https://github.com/selincildir/LipoScope
 ```
+
+GitHub citation metadata is provided in `CITATION.cff`.
 
 ## License
 
 LipoScope uses a dual-license model:
 
-- Software/code: MIT License. See `LICENSE`.
-- Original documentation, educational figures, explanatory text, and curated annotations created for LipoScope: Creative Commons Attribution 4.0 International (CC BY 4.0). See `CONTENT_LICENSE.md`.
+- Software/code: GNU Affero General Public License v3.0 (AGPL-3.0). See `LICENSE`.
+- Original documentation, educational figures, explanatory text, and curated annotations created for LipoScope: Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0). See `CONTENT_LICENSE.md`.
+
+This means the app remains openly available for public use, while stronger copyleft terms apply to the codebase and commercial reuse of original non-code content is not permitted without permission.
 
 Third-party publications, PubMed metadata, abstracts, external links, DOI-linked content, paper figures, publisher material, and other third-party content are not relicensed by this repository. They remain subject to their original copyright, license, database, publisher, and access terms. See `NOTICE.md`.
+
+Note: earlier snapshots of the repository may have been distributed under different terms. Those prior grants are not retroactively withdrawn for copies already received under those terms.
 
 ## Author
 

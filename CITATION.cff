@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use LipoScope, please cite the software repository. When the journal article becomes available, please cite both the software and the publication."
+title: "LipoScope"
+version: "1.7.4"
+date-released: "2026-05-06"
+type: software
+authors:
+  - family-names: "Cildir"
+    given-names: "Selin"
+    orcid: "https://orcid.org/0009-0003-5456-3335"
+    affiliation: "Centre for Cancer Biology, Adelaide University"
+repository-code: "https://github.com/selincildir/LipoScope"
+url: "https://github.com/selincildir/LipoScope"
+license: "AGPL-3.0-only"
+abstract: "LipoScope is a browser-based, PubMed-aware atlas for lipoedema literature, evidence mapping, and local omics interpretation."
+keywords:
+  - lipoedema
+  - lipedema
+  - literature atlas
+  - omics
+  - PubMed
+preferred-citation:
+  type: software
+  authors:
+    - family-names: "Cildir"
+      given-names: "Selin"
+      orcid: "https://orcid.org/0009-0003-5456-3335"
+  title: "LipoScope"
+  version: "1.7.4"
+  date-released: "2026-05-06"
+  url: "https://github.com/selincildir/LipoScope"
