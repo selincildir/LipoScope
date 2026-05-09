@@ -843,6 +843,8 @@ select:focus{border-color:var(--rose)}
   .atlas-graph-legend { display:flex; flex-wrap:wrap; gap:7px; padding:10px 12px 12px; border-top:1px solid var(--border); background:#fff; }
   .atlas-graph-legend span { display:inline-flex; align-items:center; gap:6px; font-size:10.5px; font-weight:800; color:var(--text-soft); }
   .atlas-graph-legend i { width:10px; height:10px; border-radius:50%; display:inline-block; }
+  .atlas-graph-legend .atlas-graph-note { color:var(--text-faint); font-weight:700; }
+  .atlas-graph-legend i.atlas-graph-square { border-radius:3px; }
   .atlas-detail { background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:14px 16px; min-height:390px; }
   .atlas-detail h4 { font-family:'Playfair Display',serif; font-size:1rem; margin-bottom:4px; color:var(--text); }
   .atlas-detail p { font-size:12px; color:var(--text-mid); line-height:1.7; margin-bottom:8px; }
@@ -6589,7 +6591,7 @@ const TOPIC_COLORS = {
   "Lymphatics & Vasculature":{ bg:"#f8f4e8", border:"#ddd0a0", text:"#5a4018", fill:"#6a5020" },
   "Adipose Biology":        { bg:"#fdf5ee", border:"#e8c8a0", text:"#904820", fill:"#c4773a" },
   "Epidemiology & Registry":{ bg:"#f0efed", border:"#ccc8c0", text:"#444038", fill:"#505050" },
-  "Guidelines & Consensus": { bg:"#f8f2ff", border:"#d8c4f0", text:"#5a2880", fill:"#6a3a98" },
+  "Guidelines & Consensus": { bg:"#f7f3ea", border:"#d8c7a2", text:"#6a5418", fill:"#8a6b20" },
   "Comorbidities & QoL":    { bg:"#eef9f9", border:"#a8d8d8", text:"#155858", fill:"#1e9090" }
 };
 
@@ -10655,78 +10657,80 @@ function atlasSelectGraphNode(kind, key) {
 }
 
 function buildAtlasGraphData(entities, all) {
-  var nodes = [{ id:'disease', label:'Lipoedema', kind:'Disease' }], links = [];
+  var nodes = [{ id:'disease', label:'Lipoedema', kind:'Disease', color:ATLAS_DISEASE_NODE_COLOR }], links = [];
   var topicCounts = atlasTopicCounts(all);
   Object.keys(topicCounts).sort(function(a,b){return topicCounts[b].total-topicCounts[a].total;}).forEach(function(t) {
-    nodes.push({ id:'topic:' + t, label:t, kind:'Topic', count:topicCounts[t].total });
+    var theme = atlasGraphThemeForTopic(t);
+    nodes.push({ id:'topic:' + t, label:t, kind:'Topic', count:topicCounts[t].total, topic:t, color:theme.fill, backgroundColor:theme.bg, borderColor:theme.border, textColor:theme.text });
     links.push({ source:'disease', target:'topic:' + t, relation:'has literature domain' });
   });
   entities.slice(0, 16).forEach(function(e) {
-    nodes.push({ id:'entity:' + e.key, label:e.label, kind:e.kind, score:e.score, count:e.paperCount });
+    var theme = atlasGraphThemeForTopic(e.topic);
+    nodes.push({ id:'entity:' + e.key, label:e.label, kind:e.kind, topic:e.topic, pathway:e.pathway, score:e.score, count:e.paperCount, color:theme.fill, backgroundColor:theme.bg, borderColor:theme.border, textColor:theme.text });
     links.push({ source:'entity:' + e.key, target:'topic:' + e.topic, relation:'supports' });
     links.push({ source:'disease', target:'entity:' + e.key, relation:'has candidate entity' });
   });
   return { nodes:nodes, links:links };
 }
 
-var ATLAS_MOLECULAR_CATEGORIES = {
-  adipose:{ label:'Adipose biology', color:'#c97a12', terms:/adipose|adipocyte|fat|lipid|lipolysis|adipogenesis|ppar|leptin|svf|metabol/i },
-  lymphatic:{ label:'Lymphatic / vascular biology', color:'#0d9488', terms:/lymph|vascular|endothelial|vegf|fluid|microcirculation|vessel|pf4|cxcl4/i },
-  genetics:{ label:'Genetics / omics', color:'#6d28d9', terms:/gene|genetic|gwas|variant|omics|transcript|methyl|sequenc|epigen|mirna|rna/i },
-  hormone:{ label:'Hormone signalling', color:'#c2185b', terms:/hormone|estrogen|oestrogen|progesterone|menopause|puberty|pregnancy|receptor|akr1c/i },
-  matrix:{ label:'ECM / fibrosis', color:'#6b8e23', terms:/ecm|matrix|fibrosis|collagen|mmp|tgf|focal adhesion|connective/i },
-  inflammation:{ label:'Inflammation / pain', color:'#d9480f', terms:/inflamm|immune|pain|cytokine|macrophage|il-6|complement|tender/i },
-  clinical:{ label:'Clinical / diagnostic', color:'#2563eb', terms:/diagnos|clinical|imaging|stage|classification|quality of life|treatment|surgery|compression/i }
-};
-var ATLAS_CROSS_DOMAIN_CATEGORY = { label:'Cross-domain / emerging', color:'#475569' };
+var ATLAS_GRAPH_FALLBACK_THEME = { label:'Unclassified', bg:'#f5f5f5', border:'#d6d3d1', text:'#57534e', fill:'#78716c' };
 var ATLAS_DISEASE_NODE_COLOR = '#111827';
 
-function molecularCategoryForEntity(e) {
-  var text = [e.label, e.kind, e.pathway, e.topic, e.rationale, (e.aliases || []).join(' ')].join(' ');
-  var order = ['adipose','lymphatic','genetics','hormone','matrix','inflammation','clinical'];
-  for (var i = 0; i < order.length; i++) {
-    var cat = ATLAS_MOLECULAR_CATEGORIES[order[i]];
-    if (cat.terms.test(text)) return cat;
-  }
-  return ATLAS_CROSS_DOMAIN_CATEGORY;
+function atlasGraphThemeForTopic(topic) {
+  var tc = TOPIC_COLORS[topic];
+  if (!tc) return ATLAS_GRAPH_FALLBACK_THEME;
+  return { label:topic, bg:tc.bg, border:tc.border, text:tc.text, fill:tc.fill };
 }
 
-function atlasGraphLegendHtml() {
-  var order = ['adipose','lymphatic','genetics','hormone','matrix','inflammation','clinical'];
-  return '<div class="atlas-graph-legend" aria-label="Knowledge graph colour legend">' + order.map(function(k) {
-    var c = ATLAS_MOLECULAR_CATEGORIES[k];
-    return '<span><i style="background:' + c.color + '"></i>' + atlasEsc(c.label) + '</span>';
-  }).join('') + '<span><i style="background:' + ATLAS_CROSS_DOMAIN_CATEGORY.color + '"></i>' + atlasEsc(ATLAS_CROSS_DOMAIN_CATEGORY.label) + '</span></div>';
+function atlasGraphLegendHtml(topics) {
+  var order = [];
+  (topics || []).forEach(function(topic) {
+    if (order.indexOf(topic) === -1) order.push(topic);
+  });
+  if (!order.length) order = Object.keys(TOPIC_COLORS);
+  return '<div class="atlas-graph-legend" aria-label="Knowledge graph colour legend">' +
+    '<span class="atlas-graph-note"><i style="background:#6b7280"></i>Circle = Atlas domain</span>' +
+    '<span class="atlas-graph-note"><i class="atlas-graph-square" style="background:#fff;border:1.5px solid #94a3b8"></i>Box = candidate entity</span>' +
+    '<span class="atlas-graph-note">Entity box colours match the connected Atlas domain.</span>' +
+    order.map(function(topic) {
+      var theme = atlasGraphThemeForTopic(topic);
+      return '<span><i style="background:' + theme.fill + '"></i>' + atlasEsc(topic) + '</span>';
+    }).join('') +
+  '</div>';
 }
 
 function renderKnowledgeGraph(entities, all) {
   var graphEl = document.getElementById('atlas-graph'); if (!graphEl) return;
-  var topics = Object.keys(atlasTopicCounts(all)).sort(), topEntities = entities.slice(0, 16);
+  var topicCounts = atlasTopicCounts(all);
+  var topics = Object.keys(topicCounts).sort(function(a,b){ return topicCounts[b].total - topicCounts[a].total || a.localeCompare(b); });
+  var topEntities = entities.slice(0, 16);
   var w = 960, h = 500, cx = 480, cy = 250, html = '<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="Lipoedema knowledge graph">';
   html += '<defs><filter id="atlas-shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.16"/></filter></defs>';
   var topicPos = {};
   topics.forEach(function(t, i) {
+    var theme = atlasGraphThemeForTopic(t);
     var angle = -Math.PI * 0.88 + (i / Math.max(1, topics.length - 1)) * Math.PI * 1.76, x = cx + Math.cos(angle) * 190, y = cy + Math.sin(angle) * 155;
     topicPos[t] = {x:x,y:y};
-    html += '<line x1="' + cx + '" y1="' + cy + '" x2="' + x + '" y2="' + y + '" stroke="#d8d0ca" stroke-width="1.2"/>';
+    html += '<line x1="' + cx + '" y1="' + cy + '" x2="' + x + '" y2="' + y + '" stroke="' + theme.border + '" stroke-width="1.4" opacity="0.8"/>';
   });
   var entPos = {};
   topEntities.forEach(function(e, i) {
+    var theme = atlasGraphThemeForTopic(e.topic);
     var side = i % 2 === 0 ? 1 : -1, row = Math.floor(i / 2), x = side > 0 ? 760 : 200, y = 58 + row * 52;
     entPos[e.key] = {x:x,y:y};
     var tp = topicPos[e.topic] || {x:cx,y:cy};
-    html += '<line x1="' + x + '" y1="' + y + '" x2="' + tp.x + '" y2="' + tp.y + '" stroke="#b8c9c9" stroke-width="1" opacity="0.65"/>';
+    html += '<line x1="' + x + '" y1="' + y + '" x2="' + tp.x + '" y2="' + tp.y + '" stroke="' + theme.fill + '" stroke-width="1.2" opacity="0.42"/>';
   });
-  html += '<g class="atlas-node" onclick="atlasSelectGraphNode(\'disease\',\'Lipoedema\')" filter="url(#atlas-shadow)"><circle cx="' + cx + '" cy="' + cy + '" r="54" fill="' + ATLAS_DISEASE_NODE_COLOR + '" stroke="#e5e7eb" stroke-width="4"/><text x="' + cx + '" y="' + (cy - 4) + '" text-anchor="middle" fill="#fff" font-size="17" font-weight="800">Lipoedema</text><text x="' + cx + '" y="' + (cy + 15) + '" text-anchor="middle" fill="rgba(255,255,255,0.78)" font-size="11">' + all.length + ' records</text></g>';
+  html += '<g class="atlas-node" onclick="atlasSelectGraphNode(\'disease\',\'Lipoedema\')" filter="url(#atlas-shadow)"><title>Lipoedema central node · ' + atlasEsc(String(all.length)) + ' PubMed-wide records</title><circle cx="' + cx + '" cy="' + cy + '" r="54" fill="' + ATLAS_DISEASE_NODE_COLOR + '" stroke="#e5e7eb" stroke-width="4"/><text x="' + cx + '" y="' + (cy - 4) + '" text-anchor="middle" fill="#fff" font-size="17" font-weight="800">Lipoedema</text><text x="' + cx + '" y="' + (cy + 15) + '" text-anchor="middle" fill="rgba(255,255,255,0.78)" font-size="11">' + all.length + ' records</text></g>';
   topics.forEach(function(t) {
-    var p = topicPos[t], tc = TOPIC_COLORS[t] || {fill:'#777'}, selected = (_atlasSelectedGraph.kind === 'topic' && _atlasSelectedGraph.key === t);
-    html += '<g class="atlas-node" onclick="atlasSelectGraphNode(\'topic\',\'' + atlasEsc(t) + '\')"><circle cx="' + p.x + '" cy="' + p.y + '" r="' + (selected ? 22 : 18) + '" fill="' + tc.fill + '" opacity="' + (selected ? '1' : '0.88') + '"/><text x="' + p.x + '" y="' + (p.y + 36) + '" text-anchor="middle" fill="#463c36" font-size="10" font-weight="700">' + atlasEsc(t.length > 22 ? t.slice(0,20) + '...' : t) + '</text></g>';
+    var p = topicPos[t], theme = atlasGraphThemeForTopic(t), selected = (_atlasSelectedGraph.kind === 'topic' && _atlasSelectedGraph.key === t);
+    html += '<g class="atlas-node" onclick="atlasSelectGraphNode(\'topic\',\'' + atlasEsc(t) + '\')"><title>' + atlasEsc(t) + ' · ' + topicCounts[t].total + ' PubMed-wide record(s)</title><circle cx="' + p.x + '" cy="' + p.y + '" r="' + (selected ? 22 : 18) + '" fill="' + theme.fill + '" opacity="' + (selected ? '1' : '0.9') + '" stroke="' + (selected ? '#1a1410' : theme.border) + '" stroke-width="' + (selected ? '2.8' : '1.8') + '"/><text x="' + p.x + '" y="' + (p.y + 36) + '" text-anchor="middle" fill="' + theme.text + '" font-size="10" font-weight="700">' + atlasEsc(t.length > 22 ? t.slice(0,20) + '...' : t) + '</text></g>';
   });
   topEntities.forEach(function(e) {
-    var p = entPos[e.key], selected = (_atlasSelectedGraph.kind === 'entity' && _atlasSelectedGraph.key === e.key), cat = molecularCategoryForEntity(e), fill = cat.color;
-    html += '<g class="atlas-node" onclick="atlasSelectGraphNode(\'entity\',\'' + atlasEsc(e.key) + '\')"><rect x="' + (p.x - 64) + '" y="' + (p.y - 17) + '" width="128" height="34" rx="9" fill="' + fill + '" opacity="' + (selected ? '1' : '0.9') + '" stroke="' + (selected ? '#1a1410' : 'transparent') + '" stroke-width="2"/><text x="' + p.x + '" y="' + (p.y + 4) + '" text-anchor="middle" fill="#fff" font-size="11" font-weight="800">' + atlasEsc(e.label.length > 16 ? e.label.slice(0,14) + '...' : e.label) + '</text><text x="' + p.x + '" y="' + (p.y + 28) + '" text-anchor="middle" fill="#706860" font-size="9">' + e.paperCount + ' papers</text></g>';
+    var p = entPos[e.key], selected = (_atlasSelectedGraph.kind === 'entity' && _atlasSelectedGraph.key === e.key), theme = atlasGraphThemeForTopic(e.topic);
+    html += '<g class="atlas-node" onclick="atlasSelectGraphNode(\'entity\',\'' + atlasEsc(e.key) + '\')" filter="url(#atlas-shadow)"><title>' + atlasEsc(e.label) + ' · ' + atlasEsc(e.kind) + ' · ' + atlasEsc(e.topic || 'Unclassified') + ' · ' + atlasEsc(e.pathway || '') + '</title><rect x="' + (p.x - 64) + '" y="' + (p.y - 17) + '" width="128" height="34" rx="9" fill="' + theme.bg + '" opacity="1" stroke="' + (selected ? '#1a1410' : theme.fill) + '" stroke-width="' + (selected ? '2.8' : '2') + '"/><rect x="' + (p.x - 64) + '" y="' + (p.y - 17) + '" width="10" height="34" rx="7" fill="' + theme.fill + '"/><text x="' + (p.x + 4) + '" y="' + (p.y + 4) + '" text-anchor="middle" fill="' + theme.text + '" font-size="11" font-weight="800">' + atlasEsc(e.label.length > 16 ? e.label.slice(0,14) + '...' : e.label) + '</text><text x="' + (p.x + 4) + '" y="' + (p.y + 28) + '" text-anchor="middle" fill="' + theme.text + '" opacity="0.76" font-size="9">' + e.paperCount + ' papers</text></g>';
   });
-  graphEl.innerHTML = html + '</svg>' + atlasGraphLegendHtml();
+  graphEl.innerHTML = html + '</svg>' + atlasGraphLegendHtml(topics);
   renderGraphDetail(entities, all);
 }
 
@@ -10738,13 +10742,13 @@ function renderGraphDetail(entities, all) {
     el.innerHTML = '<h4>' + atlasEsc(key) + '</h4><p><strong>' + papers.length + '</strong> PubMed-wide lipoedema records in this domain. Click a record to inspect provenance.</p>' + atlasPaperMiniList(papers); return;
   }
   if (kind === 'disease') {
-    el.innerHTML = '<h4>Lipoedema PubMed-wide Atlas</h4><p>The graph centers on the ' + DEFAULT_CORPUS_TARGET + '-record public seed corpus plus the automatically refreshed lipoedema PubMed layer, then links each topic to candidate molecular, cellular, clinical, and translational entities. Local Browse choices do not narrow this graph.</p>' + atlasPaperMiniList(all.slice().sort(function(a,b){return b.year-a.year;})); return;
+    el.innerHTML = '<h4>Lipoedema PubMed-wide Atlas</h4><p>The graph centers on the ' + DEFAULT_CORPUS_TARGET + '-record public seed corpus plus the automatically refreshed lipoedema PubMed layer, then links each topic to candidate molecular, cellular, clinical, and translational entities. Candidate boxes inherit the same colour family as the Atlas domain they connect to, so colour indicates shared biology rather than a separate hidden classification.</p><p>Local Browse choices do not narrow this graph.</p>' + atlasPaperMiniList(all.slice().sort(function(a,b){return b.year-a.year;})); return;
   }
   var e = entities.filter(function(x){ return x.key === key; })[0] || entities[0];
   if (!e) { el.innerHTML = '<h4>No entity selected</h4><p>Select a node in the graph.</p>'; return; }
   var lab = atlasEvidenceLabel(e.score);
-  var cat = molecularCategoryForEntity(e);
-  el.innerHTML = '<h4>' + atlasEsc(e.label) + '</h4><p><span class="atlas-pill ' + lab[1] + '">' + lab[0] + '</span> <span class="atlas-pill">' + atlasEsc(e.kind) + '</span> <span class="atlas-pill" style="border-color:' + cat.color + ';color:' + cat.color + '">' + atlasEsc(cat.label) + '</span> <span class="atlas-pill">' + e.paperCount + ' papers</span></p><p><strong>Pathway:</strong> ' + atlasEsc(e.pathway) + '</p><p><strong>Why it matters:</strong> ' + atlasEsc(e.rationale) + '</p><p><strong>Score:</strong> ' + e.score + ' · topic breadth: ' + e.topicBreadth + ' · human-study support: ' + e.humanSupport + ' · omics/biomarker support: ' + e.omicsSupport + '</p>' + atlasPaperMiniList(e.papers);
+  var theme = atlasGraphThemeForTopic(e.topic);
+  el.innerHTML = '<h4>' + atlasEsc(e.label) + '</h4><p><span class="atlas-pill ' + lab[1] + '">' + lab[0] + '</span> <span class="atlas-pill">' + atlasEsc(e.kind) + '</span> <span class="atlas-pill" style="background:' + theme.bg + ';border-color:' + theme.border + ';color:' + theme.text + '">' + atlasEsc(e.topic || 'Unclassified') + '</span> <span class="atlas-pill">' + e.paperCount + ' papers</span></p><p><strong>Atlas domain:</strong> ' + atlasEsc(e.topic || 'Unclassified') + '</p><p><strong>Associated biology:</strong> ' + atlasEsc(e.pathway) + '</p><p><strong>Why it matters:</strong> ' + atlasEsc(e.rationale) + '</p><p><strong>Score:</strong> ' + e.score + ' · topic breadth: ' + e.topicBreadth + ' · human-study support: ' + e.humanSupport + ' · omics/biomarker support: ' + e.omicsSupport + '</p>' + atlasPaperMiniList(e.papers);
 }
 
 function atlasPaperMiniList(papers) {
