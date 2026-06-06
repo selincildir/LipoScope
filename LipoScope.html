@@ -1079,6 +1079,9 @@ select:focus{border-color:var(--rose)}
     border:1px solid var(--border); border-radius:8px; overflow:hidden;
     background:#fff; box-shadow:var(--shadow-sm);
   }
+  .figure-card-clickable { cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
+  .figure-card-clickable:hover { transform:translateY(-1px); box-shadow:var(--shadow-md); border-color:#9fc7c1; }
+  .figure-card-clickable:focus-visible { outline:3px solid rgba(40,128,128,.22); outline-offset:3px; }
   .figure-thumb-wrap { position:relative; background:#f7f8f8; border-bottom:1px solid var(--border); min-height:138px; display:flex; align-items:center; justify-content:center; }
   .figure-thumb { width:100%; max-height:210px; object-fit:contain; display:block; background:#fff; }
   .figure-placeholder {
@@ -2983,9 +2986,11 @@ const PAPERS = [
   },
   {
     id:5,
+    pmid: "36227936",
+    pmcid: "PMC9560129",
     title: "Investigation of Clinical Characteristics and Genome Associations in the 'UK Lipoedema' Cohort",
-    authors: "Grigoriadis D, Sackey E, Riches K, van Zanten M, Brice G, England R, Mills M, Dobbins SE, Lipoedema Consortium et al.",
-    firstAuthor: "Grigoriadis", lastAuthor: "Consortium",
+    authors: "Grigoriadis D, Sackey E, Riches K, van Zanten M, Brice G, England R, Mills M, Dobbins SE, Lee LL, Lipoedema Consortium, Genomics England Research Consortium, Jeffery S, Dong L, Savage DB, Mortimer PS, Keeley V, Pittman A, Gordon K, Ostergaard P",
+    firstAuthor: "Grigoriadis", lastAuthor: "Ostergaard",
     journal: "PLOS ONE",
     year: 2022, type: "GWAS / Cohort",
     topic: "Genetics & Genomics",
@@ -3049,11 +3054,13 @@ const PAPERS = [
   },
   {
     id:8,
-    title: "Genome-Wide Association Study of a Lipedema Phenotype Among Women in the UK Biobank",
-    authors: "Mullen A et al. (GIANT Consortium)",
-    firstAuthor: "Mullen", lastAuthor: "GIANT Consortium",
+    pmid: "36385154",
+    pmcid: "PMC9995497",
+    title: "Genome-wide association study of a lipedema phenotype among women in the UK Biobank identifies multiple genetic risk factors",
+    authors: "Klimentidis YC, Chen Z, Gonzalez-Garay ML, Grigoriadis D, Sackey E, Pittman M, Ostergaard P, Herbst KL",
+    firstAuthor: "Klimentidis", lastAuthor: "Herbst",
     journal: "European Journal of Human Genetics",
-    year: 2023, type: "GWAS / Cohort",
+    year: 2022, type: "GWAS / Cohort",
     topic: "Genetics & Genomics",
     summary: "Largest GWAS of a lipedema-inferred phenotype using 24,450 women in the UK Biobank defined by high leg fat percentage and low WHR. Identified 18 associated loci including VEGFA and GRB14-COBLL1.",
     aims: "To identify genetic variants associated with a lipedema-like fat distribution phenotype using UK Biobank body composition data as a surrogate.",
@@ -7675,6 +7682,7 @@ function sharedExpandedPaperFromSummary(r) {
   var id = String(r && r.uid || '');
   var doiObj = r && r.articleids ? r.articleids.filter(function(a){return a.idtype === 'doi';})[0] : null;
   var allAuth = r && r.authors ? r.authors.map(function(a){ return a.name; }).join(', ') : 'N/A';
+  var authorParts = deriveAuthorPartsFromString(allAuth, '', '');
   var topic = guessTopic((r && r.title || '') + ' ' + (r && r.fulljournalname || ''));
   var type = guessType(r && r.title || '');
   var year = parseInt(String(r && r.pubdate || '').slice(0,4), 10) || currentYear();
@@ -7683,8 +7691,8 @@ function sharedExpandedPaperFromSummary(r) {
     pmid: id,
     title: r && r.title || 'Untitled',
     authors: allAuth,
-    firstAuthor: allAuth.split(',')[0].trim(),
-    lastAuthor: 'et al.',
+    firstAuthor: authorParts.first,
+    lastAuthor: authorParts.last,
     journal: r && (r.fulljournalname || r.source) || '',
     year: year,
     type: type,
@@ -8247,6 +8255,8 @@ async function bootstrapDefaultCorpus(force) {
         if (existingPmids[String(id)] || existingTitles[normTitle]) return;
         var doiObj = r.articleids ? r.articleids.filter(function(a){return a.idtype === 'doi';})[0] : null;
         var allAuth = r.authors ? r.authors.map(function(a){ return a.name; }).join(', ') : 'N/A';
+
+        var authorParts = deriveAuthorPartsFromString(allAuth, '', '');
         var topic = guessTopic(r.title + ' ' + (r.fulljournalname || ''));
         var type = guessType(r.title);
         var year = parseInt((r.pubdate || '').slice(0,4)) || currentYear();
@@ -8255,8 +8265,8 @@ async function bootstrapDefaultCorpus(force) {
           pmid: id,
           title: r.title || 'Untitled',
           authors: allAuth,
-          firstAuthor: allAuth.split(',')[0].trim(),
-          lastAuthor: 'et al.',
+          firstAuthor: authorParts.first,
+          lastAuthor: authorParts.last,
           journal: r.fulljournalname || r.source || '',
           year: year,
           type: type,
@@ -8356,12 +8366,8 @@ function openModal(id) {
 
   document.getElementById('modal-title').textContent = p.title || '';
 
-  document.getElementById('modal-info-grid').innerHTML =
-    '<div class="info-item"><div class="info-item-label">First Author</div><div class="info-item-val">' + (p.firstAuthor||'—') + '</div></div>' +
-    '<div class="info-item"><div class="info-item-label">Last Author</div><div class="info-item-val">' + (p.lastAuthor||'—') + '</div></div>' +
-    '<div class="info-item"><div class="info-item-label">Journal</div><div class="info-item-val">' + (p.journal||'—') + '</div></div>' +
-    '<div class="info-item"><div class="info-item-label">Year</div><div class="info-item-val">' + p.year + '</div></div>' +
-    '<div class="info-item" style="grid-column:1/-1"><div class="info-item-label">All Authors</div><div class="info-item-val" style="font-size:12px;font-style:italic">' + (p.authors||'—') + '</div></div>';
+  renderModalAuthorInfo(p);
+  refreshPaperAuthorsFromPubMed(p.id);
 
   var aimsEl  = document.getElementById('modal-aims');
   var aimsSec = document.getElementById('modal-aims-section');
@@ -9309,8 +9315,111 @@ function paperDoiValue(paper) {
   return doi;
 }
 
+function cleanAuthorToken(value) {
+  return String(value || '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .replace(/^,+|,+$/g, '')
+    .trim();
+}
+
+function authorTokenIsPlaceholder(value) {
+  return /^(et\s*al\.?|multiple|unknown|n\/?a|na|—|-)?$/i.test(cleanAuthorToken(value));
+}
+
+function authorLooksCollective(value) {
+  return /\b(consortium|collaborative|collaboration|group|committee|foundation|society|association|network|team|alliance|panel|study group)\b/i.test(cleanAuthorToken(value));
+}
+
+function displayAuthorSurname(value) {
+  var name = cleanAuthorToken(value);
+  if (!name || authorTokenIsPlaceholder(name)) return '';
+  if (authorLooksCollective(name)) return name;
+  var parts = name.split(/\s+/).filter(Boolean);
+  while (parts.length > 1 && /^([A-Z]\.?){1,6}$/.test(parts[parts.length - 1])) parts.pop();
+  return parts.join(' ') || name;
+}
+
+function splitAuthorList(value) {
+  var text = String(value || '').replace(/\band\b/g, ',');
+  return text.split(/\s*,\s*/).map(cleanAuthorToken).filter(function(a) {
+    return a && !authorTokenIsPlaceholder(a);
+  });
+}
+
+function deriveAuthorPartsFromString(authors, fallbackFirst, fallbackLast) {
+  var list = splitAuthorList(authors);
+  var first = list.length ? displayAuthorSurname(list[0]) : displayAuthorSurname(fallbackFirst);
+  var last = '';
+  if (list.length > 1 && !/\bet\s*al\.?\b/i.test(String(authors || ''))) {
+    last = displayAuthorSurname(list[list.length - 1]);
+  }
+  if (!last && !authorTokenIsPlaceholder(fallbackLast)) last = displayAuthorSurname(fallbackLast) || cleanAuthorToken(fallbackLast);
+  if (!last && list.length === 1) last = first;
+  return { first:first || 'PubMed', last:last || 'Not available', authors:cleanAuthorToken(authors) };
+}
+
+function derivePaperAuthorParts(paper) {
+  paper = paper || {};
+  return deriveAuthorPartsFromString(paper.authors || '', paper.firstAuthor || '', paper.lastAuthor || '');
+}
+
+function pubMedAuthorsFromSummary(summary) {
+  var names = summary && summary.authors ? summary.authors.map(function(a) { return cleanAuthorToken(a && a.name); }).filter(Boolean) : [];
+  return names.join(', ');
+}
+
+async function resolvePmidForAuthorRefresh(paper) {
+  if (paper && paper.pmid) return String(paper.pmid).trim();
+  var doi = paperDoiValue(paper);
+  if (!doi) return '';
+  try {
+    var resp = await fetch('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=' + encodeURIComponent(doi + '[doi]') + '&retmode=json&retmax=1');
+    if (!resp.ok) return '';
+    var data = await resp.json();
+    var ids = data && data.esearchresult && data.esearchresult.idlist;
+    return ids && ids[0] ? String(ids[0]) : '';
+  } catch(e) { return ''; }
+}
+
+async function refreshPaperAuthorsFromPubMed(paperId) {
+  var paper = getPaperById(paperId);
+  if (!paper || paper._authorVerified) return;
+  var pmid = await resolvePmidForAuthorRefresh(paper);
+  if (!pmid) { paper._authorVerified = true; return; }
+  try {
+    var resp = await fetch('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=' + encodeURIComponent(pmid) + '&retmode=json');
+    if (!resp.ok) return;
+    var data = await resp.json();
+    var summary = data && data.result && data.result[pmid];
+    var authorString = pubMedAuthorsFromSummary(summary);
+    if (!authorString) return;
+    var parts = deriveAuthorPartsFromString(authorString, '', '');
+    paper.pmid = paper.pmid || pmid;
+    paper.authors = authorString;
+    paper.firstAuthor = parts.first;
+    paper.lastAuthor = parts.last;
+    paper._authorVerified = true;
+    if (paper.userAdded) saveUserPapers();
+    var modalTitle = document.getElementById('modal-title');
+    if (modalTitle && modalTitle.textContent === (paper.title || '')) renderModalAuthorInfo(paper);
+  } catch(e2) {}
+}
+
+function renderModalAuthorInfo(p) {
+  var parts = derivePaperAuthorParts(p);
+  var grid = document.getElementById('modal-info-grid');
+  if (!grid || !p) return;
+  grid.innerHTML =
+    '<div class="info-item"><div class="info-item-label">First Author</div><div class="info-item-val">' + (parts.first || '—') + '</div></div>' +
+    '<div class="info-item"><div class="info-item-label">Last Author</div><div class="info-item-val">' + (parts.last || '—') + '</div></div>' +
+    '<div class="info-item"><div class="info-item-label">Journal</div><div class="info-item-val">' + (p.journal || '—') + '</div></div>' +
+    '<div class="info-item"><div class="info-item-label">Year</div><div class="info-item-val">' + p.year + '</div></div>' +
+    '<div class="info-item" style="grid-column:1/-1"><div class="info-item-label">All Authors</div><div class="info-item-val" style="font-size:12px;font-style:italic">' + (p.authors || '—') + '</div></div>';
+}
+
 function figureCacheKey(paper) {
-  return 'paper:' + (paper.id || '') + ':' + (paper.pmid || '') + ':' + paperDoiValue(paper);
+  return 'v4:paper:' + (paper.id || '') + ':' + (paper.pmid || '') + ':' + paperDoiValue(paper);
 }
 
 async function resolvePaperPmcid(paper) {
@@ -9376,29 +9485,207 @@ function pmcArticleUrl(pmcid) {
   return 'https://pmc.ncbi.nlm.nih.gov/articles/' + normalisePmcid(pmcid) + '/';
 }
 
+function pmcNumericId(pmcid) {
+  var normalised = normalisePmcid(pmcid);
+  var match = normalised.match(/PMC(\d+)/i);
+  return match ? match[1] : '';
+}
+
+function pmcOaiUrl(pmcid) {
+  var id = pmcNumericId(pmcid);
+  return id ? 'https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord&metadataPrefix=pmc&identifier=oai:pubmedcentral.nih.gov:' + encodeURIComponent(id) : '';
+}
+
+function pmcFigureAnchorId(id, idx) {
+  var raw = String(id || '').trim().replace(/^#/, '');
+  return raw || ('Fig' + (idx + 1));
+}
+
+function pmcFigurePageUrl(pmcid, id, idx) {
+  return pmcArticleUrl(pmcid) + '#' + encodeURIComponent(pmcFigureAnchorId(id, idx));
+}
+
 function pmcImageUrl(pmcid, href) {
   if (!href) return '';
-  var name = String(href).split('/').pop();
+  var value = String(href).trim();
+  if (/^https?:\/\//i.test(value)) return value;
+  var name = value.split(/[\\/]/).pop();
   return pmcArticleUrl(pmcid) + 'bin/' + encodeURIComponent(name);
 }
 
 function figureFallbackUrl(pmcid, href) {
   if (!href) return '';
-  var name = String(href).split('/').pop();
-  if (/\.(jpg|jpeg|png|gif|tif|tiff)$/i.test(name)) return '';
+  var value = String(href).trim();
+  if (/^https?:\/\//i.test(value)) return '';
+  var name = value.split(/[\\/]/).pop();
+  if (/\.(jpg|jpeg|png|gif|tif|tiff|svg)$/i.test(name)) return '';
   return pmcArticleUrl(pmcid) + 'bin/' + encodeURIComponent(name + '.jpg');
 }
 
 function figureLookupLinks(paper, pmcid) {
-  var encTitle = encodeURIComponent((paper && paper.title) || '');
   var html = '';
-  if (pmcid) {
-    html += '<a class="figure-link" href="' + pmcArticleUrl(pmcid) + '" target="_blank" rel="noopener">Open PMC article</a>';
-    html += '<a class="figure-link" href="https://www.ebi.ac.uk/europepmc/webservices/rest/' + normalisePmcid(pmcid) + '/fullTextXML" target="_blank" rel="noopener">Full-text XML</a>';
-  }
-  if (paper && paper.pmid) html += '<a class="figure-link" href="https://pubmed.ncbi.nlm.nih.gov/' + encodeURIComponent(paper.pmid) + '/" target="_blank" rel="noopener">PubMed</a>';
-  html += '<a class="figure-link" href="https://europepmc.org/search?query=' + encTitle + '" target="_blank" rel="noopener">Europe PMC search</a>';
+  if (pmcid) html += '<a class="figure-link" href="' + pmcArticleUrl(pmcid) + '" target="_blank" rel="noopener">Open source paper</a>';
+  if (paper && paper.pmid) html += '<a class="figure-link" href="https://pubmed.ncbi.nlm.nih.gov/' + encodeURIComponent(paper.pmid) + '/" target="_blank" rel="noopener">PubMed record</a>';
   return html;
+}
+
+function compactFigureText(value) {
+  return String(value || '').replace(/\s+/g, ' ').trim();
+}
+
+function firstFigureNode(node, tagNames) {
+  for (var i = 0; i < tagNames.length; i++) {
+    var found = node.getElementsByTagName(tagNames[i]);
+    if (found && found[0]) return found[0];
+  }
+  return null;
+}
+
+function figureGraphicHref(node) {
+  if (!node) return '';
+  return node.getAttributeNS('http://www.w3.org/1999/xlink', 'href') ||
+    node.getAttribute('xlink:href') ||
+    node.getAttribute('href') ||
+    node.getAttribute('src') ||
+    node.getAttribute('rid') ||
+    '';
+}
+
+function extractFiguresFromXmlDocument(xml, pmcid, sourceName) {
+  var figures = [];
+  if (!xml || xml.getElementsByTagName('parsererror').length) return figures;
+  var figNodes = Array.prototype.slice.call(xml.getElementsByTagName('fig'));
+  figNodes.slice(0, 24).forEach(function(fig, idx) {
+    var labelNode = firstFigureNode(fig, ['label']);
+    var captionNode = firstFigureNode(fig, ['caption']);
+    var titleNode = captionNode ? firstFigureNode(captionNode, ['title']) : null;
+    var graphic = firstFigureNode(fig, ['graphic', 'media', 'inline-graphic']);
+    var href = figureGraphicHref(graphic);
+    var id = fig.getAttribute('id') || ('Fig' + (idx + 1));
+    var label = compactFigureText(labelNode ? labelNode.textContent : '') || ('Figure ' + (idx + 1));
+    var caption = compactFigureText(captionNode ? captionNode.textContent : '');
+    if (titleNode && titleNode.textContent) {
+      var title = compactFigureText(titleNode.textContent);
+      if (title && caption.indexOf(title) !== 0) caption = title + '. ' + caption;
+    }
+    if (!caption && !href) return;
+    figures.push({
+      id: id,
+      label: label,
+      caption: caption,
+      imageUrl: href ? pmcImageUrl(pmcid, href) : '',
+      fallbackUrl: href ? figureFallbackUrl(pmcid, href) : '',
+      sourceUrl: pmcFigurePageUrl(pmcid, id, idx),
+      sourceAction: 'Open figure in paper',
+      sourceName: sourceName || 'PMC XML'
+    });
+  });
+  return figures;
+}
+
+async function fetchNcbiPmcEfetchFigureSet(pmcid) {
+  var id = pmcNumericId(pmcid) || normalisePmcid(pmcid);
+  if (!id) throw new Error('PMC EFetch identifier unavailable.');
+  var url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=' + encodeURIComponent(id) + '&retmode=xml';
+  var resp = await fetch(url);
+  if (!resp.ok) throw new Error('NCBI PMC EFetch XML unavailable (' + resp.status + ').');
+  var xmlText = await resp.text();
+  var xml = new DOMParser().parseFromString(xmlText, 'application/xml');
+  var figures = extractFiguresFromXmlDocument(xml, pmcid, 'NCBI PMC EFetch XML');
+  if (!figures.length) throw new Error('NCBI PMC EFetch XML contained no structured figure tags.');
+  return { source:'NCBI PMC EFetch XML', figures:figures };
+}
+
+async function fetchEuropePmcFigureSet(pmcid) {
+  var url = 'https://www.ebi.ac.uk/europepmc/webservices/rest/' + encodeURIComponent(normalisePmcid(pmcid)) + '/fullTextXML';
+  var resp = await fetch(url);
+  if (!resp.ok) throw new Error('Europe PMC XML unavailable (' + resp.status + ').');
+  var xmlText = await resp.text();
+  var xml = new DOMParser().parseFromString(xmlText, 'application/xml');
+  var figures = extractFiguresFromXmlDocument(xml, pmcid, 'Europe PMC XML');
+  if (!figures.length) throw new Error('Europe PMC XML contained no structured figure tags.');
+  return { source:'Europe PMC XML', figures:figures };
+}
+
+async function fetchPmcOaiFigureSet(pmcid) {
+  var url = pmcOaiUrl(pmcid);
+  if (!url) throw new Error('PMC OAI identifier unavailable.');
+  var resp = await fetch(url);
+  if (!resp.ok) throw new Error('PMC OAI XML unavailable (' + resp.status + ').');
+  var xmlText = await resp.text();
+  var xml = new DOMParser().parseFromString(xmlText, 'application/xml');
+  var figures = extractFiguresFromXmlDocument(xml, pmcid, 'PMC OAI XML');
+  if (!figures.length) throw new Error('PMC OAI XML contained no structured figure tags.');
+  return { source:'PMC OAI XML', figures:figures };
+}
+
+function absoluteFigureUrl(url, baseUrl) {
+  if (!url) return '';
+  try { return new URL(url, baseUrl).href; } catch(e) { return url; }
+}
+
+async function fetchPmcHtmlFigureSet(pmcid) {
+  var articleUrl = pmcArticleUrl(pmcid);
+  var resp = await fetch(articleUrl);
+  if (!resp.ok) throw new Error('PMC article HTML unavailable (' + resp.status + ').');
+  var htmlText = await resp.text();
+  var doc = new DOMParser().parseFromString(htmlText, 'text/html');
+  var nodes = Array.prototype.slice.call(doc.querySelectorAll('figure, .fig'));
+  var figures = [];
+  nodes.slice(0, 24).forEach(function(node, idx) {
+    var id = node.getAttribute('id') || ('Fig' + (idx + 1));
+    var labelNode = node.querySelector('.obj_head, h3, h4, .label');
+    var captionNode = node.querySelector('figcaption, .caption, .fig-caption, .p');
+    var img = node.querySelector('img.graphic, img');
+    var link = node.querySelector('a[href*="/figure/"], a[href^="figure/"]');
+    var label = compactFigureText(labelNode ? labelNode.textContent : '') || ('Figure ' + (idx + 1));
+    var caption = compactFigureText(captionNode ? captionNode.textContent : '');
+    var src = img ? absoluteFigureUrl(img.getAttribute('src') || img.getAttribute('data-src') || '', articleUrl) : '';
+    var sourceUrl = link ? absoluteFigureUrl(link.getAttribute('href'), articleUrl) : pmcFigurePageUrl(pmcid, id, idx);
+    if (!caption && !src) return;
+    figures.push({
+      id: id,
+      label: label,
+      caption: caption,
+      imageUrl: src,
+      fallbackUrl: '',
+      sourceUrl: sourceUrl,
+      sourceAction: 'Open figure in paper',
+      sourceName: 'PMC article HTML'
+    });
+  });
+  if (!figures.length) throw new Error('PMC article HTML contained no readable figure cards.');
+  return { source:'PMC article HTML', figures:figures };
+}
+
+function openFigureCard(event, url) {
+  if (!url) return;
+  if (event && event.target && event.target.closest && event.target.closest('a,button,input,label,select,textarea')) return;
+  window.open(url, '_blank', 'noopener');
+}
+
+function openFigureCardKey(event, url) {
+  if (!event || (event.key !== 'Enter' && event.key !== ' ')) return;
+  event.preventDefault();
+  openFigureCard(event, url);
+}
+function buildPmcFigureFallbackSet(pmcid, notes) {
+  return {
+    source: 'No parsed figure-level source',
+    figures: [],
+    note: 'No figure-level source links were detected in the open PMC full-text record.'
+  };
+}
+
+function buildNoPmcidSourceLinkSet(paper) {
+  var sourceUrl = paperDoiValue(paper) ? ('https://doi.org/' + paperDoiValue(paper)) : (paper && paper.pmid ? 'https://pubmed.ncbi.nlm.nih.gov/' + encodeURIComponent(paper.pmid) + '/' : '');
+  return {
+    pmcid: '',
+    figures: [],
+    articleUrl: sourceUrl,
+    source: 'No figure-level source',
+    note: 'Figure-level links require an open PMC full-text record. Open the PubMed/DOI source from the paper card if needed.'
+  };
 }
 
 async function fetchPaperFigures(paper) {
@@ -9410,70 +9697,61 @@ async function fetchPaperFigures(paper) {
     pmcid: pmcid,
     figures: [],
     articleUrl: pmcid ? pmcArticleUrl(pmcid) : '',
+    source: '',
     note: ''
   };
 
   if (!pmcid) {
-    result.note = 'No PMCID could be resolved for this paper. Inline figure previews are available only for open-access PMC full-text records.';
+    result = buildNoPmcidSourceLinkSet(paper);
     PAPER_FIGURE_CACHE[key] = result;
     return result;
   }
 
-  try {
-    var xmlResp = await fetch('https://www.ebi.ac.uk/europepmc/webservices/rest/' + encodeURIComponent(pmcid) + '/fullTextXML');
-    if (!xmlResp.ok) {
-      result.note = 'A PMCID was found, but Europe PMC did not return open-access full-text XML for figure parsing.';
-      PAPER_FIGURE_CACHE[key] = result;
-      return result;
+  var attempts = [fetchNcbiPmcEfetchFigureSet, fetchEuropePmcFigureSet, fetchPmcOaiFigureSet, fetchPmcHtmlFigureSet];
+  var notes = [];
+  for (var i = 0; i < attempts.length; i++) {
+    try {
+      var parsed = await attempts[i](pmcid);
+      if (parsed && parsed.figures && parsed.figures.length) {
+        result.figures = parsed.figures;
+        result.source = parsed.source || '';
+        result.note = result.figures.length + ' figure(s) parsed from ' + (result.source || 'open-access source') + '.';
+        PAPER_FIGURE_CACHE[key] = result;
+        return result;
+      }
+    } catch(err) {
+      notes.push(err && err.message ? err.message : 'source unavailable.');
     }
-    var xmlText = await xmlResp.text();
-    var xml = new DOMParser().parseFromString(xmlText, 'application/xml');
-    if (xml.getElementsByTagName('parsererror').length) throw new Error('Full-text XML could not be parsed.');
-
-    var figNodes = Array.prototype.slice.call(xml.getElementsByTagName('fig'));
-    figNodes.slice(0, 18).forEach(function(fig, idx) {
-      var labelNode = fig.getElementsByTagName('label')[0];
-      var captionNode = fig.getElementsByTagName('caption')[0];
-      var graphic = fig.getElementsByTagName('graphic')[0] || fig.getElementsByTagName('media')[0];
-      var href = graphic ? (graphic.getAttributeNS('http://www.w3.org/1999/xlink', 'href') || graphic.getAttribute('xlink:href') || graphic.getAttribute('href') || '') : '';
-      var id = fig.getAttribute('id') || href || ('figure-' + (idx + 1));
-      var caption = captionNode ? captionNode.textContent.replace(/\s+/g, ' ').trim() : '';
-      var label = labelNode ? labelNode.textContent.replace(/\s+/g, ' ').trim() : ('Figure ' + (idx + 1));
-      result.figures.push({
-        id: id,
-        label: label,
-        caption: caption,
-        imageUrl: href ? pmcImageUrl(pmcid, href) : '',
-        fallbackUrl: href ? figureFallbackUrl(pmcid, href) : '',
-        sourceUrl: pmcArticleUrl(pmcid) + (id ? '#'+encodeURIComponent(id) : '')
-      });
-    });
-
-    if (!result.figures.length) {
-      result.note = 'Open full text was available, but no structured figure tags were detected.';
-    }
-  } catch(err) {
-    result.note = 'Figure parsing failed: ' + err.message;
   }
 
+  var fallback = buildPmcFigureFallbackSet(pmcid, notes);
+  result.figures = fallback.figures;
+  result.source = fallback.source;
+  result.note = fallback.note;
   PAPER_FIGURE_CACHE[key] = result;
   return result;
 }
-
 function renderFigureResult(result, paper, containerId, pdfPreview) {
   var localPdf = getLocalFigurePdfEntry(paper);
+  var sourceFallback = result.source === 'PMC source fallback';
+  var parsedSource = result.source && !sourceFallback ? result.source : '';
   var html = '<div class="figure-toolbar"><div class="figure-toolbar-main"><div class="figure-status">';
-  if (result.figures.length) {
-    html += '<strong>' + result.figures.length + ' figure(s)</strong> found from open-access full text for <strong>' + escHtml(paper.firstAuthor || 'this paper') + ' ' + paper.year + '</strong>.';
+  if (result.source === 'Source paper link') {
+    html += '<strong>Source paper available.</strong> Figure-level cards require an open PMC full-text record.';
+  } else if (result.figures.length && sourceFallback) {
+    html += '<strong>Figure access available.</strong> Click the card below to open the figure area in the source paper.';
+  } else if (result.figures.length) {
+    html += '<strong>' + result.figures.length + ' figure(s)</strong> available. Click a figure card to open that figure in the source paper.';
   } else if (pdfPreview && pdfPreview.items && pdfPreview.items.length) {
-    html += '<strong>Local PDF preview available.</strong> Open-access figure parsing did not expose inline images, but LipoScope found likely figure pages in your uploaded PDF.';
+    html += '<strong>Local PDF figure preview available.</strong> Click a card to open the uploaded PDF preview.';
   } else {
     html += escHtml(result.note || 'No inline figures were detected for this record.');
   }
   html += '</div>';
-  if (localPdf || (pdfPreview && pdfPreview.note)) {
+  if (localPdf || (pdfPreview && pdfPreview.note) || parsedSource || sourceFallback) {
     html += '<div class="figure-mode-row">';
-    if (result.figures.length) html += '<span class="figure-mode-badge open">Open-access XML parsed</span>';
+    if (parsedSource) html += '<span class="figure-mode-badge open">Source figures</span>';
+    if (sourceFallback) html += '<span class="figure-mode-badge caption">Source paper</span>';
     if (localPdf) html += '<span class="figure-mode-badge local">Local PDF loaded: ' + escHtml(localPdf.name) + '</span>';
     if (localPdf) html += '<span class="figure-mode-badge session">' + (localPdf.persistent ? 'Stored on this device for this workspace' : 'Session-only until page close/refresh') + '</span>';
     if (localPdf) html += '<span class="figure-mode-badge caption">Not included in shared Browse links</span>';
@@ -9494,7 +9772,9 @@ function renderFigureResult(result, paper, containerId, pdfPreview) {
       var localMatch = pdfPreview && (pdfPreview.byFigure[fig.id] || pdfPreview.byFigure[fig.label]);
       var previewMode = fig.imageUrl ? 'open' : (localMatch && localMatch.previewUrl ? (localMatch.matchMode === 'exact' ? 'local' : 'likely') : 'caption');
       var previewSrc = fig.imageUrl || (localMatch ? localMatch.previewUrl : '');
-      html += '<div class="figure-card">';
+      var cardUrl = fig.sourceUrl || '';
+      var cardLabel = (fig.sourceAction || 'Open source figure') + ': ' + (fig.label || 'figure');
+      html += '<div class="figure-card figure-card-clickable" role="link" tabindex="0" aria-label="' + escHtml(cardLabel) + '" onclick="openFigureCard(event,\'' + jsStringEsc(cardUrl) + '\')" onkeydown="openFigureCardKey(event,\'' + jsStringEsc(cardUrl) + '\')">';
       html += '<div class="figure-thumb-wrap">';
       if (previewSrc) {
         var badgeClass = previewMode === 'open' ? 'open' : (previewMode === 'local' ? 'local' : 'likely');
@@ -9508,42 +9788,29 @@ function renderFigureResult(result, paper, containerId, pdfPreview) {
       }
       html += '</div><div class="figure-card-body">';
       html += '<div class="figure-label">' + escHtml(fig.label) + '</div>';
-      html += '<div class="figure-caption">' + escHtml(fig.caption ? fig.caption.slice(0, 520) : 'Caption unavailable in XML.') + (fig.caption && fig.caption.length > 520 ? '…' : '') + '</div>';
-      if (localMatch) {
-        html += '<div class="figure-page-note">' + escHtml(localMatch.reason) + '</div>';
-      } else if (!fig.imageUrl) {
-        html += '<div class="figure-page-note">Caption-only fallback: no image file was exposed in the open-access XML for this figure.</div>';
-      }
-      html += '<div class="figure-actions"><a href="' + escHtml(fig.sourceUrl) + '" target="_blank" rel="noopener">Open source figure</a></div>';
+      html += '<div class="figure-caption">' + escHtml(fig.caption ? fig.caption.slice(0, 180) : 'Open source figure.') + (fig.caption && fig.caption.length > 180 ? '…' : '') + '</div>';
       html += '</div></div>';
     });
     html += '</div>';
-    html += '<div class="figure-note">Open-access previews come from PMC/Europe PMC figure exposure when available. If an image is blank, LipoScope can fall back to a locally uploaded PDF page preview without sending your PDF to a server.</div>';
   } else if (pdfPreview && pdfPreview.items && pdfPreview.items.length) {
     html += '<div class="figure-grid">';
     pdfPreview.items.forEach(function(item) {
       var itemClass = item.matchMode === 'exact' ? 'local' : 'likely';
       var itemLabel = item.matchMode === 'exact' ? 'Local PDF page preview' : 'Likely figure page';
-      html += '<div class="figure-card">';
+      var localCardUrl = localPdf && localPdf.objectUrl ? localPdf.objectUrl : '';
+      html += '<div class="figure-card' + (localCardUrl ? ' figure-card-clickable' : '') + '"' + (localCardUrl ? ' role="link" tabindex="0" aria-label="Open uploaded PDF preview" onclick="openFigureCard(event,\'' + jsStringEsc(localCardUrl) + '\')" onkeydown="openFigureCardKey(event,\'' + jsStringEsc(localCardUrl) + '\')"' : '') + '>';
       html += '<div class="figure-thumb-wrap">';
       html += '<img class="figure-thumb" loading="lazy" src="' + escHtml(item.previewUrl) + '" alt="' + escHtml(item.label) + '">';
       html += '<div style="position:absolute;left:10px;top:10px"><span class="figure-mode-badge ' + itemClass + '">' + itemLabel + '</span></div>';
       html += '</div><div class="figure-card-body">';
       html += '<div class="figure-label">' + escHtml(item.label) + '</div>';
       html += '<div class="figure-caption">' + escHtml(item.caption || 'Local PDF page preview available.') + '</div>';
-      html += '<div class="figure-page-note">' + escHtml(item.reason || ('Uploaded PDF page ' + item.pageNumber + '.')) + '</div>';
       html += '<div class="figure-actions">' + (localPdf && localPdf.objectUrl ? '<a href="' + escHtml(localPdf.objectUrl) + '" target="_blank" rel="noopener">Open uploaded PDF</a>' : '') + '</div>';
       html += '</div></div>';
     });
     html += '</div>';
   } else {
-    html += '<div class="figure-grid">';
-    html += '<div class="figure-card">';
-    html += '<div class="figure-thumb-wrap">' + figurePlaceholderCard('No figure preview found', result.note || 'LipoScope did not find an open-access figure image or local PDF preview for this paper.') + '</div>';
-    html += '<div class="figure-card-body">';
-    html += '<div class="figure-label">Figures</div>';
-    html += '<div class="figure-caption">A figure preview was not available from the indexed open-access sources. Use the source links above, or upload a local PDF to preview likely figure pages on this device.</div>';
-    html += '</div></div></div>';
+    html += '<div class="figure-session-note">' + escHtml(result.note || 'No figure-level source link was available for this record.') + '</div>';
   }
 
   if (pdfPreview && pdfPreview.note) {
@@ -9564,7 +9831,7 @@ async function renderPaperFiguresById(paperId, containerId, forceRefresh) {
   if (!container || !paper) return;
   if (forceRefresh) delete PAPER_FIGURE_CACHE[figureCacheKey(paper)];
   container.setAttribute('data-paper-id', String(paper.id));
-  container.innerHTML = '<div class="figure-toolbar"><div class="figure-status">Looking for PMCID, open-access figures, and any local PDF preview…</div></div>';
+  container.innerHTML = '<div class="figure-toolbar"><div class="figure-status">Loading source figures...</div></div>';
   var result = await fetchPaperFigures(paper);
   var pdfPreview = null;
   try { pdfPreview = await buildLocalPdfPreviewData(paper, result); } catch(e) { pdfPreview = { note:'Local PDF preview could not be generated: ' + (e.message || 'unknown error'), items:[] }; }
@@ -10491,13 +10758,14 @@ async function addPaperFromLive(pd) {
   for (var i = 0; i < allNow.length; i++) { if ((allNow[i].id||0) > maxId) maxId = allNow[i].id; }
   var newId   = maxId + 1;
 
+  var authorParts = deriveAuthorPartsFromString(pd.authors, '', '');
   var paper = {
     id:          newId,
     pmid:        pd.pmid,
     title:       pd.title,
     authors:     pd.authors,
-    firstAuthor: pd.authors.split(',')[0].trim(),
-    lastAuthor:  'et al.',
+    firstAuthor: authorParts.first,
+    lastAuthor:  authorParts.last,
     journal:     pd.journal,
     year:        parseInt(pd.year) || currentYear(),
     type:        guessType(pd.title),
@@ -10850,8 +11118,9 @@ async function fetchPubMedAbstractsBatch(ids) {
 function pubMedLivingPaperFromSummary(r, abstractText) {
   var pmid = String(r.uid || '');
   var title = livingPlain(r.title || 'Untitled PubMed record');
-  var authors = r.authors ? r.authors.map(function(a){ return a.name; }).join(', ') : '';
-  var firstAuthor = authors ? authors.split(',')[0].trim() : 'PubMed';
+  var authors = r.authors ? r.authors.map(function(a){ return livingPlain(a.name || ''); }).filter(Boolean).join(', ') : '';
+  var authorParts = deriveAuthorPartsFromString(authors, 'PubMed', 'Not available');
+  var firstAuthor = authorParts.first;
   var yearMatch = String(r.pubdate || '').match(/\b(19|20)\d{2}\b/);
   var year = yearMatch ? parseInt(yearMatch[0]) : currentYear();
   abstractText = livingTruncate(abstractText || '', 1800);
@@ -10864,8 +11133,8 @@ function pubMedLivingPaperFromSummary(r, abstractText) {
     pmid: pmid,
     title: title,
     authors: authors,
-    firstAuthor: firstAuthor,
-    lastAuthor: 'et al.',
+    firstAuthor: authorParts.first,
+    lastAuthor: authorParts.last,
     journal: livingPlain(r.fulljournalname || r.source || ''),
     year: year,
     type: type,
@@ -14095,10 +14364,11 @@ async function runAutoDiscovery() {
         for (var k = 0; k < allNow.length; k++) { if ((allNow[k].id||0) > maxId) maxId = allNow[k].id; }
         var newId = maxId + 1;
 
+  var authorParts = deriveAuthorPartsFromString(pd.authors, '', '');
         var paper = {
           id: newId, pmid: pd.pmid, title: pd.title,
-          authors: pd.authors, firstAuthor: pd.authors.split(',')[0].trim(),
-          lastAuthor: 'et al.', journal: pd.journal,
+          authors: pd.authors, firstAuthor: authorParts.first,
+          lastAuthor: authorParts.last, journal: pd.journal,
           year: parseInt(pd.year) || currentYear(),
           type: assignedType, topic: assignedTopic,
           summary: structuredSummary.summary || ((pd.title || '').slice(0,200) + '…'),
@@ -14402,11 +14672,11 @@ async function addNotifPaperToBrowse(pmid, btn) {
     var allNow = getAllPapers();
     var maxId = 5000;
     for (var k = 0; k < allNow.length; k++) { if ((allNow[k].id||0) > maxId) maxId = allNow[k].id; }
-
+    var authorParts = deriveAuthorPartsFromString(authors, '', '');
     var paper = {
       id: maxId + 1, pmid: pmid, title: title,
-      authors: authors, firstAuthor: authors.split(',')[0].trim(),
-      lastAuthor: 'et al.', journal: journal,
+      authors: authors, firstAuthor: authorParts.first,
+      lastAuthor: authorParts.last, journal: journal,
       year: year, type: assignedType, topic: assignedTopic,
       summary: structuredSummary.summary || ((title || '').slice(0,200) + '…'),
       aims: structuredSummary.aims, methods: structuredSummary.methods, findings: structuredSummary.findings,
@@ -14461,5 +14731,15 @@ setTimeout(primeVisiblePaperSummaries, 4500);
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
 
 
