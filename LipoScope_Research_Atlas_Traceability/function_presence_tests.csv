@@ -1,0 +1,24 @@
+section,code_identifier,present,line,evidence
+Standardized Cohort Builder,collectPhenotypeForm,yes,11998,LipoScope.html:11998
+Standardized Cohort Builder,buildPhenotypeProfile,yes,12225,LipoScope.html:12225
+Standardized Cohort Builder,buildCaseReadiness,yes,12104,LipoScope.html:12104
+Standardized Cohort Builder,buildStudyReadinessScores,yes,12116,LipoScope.html:12116
+Diagnostic-noise audit,buildDiagnosticNoiseAudit,yes,12151,LipoScope.html:12151
+Diagnostic-noise audit,diagnosticNoiseMatrixHtml,yes,12184,LipoScope.html:12184
+Cohort Blueprint Export,buildEligibilityPlan,yes,12359,LipoScope.html:12359
+Cohort Blueprint Export,cohortTemplateHtml,yes,12356,LipoScope.html:12356
+Cohort Blueprint Export,cohortTemplateText,yes,12429,LipoScope.html:12429
+Cohort Blueprint Export,cohortMethodsSentence,yes,12433,LipoScope.html:12433
+Cohort Blueprint Export,cohortCaseCsvRows,yes,12590,LipoScope.html:12590
+Cohort Blueprint Export,downloadAtlasExport,yes,1857,LipoScope.html:1857
+Phenotype and Differential Diagnosis Matrix,ATLAS_DIFFERENTIAL,yes,12998,LipoScope.html:12998
+Phenotype and Differential Diagnosis Matrix,renderDifferentialMatrix,yes,11460,LipoScope.html:11460
+Cohort Design Gap Radar,buildAtlasGaps,yes,11233,LipoScope.html:11233
+Cohort Design Gap Radar,cohortDesignGapGridHtml,yes,13318,LipoScope.html:13318
+Cohort Design Gap Radar,cohortGapTextForRequirement,yes,13272,LipoScope.html:13272
+Lipoedema Minimum Dataset Builder,ATLAS_DATASET_FIELDS,yes,13009,LipoScope.html:13009
+Lipoedema Minimum Dataset Builder,atlasDatasetRowsWithUse,yes,13460,LipoScope.html:13460
+Lipoedema Minimum Dataset Builder,atlasRedcapRows,yes,13481,LipoScope.html:13481
+Lipoedema Minimum Dataset Builder,atlasDatasetDelphiMapping,yes,13397,LipoScope.html:13397
+Lipoedema Minimum Dataset Builder,atlasDatasetCcrfClass,yes,13424,LipoScope.html:13424
+Lipoedema Minimum Dataset Builder,renderDatasetBuilder,yes,2230,LipoScope.html:2230

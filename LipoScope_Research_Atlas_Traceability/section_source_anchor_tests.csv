@@ -1,0 +1,7 @@
+section,section_id,section_present,required_identifiers_present,mapped_requirement_count,direct_count,operationalised_count,contextual_count
+Standardized Cohort Builder,atlas-section-dx,yes,yes,15,11,4,0
+Diagnostic-noise audit,atlas-section-dx,yes,yes,10,0,10,0
+Cohort Blueprint Export,atlas-section-dx,yes,yes,15,0,15,0
+Phenotype and Differential Diagnosis Matrix,atlas-section-differential,yes,yes,11,9,0,2
+Cohort Design Gap Radar,atlas-section-gaps,yes,yes,13,0,13,0
+Lipoedema Minimum Dataset Builder,atlas-section-dataset,yes,yes,17,16,1,0

@@ -1,0 +1,61 @@
+domain,field,label,use,delphi_mapping,ccrf_class,has_delphi_alignment,has_ccrf_style_tier
+,,,,S55 standardized CRF / study-specific extension,CCRF Core-style minimum collection,yes,yes
+,,,,S16/S19 epidemiology and denominator context,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,S16/S19 epidemiology and denominator context,CCRF Core-style minimum collection,yes,yes
+,,,,S16/S19 epidemiology and denominator context,CCRF Core-style minimum collection,yes,yes
+,,,,S18/S55 inherited-risk and standardized CRF extension,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,S31/S32/S55 diagnostic approach and CRF provenance,CCRF Core-style minimum collection,yes,yes
+,,,,S34/S35/S38 staging and localization descriptors,CCRF Core-style minimum collection,yes,yes
+,,,,S34/S35/S38 staging and localization descriptors,CCRF Core-style minimum collection,yes,yes
+,,,,S14/S17 hormonal contribution and onset-window stratifier,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,S18 hereditary contribution and family stratification,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,S6/S7 pain/tenderness localization and outcome capture,CCRF Core-style minimum collection,yes,yes
+,,,,S10 easy bruising symptom field,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,S8 heaviness/swelling symptom field,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,"S27-S30 quality-of-life, burden, and health-impact domains",CCRF Supplemental-style study-specific extension,yes,yes
+,,,,"S27-S30 quality-of-life, burden, and health-impact domains",CCRF Supplemental Highly Recommended-style for selected study types,yes,yes
+,,,,S22/S33/S47 anthropometry and body-composition context,CCRF Core-style minimum collection,yes,yes
+,,,,S22/S33/S47 anthropometry and body-composition context,CCRF Core-style minimum collection,yes,yes
+,,,,S34/S35/S38 staging and localization descriptors,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,S22/S33/S47 anthropometry and body-composition context,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,S9/S11/S15/S24 lymphatic/fluid-overlap review,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,S9/S11/S15/S24 lymphatic/fluid-overlap review,CCRF Supplemental-style study-specific extension,yes,yes
+,,,,S9/S11/S15/S24 lymphatic/fluid-overlap review,CCRF Supplemental-style study-specific extension,yes,yes
+,,,,S9/S11/S15/S24 lymphatic/fluid-overlap review,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,S20-S26 comorbidity and differential-review domains,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,"S27-S30 quality-of-life, burden, and health-impact domains",CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,S20-S26 comorbidity and differential-review domains,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,"S39-S53/S58 treatment exposure, outcomes, and long-term safety/effectiveness",CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,"S39-S53/S58 treatment exposure, outcomes, and long-term safety/effectiveness",CCRF Supplemental Highly Recommended-style for selected study types,yes,yes
+,,,,S9/S11/S15/S24 lymphatic/fluid-overlap review,CCRF Supplemental-style study-specific extension,yes,yes
+,,,,S22/S33/S47 anthropometry and body-composition context,CCRF Supplemental-style study-specific extension,yes,yes
+,,,,"S18/S32/S56 genetics, mechanism, and validation guardrail",CCRF Supplemental Highly Recommended-style for selected study types,yes,yes
+,,,,"S18/S32/S56 genetics, mechanism, and validation guardrail",CCRF Supplemental Highly Recommended-style for selected study types,yes,yes
+,,,,"S18/S32/S56 genetics, mechanism, and validation guardrail",CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,"S18/S32/S56 genetics, mechanism, and validation guardrail",CCRF Supplemental Highly Recommended-style for selected study types,yes,yes
+,,,,"S18/S32/S56 genetics, mechanism, and validation guardrail",CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,"S18/S32/S56 genetics, mechanism, and validation guardrail",CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,"S39-S53/S58 treatment exposure, outcomes, and long-term safety/effectiveness",CCRF Supplemental Highly Recommended-style for selected study types,yes,yes
+,,,,"S39-S53/S58 treatment exposure, outcomes, and long-term safety/effectiveness",CCRF Core-style minimum collection,yes,yes
+,,,,"S39-S53/S58 treatment exposure, outcomes, and long-term safety/effectiveness",CCRF Supplemental Highly Recommended-style for selected study types,yes,yes
+,,,,"S55/S59 standardized CRF, governance, and collaboration",CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,"S55/S59 standardized CRF, governance, and collaboration",CCRF Core-style minimum collection,yes,yes
+,,,,S2 core bilateral/symmetrical phenotype,CCRF Core-style minimum collection,yes,yes
+,,,,S34/S35/S38 staging and localization descriptors,CCRF Core-style minimum collection,yes,yes
+,,,,S5 distal-sparing phenotype/differential feature,CCRF Core-style minimum collection,yes,yes
+,,,,S34/S35/S38 staging and localization descriptors,CCRF Core-style minimum collection,yes,yes
+,,,,S8 heaviness/swelling symptom field,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,S9/S11/S15/S24 lymphatic/fluid-overlap review,CCRF Core-style minimum collection,yes,yes
+,,,,S9/S11/S15/S24 lymphatic/fluid-overlap review,CCRF Core-style minimum collection,yes,yes
+,,,,S20-S26 comorbidity and differential-review domains,CCRF Core-style minimum collection,yes,yes
+,,,,S31/S32/S55 diagnostic approach and CRF provenance,CCRF Core-style minimum collection,yes,yes
+,,,,S55 explicit consensus provenance,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,S18 hereditary contribution and family stratification,CCRF Supplemental Highly Recommended-style for selected study types,yes,yes
+,,,,S18 hereditary contribution and family stratification,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,S18 hereditary contribution and family stratification,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,"S18/S32/S56 genetics, mechanism, and validation guardrail",CCRF Supplemental Highly Recommended-style for selected study types,yes,yes
+,,,,"S18/S32/S56 genetics, mechanism, and validation guardrail",CCRF Supplemental Highly Recommended-style for selected study types,yes,yes
+,,,,"S18/S32/S56 genetics, mechanism, and validation guardrail",CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,S18/S55 inherited-risk and standardized CRF extension,CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,"S18/S32/S56 genetics, mechanism, and validation guardrail",CCRF Supplemental Highly Recommended-style characterization,yes,yes
+,,,,"S18/S32/S56 genetics, mechanism, and validation guardrail",CCRF Exploratory-style molecular/specialized extension,yes,yes

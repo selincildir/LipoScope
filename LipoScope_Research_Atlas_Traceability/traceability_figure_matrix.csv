@@ -1,0 +1,18 @@
+requirement,source_anchor,Standardized Cohort Builder,Diagnostic-noise audit,Cohort Blueprint Export,Phenotype and Differential Diagnosis Matrix,Cohort Design Gap Radar,Lipoedema Minimum Dataset Builder
+Case definition,Delphi+CCRF; Delphi S1-S8; S41-S44; Diagnosis source / case-definition fields,Direct,Operationalised,Operationalised,Direct,Operationalised,Direct
+Symptoms,Delphi+CCRF; Delphi S1-S8; Core symptom and history fields,Direct,Operationalised,Operationalised,Direct,Operationalised,Direct
+Phenotype distribution,Delphi+CCRF; Delphi S1-S8; Phenotype distribution / body-region fields,Direct,,Operationalised,Direct,,Direct
+Pain and tenderness,Delphi+CCRF; Delphi S1-S8; S45-S52; Pain score / symptom severity fields,Direct,,Operationalised,Direct,,Direct
+Bruising and heaviness,Delphi+CCRF; Delphi S1-S8; Symptom signs / bruising-heaviness fields,Direct,,,Direct,,Direct
+Stage and severity,Delphi+CCRF; Delphi S1-S8; S45-S52; Stage / severity / phenotype grade fields,Direct,,Operationalised,Direct,Operationalised,Direct
+Anthropometry and body composition,"Delphi+CCRF; Delphi S9-S18; S41-S44; Height, weight, BMI, waist, hip, limb measures",Direct,Operationalised,Operationalised,Contextual,Operationalised,Direct
+Oedema/fluid and lymphatic overlap,Delphi+CCRF; Delphi S9-S18; S19-S28; Fluid/lymphatic assessment and overlap fields,Direct,Operationalised,Operationalised,Direct,Operationalised,Direct
+Nodularity and fibrosis,Delphi+CCRF; Delphi S9-S18; S29-S40; Tissue texture / fibrosis / imaging fields,,,,Contextual,,Direct
+Differential diagnosis,Delphi+CCRF; Delphi S19-S28; S41-S44; Differential review fields,Direct,Operationalised,Operationalised,Direct,Operationalised,Direct
+Comorbidities and overlap conditions,Delphi+CCRF; Delphi S19-S28; S45-S52; Comorbidity / overlap-condition fields,Direct,Operationalised,Operationalised,Direct,Operationalised,Direct
+Comparator strategy,Delphi+CCRF; Delphi S41-S44; S53-S59; Comparator / control-group planning fields,Operationalised,Operationalised,Operationalised,,Operationalised,Direct
+Treatment exposure,Delphi+CCRF; Delphi S29-S40; S45-S52; Conservative/surgical treatment exposure fields,Operationalised,,Operationalised,,Operationalised,Direct
+Outcomes and follow-up,Delphi+CCRF; Delphi S29-S40; S45-S52; Outcomes / follow-up / adverse event fields,Operationalised,,Operationalised,,Operationalised,Direct
+Family history and genetics,Delphi+CCRF; Delphi S53-S59; Family history / genetics study fields,Direct,Operationalised,Operationalised,,Operationalised,Direct
+Biomarkers and omics,Delphi+CCRF; Delphi S53-S59; Biomarker/omics/specimen metadata fields,Operationalised,Operationalised,Operationalised,,Operationalised,Direct
+Future validation and reproducibility needs,Delphi+CCRF+PubMed; Delphi S53-S59; Study-specific / validation / exploratory fields,,Operationalised,Operationalised,,Operationalised,Operationalised

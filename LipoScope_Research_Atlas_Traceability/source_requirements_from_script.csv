@@ -1,0 +1,18 @@
+requirement_key,requirement,source_type,delphi_statement_id,ccrf_element_or_domain,aliases_used_for_code_detection
+case_definition,Case definition,Delphi+CCRF,S1-S8; S41-S44,Diagnosis source / case-definition fields,diagnosis; diagnostic; case definition; case-definition; adjudicator; confirmed; self-reported; cohort definition; cohort type
+symptoms,Symptoms,Delphi+CCRF,S1-S8,Core symptom and history fields,symptom; pain; tenderness; heaviness; bruising; hematoma; onset; history
+phenotype_distribution,Phenotype distribution,Delphi+CCRF,S1-S8,Phenotype distribution / body-region fields,distribution; symmetry; symmetric; bilateral; upper limb; lower limb; hands; feet; sparing; disproportion
+pain_tenderness,Pain and tenderness,Delphi+CCRF,S1-S8; S45-S52,Pain score / symptom severity fields,pain; tenderness; nrs; visual analog; vas; quality of life; qol
+bruising_heaviness,Bruising and heaviness,Delphi+CCRF,S1-S8,Symptom signs / bruising-heaviness fields,bruising; bruise; hematoma; haematoma; heaviness
+stage_severity,Stage and severity,Delphi+CCRF,S1-S8; S45-S52,Stage / severity / phenotype grade fields,stage; severity; type; staging; stage/severity
+anthropometry,Anthropometry and body composition,Delphi+CCRF,S9-S18; S41-S44,"Height, weight, BMI, waist, hip, limb measures",height; weight; bmi; waist; hip; whtr; whr; anthropometry; limb measures; circumference; body composition
+fluid_overlap,Oedema/fluid and lymphatic overlap,Delphi+CCRF,S9-S18; S19-S28,Fluid/lymphatic assessment and overlap fields,edema; oedema; fluid; lymph; lymphatic; lymphoedema; lymphedema; pitting; stemmer; venous
+nodularity_fibrosis,Nodularity and fibrosis,Delphi+CCRF,S9-S18; S29-S40,Tissue texture / fibrosis / imaging fields,nodularity; nodule; fibrosis; fibrotic; tissue texture; extracellular matrix; ecm; imaging
+differential_diagnosis,Differential diagnosis,Delphi+CCRF,S19-S28; S41-S44,Differential review fields,differential; obesity; lymphoedema; lymphedema; venous; dercum; lipodystrophy; hypermobility; mimic
+comorbidities,Comorbidities and overlap conditions,Delphi+CCRF,S19-S28; S45-S52,Comorbidity / overlap-condition fields,comorbid; comorbidity; obesity; venous; hypermobility; thyroid; migraine; asthma; urinary; metabolic
+comparator_strategy,Comparator strategy,Delphi+CCRF,S41-S44; S53-S59,Comparator / control-group planning fields,comparator; control; matched; healthy; disease comparator; stratify; exclude; covariate
+treatment_exposure,Treatment exposure,Delphi+CCRF,S29-S40; S45-S52,Conservative/surgical treatment exposure fields,treatment; compression; surgery; liposuction; intervention; exposure; therapy
+outcomes_followup,Outcomes and follow-up,Delphi+CCRF,S29-S40; S45-S52,Outcomes / follow-up / adverse event fields,outcome; endpoint; follow-up; follow up; longitudinal; adverse; qol; quality of life; response
+family_genetics,Family history and genetics,Delphi+CCRF,S53-S59,Family history / genetics study fields,family; familial; genetic; genetics; variant; ancestry; relative; affected relative; sequencing; gwas
+biomarkers_omics,Biomarkers and omics,Delphi+CCRF,S53-S59,Biomarker/omics/specimen metadata fields,biomarker; omics; transcript; proteom; metabolom; biospecimen; specimen; assay; gene; variant
+future_validation,Future validation and reproducibility needs,Delphi+CCRF+PubMed,S53-S59,Study-specific / validation / exploratory fields,validation; reproducibility; replication; future; gap; minimum dataset; standard; standardised; standardized; protocol; redcap

@@ -1,0 +1,4 @@
+export_name,code_function,output_detected,row_count,notes
+Minimum Dataset REDCap-style fields,atlasRedcapRows,yes,61,Generated from ATLAS_DATASET_FIELDS and app REDCap export helper.
+Cohort case CSV export,cohortCaseCsvRows,yes,6,Scenario-based check using the app cohort case CSV helper; JSON export is not required for Research Atlas public outputs.
+Cohort methods text,cohortMethodsSentence,yes,3,Functional check that app can generate protocol/manuscript methods text for scenario profiles.

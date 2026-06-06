@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use LipoScope, please cite the software repository. When the journal article becomes available, please cite both the software and the publication."
 title: "LipoScope"
-version: "1.7.4"
-date-released: "2026-05-06"
+version: "2.0.0"
+date-released: "2026-06-01"
 type: software
 authors:
   - family-names: "Cildir"
@@ -10,15 +10,18 @@ authors:
     orcid: "https://orcid.org/0009-0003-5456-3335"
     affiliation: "Centre for Cancer Biology, Adelaide University"
 repository-code: "https://github.com/selincildir/LipoScope"
-url: "https://github.com/selincildir/LipoScope"
-license: "AGPL-3.0-only"
-abstract: "LipoScope is a browser-based, PubMed-aware atlas for lipoedema literature, evidence mapping, and local omics interpretation."
+url: "https://selincildir.github.io/LipoScope/"
+license: "CC-BY-NC-ND-4.0"
+abstract: "LipoScope is a browser-based, PubMed-aware lipoedema research atlas for literature exploration, evidence mapping, diagnostic standardization, standardized cohort building, diagnostic-noise auditing, gene and variant literature evidence checking, cohort design-gap prioritization, and minimum dataset export."
 keywords:
   - lipoedema
   - lipedema
   - literature atlas
-  - omics
+  - cohort standardization
+  - diagnostic research
+  - genetics
   - PubMed
+  - minimum dataset
 preferred-citation:
   type: software
   authors:
@@ -26,6 +29,6 @@ preferred-citation:
       given-names: "Selin"
       orcid: "https://orcid.org/0009-0003-5456-3335"
   title: "LipoScope"
-  version: "1.7.4"
-  date-released: "2026-05-06"
+  version: "2.0.0"
+  date-released: "2026-06-01"
   url: "https://github.com/selincildir/LipoScope"
