@@ -1775,6 +1775,271 @@ select:focus{border-color:var(--rose)}
     .walkthrough-slide { padding:10px; }
     .walkthrough-controls { grid-template-columns:1fr; }
   }
+  /* Research Atlas mobile hardening: keep dense scientific tools usable without page-level overflow. */
+  #panel-atlas,
+  #panel-atlas .tab-guide,
+  #panel-atlas .atlas-hero,
+  #panel-atlas .atlas-section,
+  #panel-atlas .atlas-result,
+  #panel-atlas .atlas-card,
+  #panel-atlas .atlas-chart-panel,
+  #panel-atlas .atlas-detail,
+  #panel-atlas .atlas-svg-box,
+  #panel-atlas .atlas-table-wrap,
+  #panel-atlas .atlas-gap-grid,
+  #panel-atlas .atlas-noise-matrix,
+  #panel-atlas .atlas-ledger-panel {
+    min-width:0;
+    max-width:100%;
+  }
+
+  #panel-atlas {
+    overflow-x:hidden;
+  }
+
+  #panel-atlas .atlas-section-title h3,
+  #panel-atlas .atlas-section-title p,
+  #panel-atlas .atlas-card,
+  #panel-atlas .atlas-note,
+  #panel-atlas .atlas-result,
+  #panel-atlas .atlas-cohort-card,
+  #panel-atlas .atlas-missing-card,
+  #panel-atlas .atlas-gap-cell,
+  #panel-atlas .atlas-noise-cell,
+  #panel-atlas .atlas-ledger-card,
+  #panel-atlas .atlas-source-line {
+    overflow-wrap:anywhere;
+  }
+
+  #panel-atlas .atlas-grid,
+  #panel-atlas .atlas-grid.three,
+  #panel-atlas .atlas-form-grid,
+  #panel-atlas .atlas-check-grid,
+  #panel-atlas .atlas-pathway-grid,
+  #panel-atlas .atlas-workflow-grid,
+  #panel-atlas .atlas-cohort-flow,
+  #panel-atlas .atlas-cohort-grid,
+  #panel-atlas .atlas-blueprint-flow,
+  #panel-atlas .atlas-ledger-summary,
+  #panel-atlas .atlas-prisma,
+  #panel-atlas .atlas-mech-list {
+    grid-template-columns:repeat(auto-fit,minmax(min(100%, 210px),1fr));
+  }
+
+  #panel-atlas .atlas-network,
+  #panel-atlas .atlas-upload,
+  #panel-atlas .atlas-workbench {
+    grid-template-columns:minmax(0,1fr) minmax(min(100%, 320px),0.8fr);
+  }
+
+  #panel-atlas .atlas-svg-box,
+  #panel-atlas .atlas-detail {
+    min-height:0;
+  }
+
+  #panel-atlas .atlas-svg-box svg {
+    min-height:0;
+    max-height:clamp(260px, 48vw, 430px);
+  }
+
+  #panel-atlas .atlas-table-wrap,
+  #panel-atlas .atlas-gap-grid,
+  #panel-atlas .atlas-noise-matrix {
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  #panel-atlas .atlas-gap-grid {
+    min-width:0;
+    grid-template-columns:minmax(150px,180px) repeat(6,minmax(104px,1fr));
+  }
+
+  #panel-atlas .atlas-noise-matrix {
+    min-width:0;
+    grid-template-columns:minmax(150px,180px) repeat(5,minmax(66px,78px)) minmax(170px,1fr);
+  }
+
+  #panel-atlas .atlas-table {
+    min-width:min(760px, 190vw);
+  }
+
+  #panel-atlas .atlas-actions,
+  #panel-atlas .atlas-dataset-controls,
+  #panel-atlas .atlas-ledger-toolbar,
+  #panel-atlas .atlas-legend-row {
+    min-width:0;
+    max-width:100%;
+    flex-wrap:wrap;
+  }
+
+  #panel-atlas .atlas-btn,
+  #panel-atlas .atlas-dataset-controls select,
+  #panel-atlas .atlas-form-field input,
+  #panel-atlas .atlas-form-field select,
+  #panel-atlas .atlas-form-field textarea {
+    min-width:0;
+    max-width:100%;
+  }
+
+  @media(max-width:900px){
+    #panel-atlas .atlas-network,
+    #panel-atlas .atlas-upload,
+    #panel-atlas .atlas-workbench {
+      grid-template-columns:1fr !important;
+    }
+
+    #panel-atlas .atlas-grid,
+    #panel-atlas .atlas-grid.three,
+    #panel-atlas .atlas-form-grid,
+    #panel-atlas .atlas-pathway-grid,
+    #panel-atlas .atlas-workflow-grid,
+    #panel-atlas .atlas-cohort-flow,
+    #panel-atlas .atlas-cohort-grid,
+    #panel-atlas .atlas-blueprint-flow,
+    #panel-atlas .atlas-ledger-summary,
+    #panel-atlas .atlas-prisma,
+    #panel-atlas .atlas-mech-list {
+      grid-template-columns:repeat(auto-fit,minmax(min(100%, 180px),1fr));
+    }
+  }
+
+  @media(max-width:640px){
+    #panel-atlas .atlas-hero,
+    #panel-atlas .atlas-section {
+      padding:14px 12px;
+      border-radius:10px;
+    }
+
+    #panel-atlas .atlas-section-hdr {
+      gap:9px;
+      margin-bottom:12px;
+    }
+
+    #panel-atlas .atlas-section-icon {
+      width:30px;
+      height:30px;
+      border-radius:8px;
+      font-size:14px;
+    }
+
+    #panel-atlas .atlas-section-title h3 {
+      font-size:1rem;
+      line-height:1.25;
+    }
+
+    #panel-atlas .atlas-section-title p,
+    #panel-atlas .atlas-hero p,
+    #panel-atlas .atlas-note,
+    #panel-atlas .atlas-result {
+      font-size:11.2px;
+      line-height:1.6;
+    }
+
+    #panel-atlas .atlas-actions,
+    #panel-atlas .atlas-dataset-controls,
+    #panel-atlas .atlas-ledger-toolbar {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:8px;
+      align-items:stretch;
+    }
+
+    #panel-atlas .atlas-btn,
+    #panel-atlas .atlas-dataset-controls select {
+      width:100%;
+      justify-content:center;
+      text-align:center;
+    }
+
+    #panel-atlas .atlas-check-grid,
+    #panel-atlas .atlas-grid,
+    #panel-atlas .atlas-grid.three,
+    #panel-atlas .atlas-form-grid,
+    #panel-atlas .atlas-pathway-grid,
+    #panel-atlas .atlas-workflow-grid,
+    #panel-atlas .atlas-cohort-flow,
+    #panel-atlas .atlas-cohort-grid,
+    #panel-atlas .atlas-blueprint-flow,
+    #panel-atlas .atlas-ledger-summary,
+    #panel-atlas .atlas-prisma,
+    #panel-atlas .atlas-mech-list {
+      grid-template-columns:1fr !important;
+    }
+
+    #panel-atlas .atlas-readiness-row {
+      grid-template-columns:1fr;
+      gap:5px;
+      align-items:stretch;
+    }
+
+    #panel-atlas .atlas-readiness-row > span:last-child {
+      justify-self:start;
+      font-weight:800;
+      color:var(--text-mid);
+    }
+
+    #panel-atlas .atlas-chart-panel,
+    #panel-atlas .atlas-result,
+    #panel-atlas .atlas-card,
+    #panel-atlas .atlas-cohort-card,
+    #panel-atlas .atlas-missing-card,
+    #panel-atlas .atlas-ledger-card {
+      padding:10px;
+    }
+
+    #panel-atlas .atlas-svg-box svg {
+      max-height:none;
+    }
+
+    #panel-atlas .atlas-gap-grid,
+    #panel-atlas .atlas-noise-matrix {
+      margin-inline:0;
+      border-radius:10px;
+    }
+
+    #panel-atlas .atlas-gap-cell,
+    #panel-atlas .atlas-noise-cell {
+      padding:7px 8px;
+      font-size:10px;
+      line-height:1.38;
+    }
+
+    #panel-atlas .atlas-table th,
+    #panel-atlas .atlas-table td {
+      padding:7px 8px;
+      font-size:10.5px;
+    }
+  }
+
+  @media(max-width:420px){
+    #panel-atlas .atlas-hero,
+    #panel-atlas .atlas-section {
+      padding:12px 10px;
+    }
+
+    #panel-atlas .atlas-section-hdr {
+      flex-direction:column;
+    }
+
+    #panel-atlas .atlas-section-icon {
+      width:28px;
+      height:28px;
+    }
+
+    #panel-atlas .atlas-kpi {
+      font-size:1.35rem;
+    }
+
+    #panel-atlas .atlas-gap-grid {
+      grid-template-columns:minmax(136px,156px) repeat(6,minmax(96px,1fr));
+    }
+
+    #panel-atlas .atlas-noise-matrix {
+      grid-template-columns:minmax(138px,156px) repeat(5,minmax(60px,70px)) minmax(150px,1fr);
+    }
+  }
 </style>
 </head>
 <body>
