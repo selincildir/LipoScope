@@ -2392,6 +2392,10 @@ select:focus{border-color:var(--rose)}
             <h3>Knowledge Graph</h3>
             <p>Clickable network linking lipoedema topics, genes, biomarkers, pathways, clinical phenotypes, and mechanisms from the PubMed-wide lipoedema evidence source. Each node opens all supporting papers currently available to the app.</p>
           </div>
+          <div class="atlas-actions" style="margin-top:0">
+            <button class="atlas-btn" onclick="downloadKnowledgeGraphSvg()">Download SVG</button>
+            <button class="atlas-btn" onclick="downloadKnowledgeGraphPng()">Download PNG</button>
+          </div>
         </div>
         <div class="atlas-network">
           <div class="atlas-svg-box" id="atlas-graph"></div>
@@ -12290,6 +12294,160 @@ function renderKnowledgeGraph(entities, all) {
   });
   graphEl.innerHTML = html + '</svg>' + atlasGraphLegendHtml(topics);
   renderGraphDetail(entities, all);
+}
+
+function knowledgeGraphExportFilename(ext) {
+  return 'LipoScope_knowledge_graph_' + new Date().toISOString().slice(0,10) + '.' + ext;
+}
+function knowledgeGraphLegendItems() {
+  var legend = document.querySelector('#atlas-graph .atlas-graph-legend');
+  if (!legend) return [];
+  return Array.prototype.slice.call(legend.querySelectorAll('span')).map(function(span) {
+    var swatch = span.querySelector('i');
+    var computed = swatch ? window.getComputedStyle(swatch) : null;
+    return {
+      label:String(span.textContent || '').replace(/\s+/g, ' ').trim(),
+      color:swatch ? (swatch.style.background || swatch.style.backgroundColor || (computed && computed.backgroundColor) || '#6b7280') : '',
+      border:swatch ? (swatch.style.border || (computed && computed.border) || '') : '',
+      square:!!(swatch && swatch.classList.contains('atlas-graph-square'))
+    };
+  }).filter(function(item){ return item.label; });
+}
+function knowledgeGraphAppendLegend(svg, items, w, h) {
+  if (!items.length) return 0;
+  var cols = items.length > 9 ? 3 : 2;
+  var colW = (w - 48) / cols;
+  var rowH = 24;
+  var rows = Math.ceil(items.length / cols);
+  var legendH = 50 + rows * rowH;
+  var ns = 'http://www.w3.org/2000/svg';
+  var g = document.createElementNS(ns, 'g');
+  g.setAttribute('class', 'atlas-export-legend');
+  var line = document.createElementNS(ns, 'line');
+  line.setAttribute('x1', '24');
+  line.setAttribute('x2', String(w - 24));
+  line.setAttribute('y1', String(h + 10));
+  line.setAttribute('y2', String(h + 10));
+  line.setAttribute('stroke', '#e7ddd5');
+  line.setAttribute('stroke-width', '1');
+  g.appendChild(line);
+  var title = document.createElementNS(ns, 'text');
+  title.setAttribute('x', '24');
+  title.setAttribute('y', String(h + 31));
+  title.setAttribute('fill', '#463c36');
+  title.setAttribute('font-size', '12');
+  title.setAttribute('font-weight', '800');
+  title.textContent = 'Knowledge Graph legend';
+  g.appendChild(title);
+  items.forEach(function(item, i) {
+    var col = i % cols, row = Math.floor(i / cols);
+    var x = 24 + col * colW;
+    var y = h + 58 + row * rowH;
+    var shape = document.createElementNS(ns, item.square ? 'rect' : 'circle');
+    if (item.square) {
+      shape.setAttribute('x', String(x));
+      shape.setAttribute('y', String(y - 10));
+      shape.setAttribute('width', '12');
+      shape.setAttribute('height', '12');
+      shape.setAttribute('rx', '3');
+    } else {
+      shape.setAttribute('cx', String(x + 6));
+      shape.setAttribute('cy', String(y - 4));
+      shape.setAttribute('r', '6');
+    }
+    shape.setAttribute('fill', item.color || '#fff');
+    if (item.border) {
+      shape.setAttribute('stroke', '#94a3b8');
+      shape.setAttribute('stroke-width', '1.2');
+    }
+    g.appendChild(shape);
+    var text = document.createElementNS(ns, 'text');
+    text.setAttribute('x', String(x + 18));
+    text.setAttribute('y', String(y));
+    text.setAttribute('fill', '#5f544d');
+    text.setAttribute('font-size', '10.5');
+    text.setAttribute('font-weight', i < 3 ? '750' : '650');
+    text.textContent = item.label;
+    g.appendChild(text);
+  });
+  svg.appendChild(g);
+  return legendH;
+}
+function knowledgeGraphExportClone() {
+  var svg = document.querySelector('#atlas-graph svg');
+  if (!svg) return null;
+  var clone = svg.cloneNode(true);
+  var vb = (clone.getAttribute('viewBox') || '0 0 960 500').split(/\s+/).map(parseFloat);
+  var w = vb[2] || 960, h = vb[3] || 500;
+  var legendItems = knowledgeGraphLegendItems();
+  var legendRows = Math.ceil(legendItems.length / (legendItems.length > 9 ? 3 : 2));
+  var legendH = legendItems.length ? 50 + legendRows * 24 : 0;
+  var totalH = h + legendH;
+  clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+  clone.setAttribute('width', String(w));
+  clone.setAttribute('height', String(totalH));
+  clone.setAttribute('viewBox', [vb[0] || 0, vb[1] || 0, w, totalH].join(' '));
+  clone.querySelectorAll('[onclick]').forEach(function(node){ node.removeAttribute('onclick'); });
+  clone.querySelectorAll('.atlas-node').forEach(function(node){ node.removeAttribute('class'); });
+  var style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+  style.textContent = 'text{font-family:DM Sans,Arial,sans-serif}.atlas-export-title{font-weight:800}';
+  var bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  bg.setAttribute('x', String(vb[0] || 0));
+  bg.setAttribute('y', String(vb[1] || 0));
+  bg.setAttribute('width', String(w));
+  bg.setAttribute('height', String(totalH));
+  bg.setAttribute('fill', '#fbfaf8');
+  var first = clone.firstChild;
+  clone.insertBefore(style, first);
+  var defs = clone.querySelector('defs');
+  clone.insertBefore(bg, defs && defs.nextSibling ? defs.nextSibling : clone.firstChild.nextSibling);
+  knowledgeGraphAppendLegend(clone, legendItems, w, h);
+  return {svg:clone, width:w, height:totalH};
+}
+function knowledgeGraphSvgText() {
+  var prepared = knowledgeGraphExportClone();
+  if (!prepared) return '';
+  return '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(prepared.svg);
+}
+function downloadKnowledgeGraphSvg() {
+  var svgText = knowledgeGraphSvgText();
+  if (!svgText) { showToast('Knowledge Graph is still loading. Try again in a moment.', 'warn'); return; }
+  atlasDownload(knowledgeGraphExportFilename('svg'), svgText, 'image/svg+xml;charset=utf-8');
+}
+function downloadKnowledgeGraphPng() {
+  var prepared = knowledgeGraphExportClone();
+  if (!prepared) { showToast('Knowledge Graph is still loading. Try again in a moment.', 'warn'); return; }
+  var svgText = '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(prepared.svg);
+  var blob = new Blob([svgText], {type:'image/svg+xml;charset=utf-8'});
+  var url = URL.createObjectURL(blob);
+  var img = new Image();
+  img.onload = function() {
+    var scale = 2;
+    var canvas = document.createElement('canvas');
+    canvas.width = Math.round(prepared.width * scale);
+    canvas.height = Math.round(prepared.height * scale);
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#fbfaf8';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    URL.revokeObjectURL(url);
+    canvas.toBlob(function(pngBlob) {
+      if (!pngBlob) { showToast('Could not create Knowledge Graph PNG.', 'error'); return; }
+      var pngUrl = URL.createObjectURL(pngBlob);
+      var a = document.createElement('a');
+      a.href = pngUrl;
+      a.download = knowledgeGraphExportFilename('png');
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function(){ URL.revokeObjectURL(pngUrl); document.body.removeChild(a); }, 0);
+      showToast('Export created: ' + a.download, 'success');
+    }, 'image/png');
+  };
+  img.onerror = function() {
+    URL.revokeObjectURL(url);
+    showToast('Could not render Knowledge Graph PNG.', 'error');
+  };
+  img.src = url;
 }
 
 function renderGraphDetail(entities, all) {
