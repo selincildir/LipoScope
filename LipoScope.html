@@ -3358,15 +3358,8 @@ select:focus{border-color:var(--rose)}
         <div class="biofig-caption" id="biofig1-caption">This mechanism map is generated from the PubMed-wide lipoedema evidence source. Mechanism order, counts, leading entities, and support levels update when the automatic PubMed layer refreshes.</div>
         <div class="figure-note" id="biofig1-source-note"></div>
       </div>
-
       <div class="biofig-wrap">
-        <div class="biofig-title">Figure 2. Candidate genes and pathway effects</div>
-        <div id="resource-gene-map"></div>
-        <div class="evidence-note"><strong>Interpretation:</strong> This figure is regenerated from the PubMed-wide lipoedema evidence source, so candidate ranking can change as PubMed adds lipoedema papers. Your local Browse additions or hidden-paper choices do not narrow these scores. AKR1C1 has familial/monogenic support in the literature. VEGFA, GRB14, COBLL1, CPE and several transcriptional candidates appear in GWAS or inferred phenotype studies. RAS-MAPK, ECM, WNT, TGFB, inflammatory cytokines, and lymphatic-development genes are best treated as pathway hypotheses unless the refreshed evidence map shows direct lipoedema-specific support.</div>
-      </div>
-
-      <div class="biofig-wrap">
-        <div class="biofig-title">Figure 3. Research translation map</div>
+        <div class="biofig-title">Figure 2. Research translation map</div>
         <div id="biofig3-dynamic"></div>
         <div class="biofig-caption" id="biofig3-caption">This live translation blueprint is generated from the PubMed-wide lipoedema evidence source used by the Atlas tools. After PubMed refresh, it updates not only the field-stage counts, top domains, leading mechanism, candidate anchors, and gap-driven study route, but also the explanation of how each signal was counted and why it matters for study design.</div>
         <div class="figure-note" id="biofig3-source-note"></div>
@@ -12117,37 +12110,13 @@ function renderBioFigureSourceNotes(all) {
 }
 
 function renderResourcesPanel() {
-  var el = document.getElementById('resource-gene-map');
-  if (!el) return;
   var all = getAtlasSourcePapers();
   var rankedEntities = atlasRankEntities(all);
-  var entities = rankedEntities.slice(0, 14);
   syncLivingAtlasStatusSnapshot('PubMed-wide Atlas ready');
   renderBioFigures(all, rankedEntities);
   renderBioFigureSourceNotes(all);
   renderResourceFigurePreview(false);
-  if (!entities.length) {
-    el.innerHTML = '<div class="evidence-note">No candidate entities are currently supported by the PubMed-wide lipoedema evidence source. Wait for the automatic PubMed refresh, then reopen this tab to populate the map.</div>';
-    updateWalkthroughUI();
-    return;
-  }
-  var maxScore = Math.max.apply(null, entities.map(function(e){ return e.score || 1; }));
-  var html = '<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>Entity</th><th>Evidence</th><th>Likely pathway effect</th><th>Interpretation</th></tr></thead><tbody>';
-  entities.forEach(function(e) {
-    var lab = atlasEvidenceLabel(e.score);
-    var bar = Math.max(8, Math.round((e.score / maxScore) * 100));
-    var interp = 'Emerging candidate. Use as hypothesis-generating until validated in independent lipoedema cohorts.';
-    if (e.score >= 42) interp = 'Higher-priority literature signal in the PubMed-wide lipoedema source; suitable for focused validation or minimum biomarker panel inclusion.';
-    else if (e.score >= 25) interp = 'Moderate literature signal; useful for pathway-level interpretation and replication planning.';
-    html += '<tr><td><button class="atlas-btn" onclick="switchTab(\'atlas\',document.getElementById(\'nav-atlas\'));setTimeout(function(){showCandidateEntityDetail(\'' + atlasEsc(e.key) + '\')},80)" style="padding:4px 8px">' + atlasEsc(e.label) + '</button><br><span style="font-size:10px;color:var(--text-faint)">' + atlasEsc(e.kind) + '</span></td>';
-    html += '<td><span class="atlas-pill ' + lab[1] + '">' + lab[0] + '</span><div style="height:7px;background:#eee;border-radius:999px;margin-top:6px;overflow:hidden"><div style="width:' + bar + '%;height:100%;background:linear-gradient(90deg,var(--teal),var(--rose));border-radius:999px"></div></div><span style="font-size:10px;color:var(--text-faint)">' + e.paperCount + ' papers · score ' + e.score + '</span></td>';
-    html += '<td>' + atlasEsc(e.pathway) + '</td><td>' + atlasEsc(interp) + '</td></tr>';
-  });
-  html += '</tbody></table></div>';
-  html += '<div class="figure-note">This table uses the PubMed-wide lipoedema evidence source. Your local Browse additions or hidden-paper choices do not narrow these candidate scores. Current source: ' + all.length + ' lipoedema-focused records, including ' + livingAtlasPapers.length + ' automatically refreshed PubMed records.</div>';
-  el.innerHTML = html;
   updateWalkthroughUI();
-  renderResourceFigurePreview(false);
 }
 
 var _walkthroughIndex = 0;
