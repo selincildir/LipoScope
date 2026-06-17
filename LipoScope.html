@@ -2332,7 +2332,7 @@ select:focus{border-color:var(--rose)}
           <button type="button" class="atlas-flow-card" onclick="scrollAtlasSection('atlas-section-candidates')"><span class="atlas-flow-step">2</span><strong>Choose biology anchors</strong><span>Inspect candidate genes, biomarkers, and mechanisms that may shape study focus.</span></button>
           <button type="button" class="atlas-flow-card" onclick="scrollAtlasSection('atlas-section-dx')"><span class="atlas-flow-step">3</span><strong>Build cohort rules</strong><span>Select study focus, strictness, adjudication, comparators, and differential handling.</span></button>
           <button type="button" class="atlas-flow-card" onclick="scrollAtlasSection('atlas-section-dx')"><span class="atlas-flow-step">4</span><strong>Audit diagnostic noise</strong><span>Identify missing fields and comorbidities that can make cohorts hard to reproduce.</span></button>
-          <button type="button" class="atlas-flow-card" onclick="scrollAtlasSection('atlas-section-gene-checker')"><span class="atlas-flow-step">5</span><strong>Check genes/variants</strong><span>Ask whether a gene, variant, locus, or pathway appears in lipoedema or adjacent biology evidence.</span></button>
+          <button type="button" class="atlas-flow-card" onclick="scrollAtlasSection('atlas-section-gene-checker')"><span class="atlas-flow-step">5</span><strong>Check gene evidence</strong><span>Ask whether a gene symbol appears in lipoedema literature or maps to predefined biology context.</span></button>
           <button type="button" class="atlas-flow-card" onclick="scrollAtlasSection('atlas-section-gaps')"><span class="atlas-flow-step">6</span><strong>Find cohort design gaps</strong><span>See what is missing for reproducible genetics, imaging, biomarker, treatment, registry, and diagnostic-accuracy cohorts.</span></button>
           <button type="button" class="atlas-flow-card" onclick="scrollAtlasSection('atlas-section-dataset')"><span class="atlas-flow-step">7</span><strong>Standardize fields</strong><span>Use Delphi/CCRF-aware REDCap-friendly minimum fields by study type and cohort definition tier.</span></button>
           <button type="button" class="atlas-flow-card" onclick="downloadAtlasExport('cohort-text')"><span class="atlas-flow-step">8</span><strong>Export blueprint</strong><span>Download protocol language and cohort rules. This is not an enrollment decision.</span></button>
@@ -2438,18 +2438,18 @@ select:focus{border-color:var(--rose)}
         <div class="atlas-section-hdr">
           <div class="atlas-section-icon">G</div>
           <div class="atlas-section-title">
-            <h3>Gene and Variant Literature Evidence Checker</h3>
-            <p>Check whether a gene, variant, locus, or pathway has appeared in lipoedema PubMed literature or maps to lipoedema-related biology. This supports cohort design, exploratory CCRF-style molecular fields, and hypothesis triage; it does not classify pathogenicity or diagnose lipoedema.</p>
+            <h3>Gene and Literature Evidence Checker</h3>
+            <p>Check whether a gene symbol has appeared in the PubMed-wide lipoedema/lipedema literature layer or maps to predefined lipoedema-relevant biology. This supports cohort design, exploratory CCRF-style molecular fields, and hypothesis triage; it does not validate biomarkers, classify pathogenicity, or diagnose lipoedema.</p>
           </div>
         </div>
         <div class="atlas-note" style="margin-bottom:12px">
-          <strong>Use this when:</strong> you are designing a genetics, biomarker, imaging, or mechanistic cohort and want to know whether a candidate gene/variant/pathway already has direct lipoedema evidence, adjacent biological relevance, differential-diagnosis relevance, or no current LipoScope evidence. Outputs include exact PubMed query strings, supporting paper links, pathway categories, and a <strong>not validated for clinical diagnosis</strong> interpretation badge.
+          <strong>Use this when:</strong> you are designing a genetics, biomarker, imaging, or mechanistic cohort and want to know whether a candidate gene is mentioned in the lipoedema/lipedema literature layer, maps to predefined biology context, has differential/overlap relevance, or has no current LipoScope match. Outputs include exact PubMed query strings, supporting paper links, biology-context categories, and a <strong>not validated for clinical diagnosis</strong> interpretation badge.
         </div>
         <div class="atlas-upload">
           <div>
-            <h4 style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-soft);margin-bottom:8px">Paste genes, variants, loci, or pathways</h4>
-            <textarea id="atlas-gene-query" placeholder="AKR1C1&#10;VEGFA&#10;FLT4&#10;rs12345&#10;ECM fibrosis&#10;lymphatic development"></textarea>
-            <p style="font-size:11px;color:var(--text-faint);line-height:1.6;margin-top:7px">One item per line, or comma/semicolon separated. Gene symbols, rsIDs, HGVS-like strings, and pathway terms are accepted. The checker searches the PubMed-wide LipoScope evidence layer and maps genes to lipoedema-relevant biological programs.</p>
+            <h4 style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-soft);margin-bottom:8px">Paste gene symbols</h4>
+            <textarea id="atlas-gene-query" placeholder="AKR1C1&#10;VEGFA&#10;FLT4&#10;PPARG&#10;IL6&#10;TNXB"></textarea>
+            <p style="font-size:11px;color:var(--text-faint);line-height:1.6;margin-top:7px">One gene symbol per line, or comma/semicolon separated. LipoScope searches the PubMed-wide lipoedema/lipedema evidence layer and maps recognised gene symbols to predefined lipoedema-relevant biological programs. Non-gene identifiers are searched only as exact literature text and are not mapped to genes.</p>
             <div class="atlas-actions">
               <button class="atlas-btn primary" onclick="runGeneEvidenceChecker()">Check Evidence</button>
               <button class="atlas-btn" onclick="loadGeneEvidenceExample()">Load Example</button>
@@ -2459,9 +2459,9 @@ select:focus{border-color:var(--rose)}
           <div>
             <h4 style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-soft);margin-bottom:8px">How to interpret results</h4>
             <div class="atlas-result">
-              <strong>Direct lipoedema evidence</strong> means the item appears in the lipoedema/lipedema PubMed-wide evidence layer used by LipoScope.<br>
-              <strong>Adjacent biology</strong> means the item maps to a pathway plausibly relevant to cohort stratification, such as adipose biology, lymphatic/vascular biology, ECM/fibrosis, hormone biology, pain/inflammation, connective tissue, or RAS-MAPK.<br>
-              <strong>Differential relevance</strong> means the item may be more useful for identifying mimics/overlap conditions than for defining a core lipoedema cohort.
+              <strong>Literature mention</strong> means the gene symbol appears in the lipoedema/lipedema PubMed-wide evidence layer used by LipoScope; this is not biomarker validation.<br>
+              <strong>Biology-context match</strong> means the gene maps to a predefined lipoedema-relevant program, such as adipose biology, lymphatic/vascular biology, ECM/fibrosis, hormone biology, pain/inflammation, connective tissue, or RAS-MAPK.<br>
+              <strong>Differential/overlap context</strong> means the gene may be more useful for identifying mimics, overlap conditions, comparator groups, or stratification variables than for defining a core lipoedema cohort.
             </div>
           </div>
         </div>
@@ -2887,7 +2887,7 @@ select:focus{border-color:var(--rose)}
         <h2>📖 About This Resource</h2>
         <p>LipoScope supports research into <strong>lipoedema (lipedema)</strong>, a chronic painful adipose-tissue disorder where delayed diagnosis, inconsistent case definitions, small cohorts, limited objective biomarkers, and fragmented genetics evidence still slow progress.</p>
         <p>The public default Browse collection contains <strong>200 lipoedema/lipedema papers</strong> spanning <strong id="about-year-range">2008–2026</strong>, combining a manually curated seed with a PubMed-expanded metadata layer. Each record includes topic and study-type classification, source links, open-access figure lookup where full-text access supports it, and optional local PDF-based figure preview in the browser. Uploaded PDFs can be kept on the same device for the same local workspace without being added to the public paper database or shared link payload.</p>
-        <p>The <strong>Research Atlas</strong> extends Browse into research operations: PubMed-wide evidence mapping, candidate gene and biomarker ranking, mechanism hypotheses, Delphi-aligned diagnostic consensus fields, CCRF-aware minimum dataset structure, standardized cohort building, diagnostic-noise auditing, gene and variant literature evidence checking, cohort design-gap prioritization, and REDCap-friendly exports. The <strong>Analytics</strong> tab separates whole-field PubMed signals from the visible Browse workspace, and <strong>Live Search</strong> lets you add new PubMed records with one click.</p>
+        <p>The <strong>Research Atlas</strong> extends Browse into research operations: PubMed-wide evidence mapping, candidate gene and biomarker ranking, mechanism hypotheses, Delphi-aligned diagnostic consensus fields, CCRF-aware minimum dataset structure, standardized cohort building, diagnostic-noise auditing, gene-literature evidence checking, cohort design-gap prioritization, and REDCap-friendly exports. The <strong>Analytics</strong> tab separates whole-field PubMed signals from the visible Browse workspace, and <strong>Live Search</strong> lets you add new PubMed records with one click.</p>
       </div>
 
       <div class="about-section">
@@ -2939,7 +2939,7 @@ select:focus{border-color:var(--rose)}
           <div class="how-to-card">
             <div class="how-to-icon">🧭</div>
             <div class="how-to-title">Research Atlas</div>
-            <div class="how-to-body">Explore the knowledge graph, candidate gene/biomarker prioritizer, mechanism explorer, Standardized Cohort Builder, Gene and Variant Literature Evidence Checker, differential matrix, Cohort Design Gap Radar, biology figures, and Delphi/CCRF-aware minimum dataset builder. Atlas views use the PubMed-wide evidence source and refresh from PubMed automatically.</div>
+            <div class="how-to-body">Explore the knowledge graph, candidate gene/biomarker prioritizer, mechanism explorer, Standardized Cohort Builder, Gene and Literature Evidence Checker, differential matrix, Cohort Design Gap Radar, biology figures, and Delphi/CCRF-aware minimum dataset builder. Atlas views use the PubMed-wide evidence source and refresh from PubMed automatically.</div>
           </div>
         </div>
       </div>
@@ -2948,7 +2948,7 @@ select:focus{border-color:var(--rose)}
       <div class="about-section" style="border-color:var(--teal-light)">
         <h2>👤 Public Mode &amp; Optional Local Profile</h2>
         <p style="font-size:13px;color:var(--text-mid);line-height:1.8;margin-bottom:14px">
-          LipoScope opens immediately in <strong>Public Local Mode</strong>. No registration, login, account, server, or mandatory API key is required. Hidden/shown preferences, optional notes, user-added papers, cohort-builder fields, gene/variant evidence queries, and PDF previews stay in your browser unless you export them. A local profile label can separate browser-local collections on a shared computer. To let a colleague open the same <strong>Browse Papers</strong> curation, use <strong>Share Current Browse View</strong>; the link recreates that Browse setup without including local PDFs, cohort-builder inputs, or notes. Atlas sections still refresh from the PubMed-wide evidence layer.
+          LipoScope opens immediately in <strong>Public Local Mode</strong>. No registration, login, account, server, or mandatory API key is required. Hidden/shown preferences, optional notes, user-added papers, cohort-builder fields, gene-literature evidence queries, and PDF previews stay in your browser unless you export them. A local profile label can separate browser-local collections on a shared computer. To let a colleague open the same <strong>Browse Papers</strong> curation, use <strong>Share Current Browse View</strong>; the link recreates that Browse setup without including local PDFs, cohort-builder inputs, or notes. Atlas sections still refresh from the PubMed-wide evidence layer.
         </p>
         <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px">
           <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-soft);margin-bottom:8px">Current Profile</div>
@@ -2995,7 +2995,7 @@ select:focus{border-color:var(--rose)}
           Uploaded figure PDFs can now be kept on this device for the current local workspace, so figure previews survive refresh and reopen automatically for the same paper.
           Hiding all default literature lets you curate Browse Papers from a clean slate.
           Restoring hidden papers or using <strong>Restore 200 Default Corpus</strong> brings the public default Browse corpus back.
-          These controls personalize Browse and visible-corpus Analytics; the PubMed-wide Atlas, diagnostic consensus table, Standardized Cohort Builder, Gene and Variant Literature Evidence Checker, Cohort Design Gap Radar, and biology figures continue to use the broader lipoedema evidence layer.
+          These controls personalize Browse and visible-corpus Analytics; the PubMed-wide Atlas, diagnostic consensus table, Standardized Cohort Builder, Gene and Literature Evidence Checker, Cohort Design Gap Radar, and biology figures continue to use the broader lipoedema evidence layer.
         </p>
         <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin:0 0 14px 0">
           <div style="display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap">
@@ -3048,7 +3048,7 @@ select:focus{border-color:var(--rose)}
 
   <!-- ═══ RESOURCES & FIGURES PANEL ═══ -->
     <div class="panel active" id="panel-resources">
-    <div class="tab-guide"><strong>Start Here:</strong> Use this orientation tab to understand what LipoScope is for before you begin curating papers or running Atlas tools. Lipoedema research still faces delayed diagnosis, inconsistent diagnostic variables, comorbidity noise, limited validated biomarkers, small genetics cohorts, weak replication evidence, and scattered treatment outcomes; LipoScope addresses those gaps by pairing a private browser-local workspace with a PubMed-wide research map, Delphi-aligned cohort standardization, diagnostic-noise auditing, gene/variant evidence checking, and exportable minimum datasets.</div>
+    <div class="tab-guide"><strong>Start Here:</strong> Use this orientation tab to understand what LipoScope is for before you begin curating papers or running Atlas tools. Lipoedema research still faces delayed diagnosis, inconsistent diagnostic variables, comorbidity noise, limited validated biomarkers, small genetics cohorts, weak replication evidence, and scattered treatment outcomes; LipoScope addresses those gaps by pairing a private browser-local workspace with a PubMed-wide research map, Delphi-aligned cohort standardization, diagnostic-noise auditing, gene-literature evidence checking, and exportable minimum datasets.</div>
     <div class="resource-hero">
       <h2>A Browser-Local Research Workbench for Lipoedema</h2>
       <p>LipoScope turns a fragmented lipoedema literature into a practical research command centre. You can browse the 200-paper public corpus, add fresh PubMed records, inspect structured paper summaries and figures, compare your local curation with the wider PubMed landscape, and then move into Atlas tools for diagnostic standardization, cohort-rule drafting, genetics, biomarkers, mechanisms, and study design.</p>
@@ -3056,12 +3056,12 @@ select:focus{border-color:var(--rose)}
       <div class="hero-feature-list">
         <div class="hero-feature"><strong>Curatable literature workspace</strong> Search, filter, add, hide, restore, share, and export paper sets while keeping your workspace browser-local.</div>
         <div class="hero-feature"><strong>Delphi-aligned cohort standardization</strong> Use the consensus table, standardized cohort builder, diagnostic-noise audit, differential flags, and cohort blueprint export to harmonize lipoedema research records.</div>
-        <div class="hero-feature"><strong>Gene and variant evidence checking</strong> Query genes, variants, loci, or pathways against the PubMed-wide lipoedema layer and adjacent biological programs before deciding whether they belong in a study protocol.</div>
+        <div class="hero-feature"><strong>Gene-literature evidence checking</strong> Query gene symbols against the PubMed-wide lipoedema layer and predefined biology-context programs before deciding whether they belong in a study protocol.</div>
         <div class="hero-feature"><strong>Cohort design gap radar</strong> See which study areas still lack standardized case definition, differential review, comparators, objective measures, longitudinal follow-up, replication, or diversity.</div>
         <div class="hero-feature"><strong>Figure-aware paper cards</strong> Reach open-access figures where available, or upload a paper PDF locally to preview likely figure pages without sending the file away.</div>
       </div>
       <div class="living-status" id="resource-live-status">PubMed-wide Atlas: loading cached records and checking for updates...</div>
-      <div class="atlas-note" style="margin-top:10px">The PubMed-wide Atlas checks PubMed automatically every 12 hours while the app is open. When new lipoedema/lipedema records are found, candidate tables, mechanisms, gene/variant evidence checks, cohort design gaps, and biology figures recompute from the refreshed evidence layer; your local Browse curation remains under your control.</div>
+      <div class="atlas-note" style="margin-top:10px">The PubMed-wide Atlas checks PubMed automatically every 12 hours while the app is open. When new lipoedema/lipedema records are found, candidate tables, mechanisms, gene-literature evidence checks, cohort design gaps, and biology figures recompute from the refreshed evidence layer; your local Browse curation remains under your control.</div>
     </div>
 
     <div class="about-section">
@@ -3145,7 +3145,7 @@ select:focus{border-color:var(--rose)}
 
           <rect x="46" y="336" width="528" height="48" rx="9" fill="#fff" stroke="#ebe5df"/>
           <text x="62" y="356" font-size="10.5" fill="#463c36">Key message: LipoScope turns this pathway map into clickable papers, evidence scores,</text>
-          <text x="62" y="373" font-size="10.5" fill="#463c36">gene/variant evidence checks, cohort blueprints, and study gaps.</text>
+          <text x="62" y="373" font-size="10.5" fill="#463c36">gene-literature evidence checks, cohort blueprints, and study gaps.</text>
         </svg>
       </div>
     </div>
@@ -3224,7 +3224,7 @@ select:focus{border-color:var(--rose)}
                 <div class="walk-arrow">→</div>
                 <div class="walk-hypothesis-step"><strong>3. Testable Studies</strong><span>Gaps become cohort blueprints, comparator plans, minimum datasets, and validation questions.</span></div>
               </div>
-              <div class="walk-card-mini"><strong>PubMed-wide Atlas:</strong> graph, candidate prioritizer, mechanism explorer, Gene and Variant Literature Evidence Checker, and Cohort Design Gap Radar recompute from the same lipoedema evidence source.</div>
+              <div class="walk-card-mini"><strong>PubMed-wide Atlas:</strong> graph, candidate prioritizer, mechanism explorer, Gene and Literature Evidence Checker, and Cohort Design Gap Radar recompute from the same lipoedema evidence source.</div>
             </div>
           </div>
         </div>
@@ -13753,15 +13753,14 @@ function parseGeneEvidenceItems(text) {
   });
 }
 
-function geneEvidenceLooksVariant(item) {
-  return /(^rs\d+$)|(^[A-Z0-9-]+:(c\.|p\.|g\.))|(\b(c|p|g)\.)|(\bchr[0-9XYM]+[:_ -])|([0-9]+:[0-9]+[A-Z]>[A-Z])/i.test(String(item || '').trim());
-}
 
 function geneEvidenceGeneCandidate(item) {
   var raw = String(item || '').trim();
+  if (/^rs\d+$/i.test(raw) || /^(c\.|p\.|g\.)/i.test(raw) || /^chr[0-9XYM]+[:_ -]/i.test(raw)) return '';
   var prefixed = raw.match(/^([A-Za-z0-9-]{2,12})\s*[:|]\s*(?:c\.|p\.|g\.|rs|chr)/i);
-  if (prefixed && prefixed[1]) return atlasGeneKey(prefixed[1]);
+  if (prefixed && prefixed[1] && !/^rs\d+$/i.test(prefixed[1])) return atlasGeneKey(prefixed[1]);
   var cleaned = atlasGeneKey(raw);
+  if (/^RS\d+$/i.test(cleaned)) return '';
   if (/^[A-Z0-9-]{2,12}$/.test(cleaned) && raw.indexOf(' ') === -1) return cleaned;
   var entity = ATLAS_ENTITY_LIBRARY.filter(function(e) {
     return e.aliases.some(function(a){ return String(raw).toLowerCase() === String(a).toLowerCase(); });
@@ -13786,7 +13785,6 @@ function geneEvidenceProgramMatches(item, gene) {
 function buildGeneEvidenceResult(item, all) {
   all = all || getAtlasSourcePapers();
   var raw = String(item || '').trim();
-  var isVariant = geneEvidenceLooksVariant(raw);
   var gene = geneEvidenceGeneCandidate(raw);
   var searchTerm = gene || raw;
   var direct = atlasEvidenceForTerm(raw, all).papers;
@@ -13795,21 +13793,21 @@ function buildGeneEvidenceResult(item, all) {
   }
   var seenPaper = {};
   direct = direct.filter(function(p) { if (seenPaper[p.id]) return false; seenPaper[p.id] = true; return true; }).sort(function(a,b){ return b.year - a.year; });
-  var info = gene ? atlasGeneticEvidenceForGene(gene, all) : {gene:'', classLabel:'Pathway or free-text query', tier:0, validation:'Not validated for clinical diagnosis', entity:null, papers:direct};
+  var info = gene ? atlasGeneticEvidenceForGene(gene, all) : {gene:'', classLabel:'Literature-text query', tier:0, validation:'Not validated for clinical diagnosis', entity:null, papers:direct};
   var pathwayMatches = gene ? atlasPathwaysForGene(gene) : [];
-  var programMatches = geneEvidenceProgramMatches(raw, gene);
-  var differential = /(LMNA|PPARG|FLT4|PROX1|GATA2|FOXC2|LZTR1|MAP2K1|RAF1|TNXB|FBN1|COL3A1|COL5A1|lipodystrophy|lymphatic|lymphedema|lymphoedema|RAS-MAPK|hypermobility|connective)/i.test([raw, gene, info.classLabel, info.validation].join(' '));
-  var cls = 'No current LipoScope evidence';
-  if (direct.length) cls = 'Direct lipoedema PubMed evidence';
+  var programMatches = gene ? geneEvidenceProgramMatches(raw, gene) : [];
+  var differential = gene ? /(LMNA|PPARG|FLT4|PROX1|GATA2|FOXC2|LZTR1|MAP2K1|RAF1|TNXB|FBN1|COL3A1|COL5A1|lipodystrophy|lymphatic|lymphedema|lymphoedema|RAS-MAPK|hypermobility|connective)/i.test([raw, gene, info.classLabel, info.validation].join(' ')) : false;
+  var cls = 'No current LipoScope match';
+  if (direct.length) cls = 'Mentioned in lipoedema PubMed literature';
   else if (info && info.tier >= 2) cls = info.classLabel;
-  else if (pathwayMatches.length || programMatches.length) cls = 'Lipoedema-adjacent biology evidence';
-  else if (differential) cls = 'Differential or overlap relevance';
+  else if (pathwayMatches.length || programMatches.length) cls = 'Biology-context match';
+  else if (differential) cls = 'Differential/overlap context';
   var directQuery = '(lipedema[tiab] OR lipoedema[tiab]) AND (' + searchTerm + ')';
   var adjacentQuery = '(' + searchTerm + ') AND (adipose OR lymphatic OR fibrosis OR estrogen OR progesterone OR pain OR inflammation OR vascular OR connective tissue)';
   return {
     item:raw,
     gene:gene,
-    type:isVariant ? 'Variant/locus query' : (gene ? 'Gene query' : 'Pathway/free-text query'),
+    type:gene ? 'Gene query' : 'Literature-text query',
     evidenceClass:cls,
     validation:info.validation || 'Not validated for clinical diagnosis',
     directPapers:direct,
@@ -13822,16 +13820,16 @@ function buildGeneEvidenceResult(item, all) {
 }
 
 function geneEvidenceBadge(result) {
-  if (result.evidenceClass === 'Direct lipoedema PubMed evidence') return '<span class="atlas-pill ok">Direct lipoedema evidence</span>';
-  if (/Rare|GWAS|RAS|candidate|adjacent/i.test(result.evidenceClass)) return '<span class="atlas-pill warn">' + atlasEsc(result.evidenceClass) + '</span>';
-  if (result.differential) return '<span class="atlas-pill warn">Differential/overlap relevance</span>';
-  return '<span class="atlas-pill hot">No current LipoScope evidence</span>';
+  if (result.evidenceClass === 'Mentioned in lipoedema PubMed literature') return '<span class="atlas-pill ok">Literature mention</span>';
+  if (/Rare|GWAS|RAS|candidate|Biology-context/i.test(result.evidenceClass)) return '<span class="atlas-pill warn">' + atlasEsc(result.evidenceClass) + '</span>';
+  if (result.differential) return '<span class="atlas-pill warn">Differential/overlap context</span>';
+  return '<span class="atlas-pill hot">No current LipoScope match</span>';
 }
 
 function renderGeneEvidenceChecker(result) {
   var el = document.getElementById('atlas-gene-results'); if (!el) return;
   if (!result || !result.items || !result.items.length) {
-    el.innerHTML = '<div class="atlas-note"><strong>Ready to check evidence:</strong> paste a gene symbol, variant/HGVS/rsID, locus, or pathway term. LipoScope will report direct lipoedema PubMed evidence, adjacent biological programs, differential-diagnosis relevance, exact query strings, and supporting paper links. This is research triage, not clinical pathogenicity classification.</div>';
+    el.innerHTML = '<div class="atlas-note"><strong>Ready to check evidence:</strong> paste one or more gene symbols. LipoScope will report whether each gene is mentioned in the lipoedema PubMed layer, maps to predefined biology-context programs, has differential/overlap context, or has no current LipoScope match. This is research triage, not biomarker validation, clinical interpretation, or diagnostic evidence.</div>';
     return;
   }
   var withDirect = result.items.filter(function(r){ return r.directPapers.length; }).length;
@@ -13839,19 +13837,19 @@ function renderGeneEvidenceChecker(result) {
   var differential = result.items.filter(function(r){ return r.differential; }).length;
   var html = '<div class="atlas-grid three" style="margin-bottom:12px">' +
     '<div class="atlas-card"><div class="atlas-kpi">' + result.items.length + '</div><div class="atlas-kpi-label">queries checked locally</div></div>' +
-    '<div class="atlas-card"><div class="atlas-kpi" style="color:var(--teal)">' + withDirect + '</div><div class="atlas-kpi-label">with direct lipoedema evidence</div></div>' +
-    '<div class="atlas-card"><div class="atlas-kpi" style="color:var(--rose)">' + (withAdjacent + differential) + '</div><div class="atlas-kpi-label">with adjacent or differential relevance</div></div>' +
-    '</div><div class="atlas-note" style="margin-bottom:12px"><strong>Interpretation:</strong> direct evidence means the item appears in the PubMed-wide lipoedema layer. Adjacent evidence means it maps to a predefined lipoedema-relevant biological program. Differential relevance means it may help define exclusion, comparator, or stratification rules. None of these outputs validates a clinical diagnosis or variant pathogenicity.</div>';
-  html += '<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>Item</th><th>Evidence class</th><th>Pathway / cohort relevance</th><th>Supporting papers</th><th>PubMed queries</th></tr></thead><tbody>';
+    '<div class="atlas-card"><div class="atlas-kpi" style="color:var(--teal)">' + withDirect + '</div><div class="atlas-kpi-label">with literature mentions</div></div>' +
+    '<div class="atlas-card"><div class="atlas-kpi" style="color:var(--rose)">' + (withAdjacent + differential) + '</div><div class="atlas-kpi-label">with biology or overlap context</div></div>' +
+    '</div><div class="atlas-note" style="margin-bottom:12px"><strong>Interpretation:</strong> literature mention means the gene symbol appears in the PubMed-wide lipoedema/lipedema layer. Biology-context match means the gene maps to a predefined lipoedema-relevant biological program. Differential/overlap context means it may help define exclusion, comparator, or stratification rules. None of these outputs validates a biomarker, clinical diagnosis, or causal disease mechanism.</div>';
+  html += '<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>Item</th><th>Evidence class</th><th>Biology / cohort context</th><th>Supporting papers</th><th>PubMed queries</th></tr></thead><tbody>';
   result.items.forEach(function(r) {
     var pathways = r.pathways.map(function(p){ return p.label; }).concat(r.programs.map(function(p){ return p.label; }));
-    var pathwayText = pathways.length ? pathways.filter(function(v,i,a){ return a.indexOf(v) === i; }).join('; ') : 'No predefined LipoScope pathway match';
+    var pathwayText = pathways.length ? pathways.filter(function(v,i,a){ return a.indexOf(v) === i; }).join('; ') : 'No predefined LipoScope biology-context match';
     if (r.differential) pathwayText += '; review as differential/overlap or stratification variable';
     html += '<tr><td><strong>' + atlasEsc(r.item) + '</strong><br><span class="atlas-source-line">' + atlasEsc(r.type) + (r.gene ? ' · mapped gene ' + atlasEsc(r.gene) : '') + '</span><br><span class="atlas-provenance-badge">Not validated for clinical diagnosis</span></td>' +
       '<td>' + geneEvidenceBadge(r) + '<br><span class="atlas-source-line">' + atlasEsc(r.validation) + '</span></td>' +
       '<td>' + atlasEsc(pathwayText) + '</td>' +
       '<td>' + atlasEvidencePaperLinks(r.directPapers) + '</td>' +
-      '<td><a href="' + atlasEsc(pubmedSearchLink(r.directQuery)) + '" target="_blank" rel="noopener">Direct lipoedema query</a><br><code style="font-size:10px">' + atlasEsc(r.directQuery) + '</code><br><a href="' + atlasEsc(pubmedSearchLink(r.adjacentQuery)) + '" target="_blank" rel="noopener">Adjacent biology query</a><br><code style="font-size:10px">' + atlasEsc(r.adjacentQuery) + '</code></td></tr>';
+      '<td><a href="' + atlasEsc(pubmedSearchLink(r.directQuery)) + '" target="_blank" rel="noopener">Lipoedema literature query</a><br><code style="font-size:10px">' + atlasEsc(r.directQuery) + '</code><br><a href="' + atlasEsc(pubmedSearchLink(r.adjacentQuery)) + '" target="_blank" rel="noopener">Biology-context query</a><br><code style="font-size:10px">' + atlasEsc(r.adjacentQuery) + '</code></td></tr>';
   });
   html += '</tbody></table></div>';
   el.innerHTML = html;
@@ -13864,12 +13862,12 @@ function runGeneEvidenceChecker() {
   var all = getAtlasSourcePapers();
   _atlasLastGeneEvidence = { generatedAt:new Date().toISOString(), items:items.map(function(item){ return buildGeneEvidenceResult(item, all); }) };
   renderGeneEvidenceChecker(_atlasLastGeneEvidence);
-  showToast('Gene and variant literature evidence checked locally.', 'success');
+  showToast('Gene literature evidence checked locally.', 'success');
 }
 
 function loadGeneEvidenceExample() {
   var ta = document.getElementById('atlas-gene-query'); if (!ta) return;
-  ta.value = 'AKR1C1\nVEGFA\nFLT4\nLMNA\nAKR1C1:c.638T>A\nECM fibrosis\nlymphatic development';
+  ta.value = 'AKR1C1\nVEGFA\nFLT4\nLMNA\nPPARG\nIL6';
   runGeneEvidenceChecker();
 }
 
@@ -15351,6 +15349,7 @@ setTimeout(primeVisiblePaperSummaries, 4500);
 </script>
 </body>
 </html>
+
 
 
 
