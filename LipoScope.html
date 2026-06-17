@@ -1371,7 +1371,8 @@ select:focus{border-color:var(--rose)}
   .walkthrough-btn.primary { background:var(--teal); color:#fff; }
   .walkthrough-progress { flex:1; min-width:160px; height:7px; background:#ece6df; border-radius:999px; overflow:hidden; }
   .walkthrough-progress span { display:block; height:100%; width:0%; background:linear-gradient(90deg,var(--teal),var(--rose)); border-radius:999px; transition:width 0.25s; }
-  .evidence-paper-links { display:flex; flex-direction:column; gap:4px; }
+  .evidence-paper-links { display:flex; flex-direction:column; gap:4px; max-height:230px; overflow-y:auto; padding-right:5px; }
+  .evidence-paper-count { font-size:10px; color:var(--text-faint); font-weight:700; margin-bottom:2px; }
   .evidence-paper-link { color:var(--teal); text-decoration:none; font-size:11px; font-weight:700; cursor:pointer; }
   .evidence-paper-link:hover { text-decoration:underline; }
   @media (max-width: 860px) {
@@ -2439,17 +2440,17 @@ select:focus{border-color:var(--rose)}
           <div class="atlas-section-icon">G</div>
           <div class="atlas-section-title">
             <h3>Gene and Literature Evidence Checker</h3>
-            <p>Check whether a gene symbol has appeared in the PubMed-wide lipoedema/lipedema literature layer or maps to predefined lipoedema-relevant biology. This supports cohort design, exploratory CCRF-style molecular fields, and hypothesis triage; it does not validate biomarkers, classify pathogenicity, or diagnose lipoedema.</p>
+            <p>Check whether a gene symbol or recognised alias has appeared in the PubMed-wide lipoedema/lipedema literature layer or maps to predefined lipoedema-relevant biology. This supports cohort design, exploratory CCRF-style molecular fields, and hypothesis triage; it does not validate biomarkers, classify pathogenicity, or diagnose lipoedema.</p>
           </div>
         </div>
         <div class="atlas-note" style="margin-bottom:12px">
-          <strong>Use this when:</strong> you are designing a genetics, biomarker, imaging, or mechanistic cohort and want to know whether a candidate gene is mentioned in the lipoedema/lipedema literature layer, maps to predefined biology context, has differential/overlap relevance, or has no current LipoScope match. Outputs include exact PubMed query strings, supporting paper links, biology-context categories, and a <strong>not validated for clinical diagnosis</strong> interpretation badge.
+          <strong>Use this when:</strong> you are designing a genetics, biomarker, imaging, or mechanistic cohort and want to know whether a candidate gene symbol or recognised alias is mentioned in the lipoedema/lipedema literature layer, maps to predefined biology context, has differential/overlap relevance, or has no current LipoScope match. Outputs include exact PubMed query strings, supporting paper links, biology-context categories, and a <strong>not validated for clinical diagnosis</strong> interpretation badge.
         </div>
         <div class="atlas-upload">
           <div>
             <h4 style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-soft);margin-bottom:8px">Paste gene symbols</h4>
             <textarea id="atlas-gene-query" placeholder="AKR1C1&#10;VEGFA&#10;FLT4&#10;PPARG&#10;IL6&#10;TNXB"></textarea>
-            <p style="font-size:11px;color:var(--text-faint);line-height:1.6;margin-top:7px">One gene symbol per line, or comma/semicolon separated. LipoScope searches the PubMed-wide lipoedema/lipedema evidence layer and maps recognised gene symbols to predefined lipoedema-relevant biological programs. Non-gene identifiers are searched only as exact literature text and are not mapped to genes.</p>
+            <p style="font-size:11px;color:var(--text-faint);line-height:1.6;margin-top:7px">One gene symbol per line, or comma/semicolon separated. LipoScope searches the PubMed-wide lipoedema/lipedema evidence layer using recognised gene symbols and aliases, then maps recognised genes to predefined lipoedema-relevant biological programs. Non-gene identifiers are searched only as exact literature text and are not mapped to genes.</p>
             <div class="atlas-actions">
               <button class="atlas-btn primary" onclick="runGeneEvidenceChecker()">Check Evidence</button>
               <button class="atlas-btn" onclick="loadGeneEvidenceExample()">Load Example</button>
@@ -2459,7 +2460,7 @@ select:focus{border-color:var(--rose)}
           <div>
             <h4 style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-soft);margin-bottom:8px">How to interpret results</h4>
             <div class="atlas-result">
-              <strong>Literature mention</strong> means the gene symbol appears in the lipoedema/lipedema PubMed-wide evidence layer used by LipoScope; this is not biomarker validation.<br>
+              <strong>Literature mention</strong> means the gene symbol or a recognised alias appears in the lipoedema/lipedema PubMed-wide evidence layer used by LipoScope; this is not biomarker validation.<br>
               <strong>Biology-context match</strong> means the gene maps to a predefined lipoedema-relevant program, such as adipose biology, lymphatic/vascular biology, ECM/fibrosis, hormone biology, pain/inflammation, connective tissue, or RAS-MAPK.<br>
               <strong>Differential/overlap context</strong> means the gene may be more useful for identifying mimics, overlap conditions, comparator groups, or stratification variables than for defining a core lipoedema cohort.
             </div>
@@ -13671,18 +13672,49 @@ var ATLAS_BIOLOGY_PROGRAMS = [
   {key:'metabolic_confounding', label:'Obesity and metabolic confounding signature', genes:['FTO','MC4R','LEP','ADIPOQ','INSR','IRS1','SLC2A4','PPARG','FABP4','CRP','IL6','TNF','RETN','RBP4'], terms:['obesity','BMI','metabolic','insulin resistance','diabetes'], hypothesis:'Some molecular differences may reflect generalized adiposity or metabolic disease rather than lipoedema-specific biology.', validation:'Treat as a confounding domain: match or adjust for BMI, WHtR, WHR, metabolic disease, menopause, medication, and tissue depot.', expected:'A lipoedema-specific signal should persist after metabolic matching and should align with phenotype features beyond generalized adiposity.', falsifier:'The entire signature tracks BMI/WHtR/metabolic disease better than lipoedema-compatible phenotype fields.'}
 ];
 
+function atlasEntityForTerm(term) {
+  var q = String(term || '').trim();
+  var qKey = atlasGeneKey(q);
+  return ATLAS_ENTITY_LIBRARY.filter(function(e) {
+    if (atlasGeneKey(e.key) === qKey) return true;
+    return (e.aliases || []).some(function(a){ return atlasGeneKey(a) === qKey || String(a).toUpperCase() === q.toUpperCase(); });
+  })[0] || null;
+}
+
+function atlasEntityAliases(entity, fallback) {
+  var seen = {}, aliases = [];
+  function add(v) {
+    v = String(v || '').trim();
+    if (!v) return;
+    var k = v.toLowerCase();
+    if (seen[k]) return;
+    seen[k] = true;
+    aliases.push(v);
+  }
+  if (entity) {
+    add(entity.key);
+    (entity.aliases || []).forEach(add);
+  }
+  add(fallback);
+  return aliases;
+}
+
 function atlasEvidenceForTerm(term, all) {
-  var hits = all.filter(function(p){ return atlasHasAlias(atlasPaperText(p), term); });
-  var entity = ATLAS_ENTITY_LIBRARY.filter(function(e) { return e.key.toUpperCase() === String(term).toUpperCase() || e.aliases.some(function(a){ return String(a).toUpperCase() === String(term).toUpperCase(); }); })[0];
+  all = all || getAtlasSourcePapers();
+  var entity = atlasEntityForTerm(term);
+  var aliases = atlasEntityAliases(entity, term);
+  var hits = all.filter(function(p){
+    var text = atlasPaperText(p);
+    return aliases.some(function(alias){ return atlasHasAlias(text, alias); });
+  });
   return { entity:entity, papers:hits.sort(function(a,b){return b.year-a.year;}) };
 }
 function atlasEvidencePaperLinks(papers) {
   if (!papers || !papers.length) return 'No PubMed-wide supporting papers detected';
-  var html = '<div class="evidence-paper-links">';
-  papers.slice(0, 8).forEach(function(p) {
+  var html = '<div class="evidence-paper-links"><div class="evidence-paper-count">' + papers.length + ' matching record' + (papers.length === 1 ? '' : 's') + ' shown</div>';
+  papers.forEach(function(p) {
     html += '<a class="evidence-paper-link" onclick="openModal(' + p.id + ')">' + atlasEsc((p.firstAuthor || 'Unknown') + ' ' + p.year) + ' · ' + atlasEsc((p.title || '').slice(0, 72)) + ((p.title || '').length > 72 ? '...' : '') + '</a>';
   });
-  if (papers.length > 8) html += '<span style="font-size:10px;color:var(--text-faint)">+' + (papers.length - 8) + ' more; open the Candidate Prioritizer for full evidence.</span>';
   html += '</div>';
   return html;
 }
@@ -13829,7 +13861,7 @@ function geneEvidenceBadge(result) {
 function renderGeneEvidenceChecker(result) {
   var el = document.getElementById('atlas-gene-results'); if (!el) return;
   if (!result || !result.items || !result.items.length) {
-    el.innerHTML = '<div class="atlas-note"><strong>Ready to check evidence:</strong> paste one or more gene symbols. LipoScope will report whether each gene is mentioned in the lipoedema PubMed layer, maps to predefined biology-context programs, has differential/overlap context, or has no current LipoScope match. This is research triage, not biomarker validation, clinical interpretation, or diagnostic evidence.</div>';
+    el.innerHTML = '<div class="atlas-note"><strong>Ready to check evidence:</strong> paste one or more gene symbols. LipoScope will report whether each gene symbol or recognised alias is mentioned in the lipoedema PubMed layer, maps to predefined biology-context programs, has differential/overlap context, or has no current LipoScope match. This is research triage, not biomarker validation, clinical interpretation, or diagnostic evidence.</div>';
     return;
   }
   var withDirect = result.items.filter(function(r){ return r.directPapers.length; }).length;
@@ -13839,7 +13871,7 @@ function renderGeneEvidenceChecker(result) {
     '<div class="atlas-card"><div class="atlas-kpi">' + result.items.length + '</div><div class="atlas-kpi-label">queries checked locally</div></div>' +
     '<div class="atlas-card"><div class="atlas-kpi" style="color:var(--teal)">' + withDirect + '</div><div class="atlas-kpi-label">with literature mentions</div></div>' +
     '<div class="atlas-card"><div class="atlas-kpi" style="color:var(--rose)">' + (withAdjacent + differential) + '</div><div class="atlas-kpi-label">with biology or overlap context</div></div>' +
-    '</div><div class="atlas-note" style="margin-bottom:12px"><strong>Interpretation:</strong> literature mention means the gene symbol appears in the PubMed-wide lipoedema/lipedema layer. Biology-context match means the gene maps to a predefined lipoedema-relevant biological program. Differential/overlap context means it may help define exclusion, comparator, or stratification rules. None of these outputs validates a biomarker, clinical diagnosis, or causal disease mechanism.</div>';
+    '</div><div class="atlas-note" style="margin-bottom:12px"><strong>Interpretation:</strong> literature mention means the gene symbol or a recognised alias appears in the PubMed-wide lipoedema/lipedema layer. Biology-context match means the gene maps to a predefined lipoedema-relevant biological program. Differential/overlap context means it may help define exclusion, comparator, or stratification rules. None of these outputs validates a biomarker, clinical diagnosis, or causal disease mechanism.</div>';
   html += '<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>Item</th><th>Evidence class</th><th>Biology / cohort context</th><th>Supporting papers</th><th>PubMed queries</th></tr></thead><tbody>';
   result.items.forEach(function(r) {
     var pathways = r.pathways.map(function(p){ return p.label; }).concat(r.programs.map(function(p){ return p.label; }));
@@ -15349,6 +15381,9 @@ setTimeout(primeVisiblePaperSummaries, 4500);
 </script>
 </body>
 </html>
+
+
+
 
 
 
