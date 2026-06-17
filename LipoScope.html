@@ -2703,14 +2703,14 @@ select:focus{border-color:var(--rose)}
           <div class="atlas-section-icon">☷</div>
           <div class="atlas-section-title">
             <h3>Lipoedema Minimum Dataset Builder</h3>
-            <p>A proposed Delphi-aligned and CCRF-aware common data dictionary for future lipoedema studies, designed to make cohorts, genetics studies, imaging studies, biomarker studies, registries, and interventions easier to compare.</p>
+            <p>A proposed Delphi-aligned, CCRF-crosswalked planning dataset for future lipoedema studies, designed to make cohorts, genetics studies, imaging studies, biomarker studies, registries, and interventions easier to compare.</p>
           </div>
         </div>
         <div class="atlas-note" style="margin-bottom:10px">
           <strong>Purpose:</strong> use this builder to choose a minimum set of fields for a planned study and export them as CSV or REDCap-ready variables. Required fields map to core phenotype, diagnosis-source, anthropometry, differential-review, and governance concepts. Recommended and optional fields support study-specific depth.
         </div>
         <div class="atlas-note" style="margin-bottom:10px">
-          <strong>Source alignment:</strong> LipoScope maps each field to Delphi statement domains and to CCRF-style collection levels. This is a planning crosswalk, not a replacement for the official CCRF data dictionaries; teams should verify final forms against the CCRF spreadsheets and their approved protocol.
+          <strong>Source alignment:</strong> LipoScope maps fields to Delphi statement domains and to CCRF-style collection levels using a planning crosswalk. Many fields correspond to official CCRF data-dictionary concepts, while genetics, omics, governance, and protocol-export variables include LipoScope-specific research extensions. This is not a replacement for the official CCRF data dictionaries; teams should verify final forms against the CCRF spreadsheets and their approved protocol.
         </div>
         <div class="atlas-dataset-controls">
           <select id="atlas-dataset-domain" onchange="renderDatasetBuilder()">
@@ -12773,7 +12773,7 @@ var ATLAS_CONSENSUS_SOURCE = {
 var ATLAS_CCRF_SOURCE = {
   title:'Lipedema Foundation Common Case Report Forms (CCRF)',
   url:'https://www.lipedema.org/ccrf',
-  note:'The CCRF page organizes common data elements into Core, Supplemental Highly Recommended, Supplemental, and Exploratory/complete collection levels. LipoScope maps its minimum dataset to these levels as a planning crosswalk; it does not reproduce or replace the official CCRF data dictionaries.',
+  note:'The CCRF page organizes common data elements into Core, Supplemental Highly Recommended, Supplemental, and Exploratory/complete collection levels. LipoScope maps its minimum dataset to these levels as a planning crosswalk and includes LipoScope-specific research extensions where needed; it does not reproduce or replace the official CCRF data dictionaries.',
   classes:[
     {label:'Core', count:288, use:'minimum fields for essential diagnosis, characterization, differentiation, demographics, symptoms, comorbidities, medications, surgical history, menstrual status, family history, and anthropometry'},
     {label:'Supplemental Highly Recommended', count:424, use:'strongly recommended fields for comprehensive characterization, subtypes, onset/worsening, severity, and impact'},
@@ -15381,6 +15381,7 @@ setTimeout(primeVisiblePaperSummaries, 4500);
 </script>
 </body>
 </html>
+
 
 
 
