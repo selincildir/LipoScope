@@ -718,14 +718,6 @@ select:focus{border-color:var(--rose)}
   }
   .atlas-mini-item:hover { border-color:var(--rose-light); color:var(--rose); }
   .atlas-heat { height:22px; min-width:36px; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:10.5px; }
-  .atlas-mech-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
-  .atlas-mech-card {
-    background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:12px 13px;
-    cursor:pointer; transition:all 0.15s; min-height:116px;
-  }
-  .atlas-mech-card:hover, .atlas-mech-card.active { border-color:var(--teal-light); background:var(--teal-pale); }
-  .atlas-mech-card h4 { font-size:12px; color:var(--text); margin-bottom:5px; line-height:1.35; }
-  .atlas-mech-card p { font-size:10.8px; color:var(--text-soft); line-height:1.55; }
   .atlas-upload {
     border:1.5px dashed #cfc5bd; background:var(--bg); border-radius:10px; padding:14px;
     display:grid; grid-template-columns:minmax(0,1fr) minmax(260px,0.8fr); gap:12px;
@@ -1007,12 +999,11 @@ select:focus{border-color:var(--rose)}
     .atlas-grid, .atlas-grid.three, .atlas-network, .atlas-upload, .atlas-workbench, .atlas-form-grid, .atlas-pathway-grid { grid-template-columns:1fr; }
     .atlas-workflow-grid { grid-template-columns:1fr 1fr; }
     .atlas-cohort-flow, .atlas-cohort-grid { grid-template-columns:1fr 1fr; }
-    .atlas-mech-list { grid-template-columns:1fr 1fr; }
     .atlas-prisma { grid-template-columns:1fr 1fr; }
   }
   @media(max-width:560px) {
     .atlas-hero, .atlas-section { padding:16px; }
-    .atlas-mech-list, .atlas-prisma, .atlas-check-grid, .atlas-workflow-grid, .atlas-cohort-flow, .atlas-cohort-grid { grid-template-columns:1fr; }
+.atlas-prisma, .atlas-check-grid, .atlas-workflow-grid, .atlas-cohort-flow, .atlas-cohort-grid { grid-template-columns:1fr; }
     .atlas-readiness-row { grid-template-columns:1fr; gap:4px; }
     .atlas-noise-matrix { grid-template-columns:minmax(150px,1.2fr) repeat(5,72px) minmax(180px,1.4fr); overflow:auto; }
   }
@@ -1855,8 +1846,7 @@ select:focus{border-color:var(--rose)}
   #panel-atlas .atlas-cohort-grid,
   #panel-atlas .atlas-blueprint-flow,
   #panel-atlas .atlas-ledger-summary,
-  #panel-atlas .atlas-prisma,
-  #panel-atlas .atlas-mech-list {
+  #panel-atlas .atlas-prisma {
     grid-template-columns:repeat(auto-fit,minmax(min(100%, 210px),1fr));
   }
 
@@ -1936,8 +1926,7 @@ select:focus{border-color:var(--rose)}
     #panel-atlas .atlas-cohort-grid,
     #panel-atlas .atlas-blueprint-flow,
     #panel-atlas .atlas-ledger-summary,
-    #panel-atlas .atlas-prisma,
-    #panel-atlas .atlas-mech-list {
+    #panel-atlas .atlas-prisma {
       grid-template-columns:repeat(auto-fit,minmax(min(100%, 180px),1fr));
     }
   }
@@ -2000,8 +1989,7 @@ select:focus{border-color:var(--rose)}
     #panel-atlas .atlas-cohort-grid,
     #panel-atlas .atlas-blueprint-flow,
     #panel-atlas .atlas-ledger-summary,
-    #panel-atlas .atlas-prisma,
-    #panel-atlas .atlas-mech-list {
+    #panel-atlas .atlas-prisma {
       grid-template-columns:1fr !important;
     }
 
@@ -2334,7 +2322,7 @@ select:focus{border-color:var(--rose)}
         </div>
         <div class="atlas-workflow-grid">
           <button type="button" class="atlas-flow-card" onclick="scrollAtlasSection('atlas-section-alignment')"><span class="atlas-flow-step">1</span><strong>Check source alignment</strong><span>See how Delphi statements and CCRF levels shape the Atlas.</span></button>
-          <button type="button" class="atlas-flow-card" onclick="scrollAtlasSection('atlas-section-candidates')"><span class="atlas-flow-step">2</span><strong>Choose biology anchors</strong><span>Inspect candidate genes, biomarkers, and mechanisms that may shape study focus.</span></button>
+          <button type="button" class="atlas-flow-card" onclick="scrollAtlasSection('atlas-section-candidates')"><span class="atlas-flow-step">2</span><strong>Choose biology anchors</strong><span>Inspect candidate genes, biomarkers, pathways, and literature-supported biology anchors that may shape study focus.</span></button>
           <button type="button" class="atlas-flow-card" onclick="scrollAtlasSection('atlas-section-dx')"><span class="atlas-flow-step">3</span><strong>Build cohort rules</strong><span>Select study focus, strictness, adjudication, comparators, and differential handling.</span></button>
           <button type="button" class="atlas-flow-card" onclick="scrollAtlasSection('atlas-section-dx')"><span class="atlas-flow-step">4</span><strong>Audit diagnostic noise</strong><span>Identify missing fields and comorbidities that can make cohorts hard to reproduce.</span></button>
           <button type="button" class="atlas-flow-card" onclick="scrollAtlasSection('atlas-section-gene-checker')"><span class="atlas-flow-step">5</span><strong>Check gene evidence</strong><span>Ask whether a gene symbol appears in lipoedema literature or maps to predefined biology context.</span></button>
@@ -2395,7 +2383,7 @@ select:focus{border-color:var(--rose)}
           <div class="atlas-section-icon">⌬</div>
           <div class="atlas-section-title">
             <h3>Knowledge Graph</h3>
-            <p>Clickable network linking lipoedema topics, genes, biomarkers, pathways, clinical phenotypes, and mechanisms from the PubMed-wide lipoedema evidence source. Each node opens all supporting papers currently available to the app.</p>
+            <p>Clickable network linking lipoedema topics, genes, biomarkers, pathways, and clinical phenotypes from the PubMed-wide lipoedema evidence source. Each node opens all supporting papers currently available to the app.</p>
           </div>
           <div class="atlas-actions" style="margin-top:0">
             <button class="atlas-btn" onclick="downloadKnowledgeGraphSvg()">Download SVG</button>
@@ -2420,23 +2408,8 @@ select:focus{border-color:var(--rose)}
         <div id="atlas-candidates-table"></div>
         <div id="atlas-candidate-detail" style="margin-top:12px"></div>
         <div class="atlas-note" style="margin-top:12px">
-          <strong>Delphi/CCRF guardrail:</strong> the Delphi consensus states that no imaging, serology, genetic test, or clinical instrument is officially approved to verify diagnosis. Candidate entities are therefore treated as research leads for mechanism, stratification, or exploratory data capture.
+          <strong>Delphi/CCRF guardrail:</strong> the Delphi consensus states that no imaging, serology, genetic test, or clinical instrument is officially approved to verify diagnosis. Candidate entities are therefore treated as research leads for stratification, exploratory biology, or data capture.
         </div>
-      </div>
-
-      <div class="atlas-section" id="atlas-section-mechanisms">
-        <div class="atlas-section-hdr">
-          <div class="atlas-section-icon">↯</div>
-          <div class="atlas-section-title">
-            <h3>Mechanism Explorer</h3>
-            <p>Structured, PubMed-updated hypotheses connecting molecular biology, adipose tissue, lymphatics, pain, imaging, and treatment outcomes. Use this to decide what phenotype strata, comparators, biospecimen fields, or imaging fields a cohort should capture, consistent with Delphi future-direction statements on mechanism and validation needs.</p>
-          </div>
-        </div>
-        <div class="atlas-note" style="margin-bottom:12px">
-          <strong>How to read this section:</strong> each mechanism is a research hypothesis connected to supporting papers and minimum-data needs. Mechanism outputs should guide cohort strata and measurement planning; they are not treated as validated diagnostic mechanisms.
-        </div>
-        <div class="atlas-mech-list" id="atlas-mechanisms"></div>
-        <div class="atlas-detail" id="atlas-mechanism-detail" style="min-height:auto;margin-top:12px"></div>
       </div>
 
       <div class="atlas-section" id="atlas-section-gene-checker">
@@ -2892,7 +2865,7 @@ select:focus{border-color:var(--rose)}
         <h2>📖 About This Resource</h2>
         <p>LipoScope supports research into <strong>lipoedema (lipedema)</strong>, a chronic painful adipose-tissue disorder where delayed diagnosis, inconsistent case definitions, small cohorts, limited objective biomarkers, and fragmented genetics evidence still slow progress.</p>
         <p>The public default Browse collection contains <strong>200 lipoedema/lipedema papers</strong> spanning <strong id="about-year-range">2008–2026</strong>, combining a manually curated seed with a PubMed-expanded metadata layer. Each record includes topic and study-type classification, source links, open-access figure lookup where full-text access supports it, and optional local PDF-based figure preview in the browser. Uploaded PDFs can be kept on the same device for the same local workspace without being added to the public paper database or shared link payload.</p>
-        <p>The <strong>Research Atlas</strong> extends Browse into research operations: PubMed-wide evidence mapping, candidate gene and biomarker ranking, mechanism hypotheses, Delphi-aligned diagnostic consensus fields, CCRF-aware minimum dataset structure, standardized cohort building, diagnostic-noise auditing, gene-literature evidence checking, cohort design-gap prioritization, and REDCap-friendly exports. The <strong>Analytics</strong> tab separates whole-field PubMed signals from the visible Browse workspace, and <strong>Live Search</strong> lets you add new PubMed records with one click.</p>
+        <p>The <strong>Research Atlas</strong> extends Browse into research operations: PubMed-wide evidence mapping, candidate gene and biomarker ranking, candidate-biology evidence, Delphi-aligned diagnostic consensus fields, CCRF-aware minimum dataset structure, standardized cohort building, diagnostic-noise auditing, gene-literature evidence checking, cohort design-gap prioritization, and REDCap-friendly exports. The <strong>Analytics</strong> tab separates whole-field PubMed signals from the visible Browse workspace, and <strong>Live Search</strong> lets you add new PubMed records with one click.</p>
       </div>
 
       <div class="about-section">
@@ -2944,7 +2917,7 @@ select:focus{border-color:var(--rose)}
           <div class="how-to-card">
             <div class="how-to-icon">🧭</div>
             <div class="how-to-title">Research Atlas</div>
-            <div class="how-to-body">Explore the knowledge graph, candidate gene/biomarker prioritizer, mechanism explorer, Standardized Cohort Builder, Gene and Literature Evidence Checker, differential matrix, Cohort Design Gap Radar, and Delphi/CCRF-aware minimum dataset builder. Atlas views use the PubMed-wide evidence source and refresh from PubMed automatically.</div>
+            <div class="how-to-body">Explore the knowledge graph, candidate gene/biomarker prioritizer, Standardized Cohort Builder, Gene and Literature Evidence Checker, differential matrix, Cohort Design Gap Radar, and Delphi/CCRF-aware minimum dataset builder. Atlas views use the PubMed-wide evidence source and refresh from PubMed automatically.</div>
           </div>
         </div>
       </div>
@@ -3056,7 +3029,7 @@ select:focus{border-color:var(--rose)}
     <div class="tab-guide"><strong>Start Here:</strong> Use this orientation tab to understand what LipoScope is for before you begin curating papers or running Atlas tools. Lipoedema research still faces delayed diagnosis, inconsistent diagnostic variables, comorbidity noise, limited validated biomarkers, small genetics cohorts, weak replication evidence, and scattered treatment outcomes; LipoScope addresses those gaps by pairing a private browser-local workspace with a PubMed-wide research map, Delphi-aligned cohort standardization, diagnostic-noise auditing, gene-literature evidence checking, and exportable minimum datasets.</div>
     <div class="resource-hero">
       <h2>A Browser-Local Research Workbench for Lipoedema</h2>
-      <p>LipoScope turns a fragmented lipoedema literature into a practical research command centre. You can browse the 200-paper public corpus, add fresh PubMed records, inspect structured paper summaries and figures, compare your local curation with the wider PubMed landscape, and then move into Atlas tools for diagnostic standardization, cohort-rule drafting, genetics, biomarkers, mechanisms, and study design.</p>
+      <p>LipoScope turns a fragmented lipoedema literature into a practical research command centre. You can browse the 200-paper public corpus, add fresh PubMed records, inspect structured paper summaries and figures, compare your local curation with the wider PubMed landscape, and then move into Atlas tools for diagnostic standardization, cohort-rule drafting, genetics, biomarkers, cohort standardization, and study design.</p>
       <p>The app is built for reusable research rather than one-off reading. It helps a diagnostic accuracy study define comparable case fields, a genetics study set strict phenotype and comparator rules, an imaging or biomarker project control comorbidity noise, and a registry or intervention study export common data elements. No registration is required, and sensitive local inputs such as phenotype fields, notes, and PDFs remain on your device unless you choose to export them.</p>
       <div class="hero-feature-list">
         <div class="hero-feature"><strong>Curatable literature workspace</strong> Search, filter, add, hide, restore, share, and export paper sets while keeping your workspace browser-local.</div>
@@ -3066,7 +3039,7 @@ select:focus{border-color:var(--rose)}
         <div class="hero-feature"><strong>Figure-aware paper cards</strong> Reach open-access figures where available, or upload a paper PDF locally to preview likely figure pages without sending the file away.</div>
       </div>
       <div class="living-status" id="resource-live-status">PubMed-wide Atlas: loading cached records and checking for updates...</div>
-      <div class="atlas-note" style="margin-top:10px">The PubMed-wide Atlas checks PubMed automatically every 12 hours while the app is open. When new lipoedema/lipedema records are found, candidate tables, mechanisms, gene-literature evidence checks, and cohort design gaps recompute from the refreshed evidence layer; your local Browse curation remains under your control.</div>
+      <div class="atlas-note" style="margin-top:10px">The PubMed-wide Atlas checks PubMed automatically every 12 hours while the app is open. When new lipoedema/lipedema records are found, candidate tables, gene-literature evidence checks, and cohort design gaps recompute from the refreshed evidence layer; your local Browse curation remains under your control.</div>
     </div>
 
     <div class="about-section">
@@ -3217,7 +3190,7 @@ select:focus{border-color:var(--rose)}
         <div class="walkthrough-slide">
           <div class="walkthrough-copy">
             <h3>Turn Papers Into Hypotheses</h3>
-            <p>The Atlas maps papers to mechanisms, genes, biomarkers, pathways, evidence strength, research gaps, and minimum dataset fields for future cohort design.</p>
+            <p>The Atlas maps papers to genes, biomarkers, pathways, evidence strength, research gaps, and minimum dataset fields for future cohort design.</p>
           </div>
           <div class="walkthrough-frame">
             <div class="walkthrough-mockbar"><span class="walkthrough-dot"></span><span class="walkthrough-dot"></span><span class="walkthrough-dot"></span></div>
@@ -3229,7 +3202,7 @@ select:focus{border-color:var(--rose)}
                 <div class="walk-arrow">→</div>
                 <div class="walk-hypothesis-step"><strong>3. Testable Studies</strong><span>Gaps become cohort blueprints, comparator plans, minimum datasets, and validation questions.</span></div>
               </div>
-              <div class="walk-card-mini"><strong>PubMed-wide Atlas:</strong> graph, candidate prioritizer, mechanism explorer, Gene and Literature Evidence Checker, and Cohort Design Gap Radar recompute from the same lipoedema evidence source.</div>
+              <div class="walk-card-mini"><strong>PubMed-wide Atlas:</strong> graph, candidate prioritizer, Gene and Literature Evidence Checker, and Cohort Design Gap Radar recompute from the same lipoedema evidence source.</div>
             </div>
           </div>
         </div>
@@ -3242,7 +3215,7 @@ select:focus{border-color:var(--rose)}
             <div class="walkthrough-mockbar"><span class="walkthrough-dot"></span><span class="walkthrough-dot"></span><span class="walkthrough-dot"></span></div>
             <div class="walkthrough-viz">
               <div class="walk-card-stack">
-                <div class="walk-card-mini"><strong>Question:</strong> Which mechanisms connect lymphatics and pain?</div>
+                <div class="walk-card-mini"><strong>Question:</strong> Which candidate biology links lymphatics, inflammation, and pain?</div>
                 <div class="walk-card-mini"><strong>Evidence trail:</strong> ranked papers, structured findings, limits, and clickable provenance.</div>
                 <div class="walk-card-mini"><strong>Figure mode:</strong> open-access figure lookup plus optional local PDF page preview that can persist on the same device.</div>
                 <div class="walk-card-mini"><strong>Study mode:</strong> cohort variables, controls, endpoints, and minimum dataset fields.</div>
@@ -8385,7 +8358,7 @@ function updateSharedWorkspaceBanner() {
     '<div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap">' +
       '<div>' +
         '<h3>Shared Browse view opened</h3>' +
-        '<p>This browser is currently showing a shared <strong>Browse Papers</strong> snapshot recreated from a link. You can keep this view here, save it under your own local label, or return to your previous workspace. <strong>Research Atlas</strong>, generated figures, candidate ranking, mechanisms, and gap views still refresh from the live PubMed-aware Atlas. Local PDF figure previews are device-local only: they are never packed into the shared link, so each user keeps or uploads PDFs separately on their own device.</p>' +
+        '<p>This browser is currently showing a shared <strong>Browse Papers</strong> snapshot recreated from a link. You can keep this view here, save it under your own local label, or return to your previous workspace. <strong>Research Atlas</strong>, generated figures, candidate ranking, gene-literature checks, and gap views still refresh from the live PubMed-aware Atlas. Local PDF figure previews are device-local only: they are never packed into the shared link, so each user keeps or uploads PDFs separately on their own device.</p>' +
         '<div class="shared-banner-meta"><span><strong>Workspace:</strong> ' + escHtml(_sharedWorkspace.label || 'Shared Browse View') + '</span><span><strong>Share ID:</strong> ' + escHtml(_sharedWorkspace.workspaceId || 'Shared') + '</span><span><strong>Created:</strong> ' + escHtml(createdLabel) + '</span><span><strong>Visible papers:</strong> ' + visibleCount + '</span><span><strong>Hidden from Browse:</strong> ' + hiddenCount + '</span></div>' +
       '</div>' +
       '<button class="shared-banner-btn" onclick="dismissSharedWorkspaceBanner()" style="padding:6px 10px">Hide notice</button>' +
@@ -11376,7 +11349,6 @@ function searchGoogleScholar(q, status, resultsEl) {
 //  RESEARCH ATLAS: KNOWLEDGE GRAPH, EVIDENCE, COHORTS, EXPORTS
 // ═══════════════════════════════════════════════════════════════════════
 var _atlasSelectedGraph = { kind:'entity', key:null };
-var _atlasSelectedMechanism = 'estrogen';
 var _atlasLastGeneEvidence = null;
 var livingAtlasPapers = [];
 var _livingAtlasRefreshing = false;
@@ -11737,17 +11709,7 @@ var ATLAS_ENTITY_LIBRARY = [
   { key:'NSD1', label:'NSD1', kind:'Gene', aliases:['NSD1'], pathway:'Growth/developmental regulation', topic:'Genetics & Genomics', rationale:'Candidate from genetic syndrome overlap literature.' }
 ];
 
-var ATLAS_MECHANISMS = [
-  { key:'estrogen', label:'Estrogen receptor and sex hormone signaling', terms:['estrogen','oestrogen','progesterone','hormone','menopause','AKR1C1','CAV1'], hypothesis:'Sex-hormone signaling may shape depot-specific adipogenesis, lipid storage, pain onset windows, and matrix remodeling in lipoedema.', missing:'Longitudinal endocrine profiling, receptor isoform validation by tissue depot, and intervention-linked molecular endpoints.', studies:'Paired tissue studies across stage and hormonal state; receptor protein quantification; genotype-by-hormone interaction analyses.' },
-  { key:'adipose', label:'Adipocyte hypertrophy and impaired lipid mobilization', terms:['adipocyte','adipose','lipolysis','lipogenesis','PPAR','leptin','LEP','PPARG','fat cell'], hypothesis:'Lipoedema adipose tissue may expand through altered adipogenesis, hypertrophy, adipokine signaling, and reduced lipolytic response.', missing:'Standardized depot sampling and replication across BMI-matched controls.', studies:'Single-cell and spatial transcriptomics across affected/unaffected depots with lipidomics and clinical stage metadata.' },
-  { key:'ecm', label:'Extracellular matrix, fibrosis, and connective tissue overlap', terms:['fibrosis','extracellular matrix','ECM','collagen','TNXB','FBN1','MMP14','TGF'], hypothesis:'ECM remodeling may connect tissue firmness, pain, capillary fragility, hypermobility overlap, and progressive disease architecture.', missing:'Direct protein-level validation and fibrosis scoring harmonized with clinical staging.', studies:'Histology plus proteomics with collagen architecture, stiffness imaging, and connective tissue phenotype annotation.' },
-  { key:'lymphatic', label:'Lymphatic and vascular dysfunction', terms:['lymphatic','vascular','endothelial','VEGF','VEGFA','FLT4','PROX1','PF4','capillary'], hypothesis:'Primary adipose remodeling may interact with lymphatic/vascular permeability, generating edema-like symptoms and progression risk.', missing:'Prospective imaging and fluid-compartment measures before late-stage disease.', studies:'ICG lymphography, BIS, MRI water/fat separation, and circulating biomarker panels in the same cohort.' },
-  { key:'inflammation', label:'Inflammation, immune signaling, and pain biology', terms:['inflammation','cytokine','IL-6','IL6','TNF','macrophage','mast cell','pain','bruising'], hypothesis:'Immune signaling may drive pain, tenderness, fibrosis, and adipose remodeling even when systemic metabolic markers are modest.', missing:'Immune-cell resolved datasets and pain-specific molecular correlates.', studies:'Single-cell immune profiling, cytokine panels, quantitative pain phenotypes, and analgesic/treatment response tracking.' },
-  { key:'genetics', label:'Inherited risk and polygenic architecture', terms:['genetic','GWAS','variant','mutation','heritability','exome','sequencing','family','polygenic'], hypothesis:'Lipoedema likely combines rare familial variants, polygenic fat-distribution biology, and sex-limited expression.', missing:'Large deeply phenotyped cohorts with ancestry diversity and replication.', studies:'International genotype-phenotype registry, family sequencing, polygenic score development, and functional validation.' },
-  { key:'microbiome', label:'Gut-adipose and metabolic signaling', terms:['microbiome','microbiota','gut','bacteria','dysbiosis','metabolite'], hypothesis:'Gut-adipose signaling may modulate inflammation, adipose metabolism, and symptom burden in subsets of patients.', missing:'Replication and mechanistic metabolomics.', studies:'Longitudinal microbiome-metabolome studies linked to diet, pain, stage, and treatment exposure.' },
-  { key:'diagnosis', label:'Clinical staging, imaging, and biomarkers', terms:['diagnosis','staging','classification','imaging','ultrasound','MRI','biomarker','BIS','L-Dex'], hypothesis:'Objective imaging and biomarker panels could reduce diagnostic delay and separate lipoedema from obesity/lymphoedema.', missing:'Externally validated criteria and standardized endpoints.', studies:'Multicentre diagnostic accuracy studies using common minimum datasets and blinded adjudication.' },
-  { key:'treatment', label:'Treatment response and outcome phenotyping', terms:['treatment','liposuction','compression','manual lymphatic drainage','exercise','therapy','outcome'], hypothesis:'Treatment outcomes may differ by molecular subtype, stage, lymphatic involvement, and baseline pain/QoL phenotype.', missing:'Controlled trials and molecular predictors of response.', studies:'Prospective intervention cohorts with standardized PROMs, imaging, and optional tissue/omics collection.' }
-];
+
 
 function atlasEsc(str) {
   if (str === null || str === undefined) return '';
@@ -11861,258 +11823,7 @@ function biofigWrapText(str, maxChars, maxLines) {
 }
 
 
-function biofigSupportLabel(count, maxCount) {
-  if (!count) return 'No direct support detected';
-  if (count >= Math.max(8, maxCount * 0.7)) return 'High literature support';
-  if (count >= Math.max(4, maxCount * 0.35)) return 'Moderate literature support';
-  return 'Emerging literature support';
-}
 
-var BIOFIG_MECH_COLORS = {
-  estrogen:'#b83c52',
-  adipose:'#c4773a',
-  ecm:'#8a611d',
-  lymphatic:'#1e6b6b',
-  inflammation:'#d05a8a',
-  genetics:'#5e3d80',
-  microbiome:'#2f6a3c',
-  diagnosis:'#3a4f82',
-  treatment:'#705848'
-};
-
-function biofigMechanismColor(m, idx) {
-  return BIOFIG_MECH_COLORS[m.key] || ['#1e6b6b','#b83c52','#8a611d','#5e3d80','#2f6a3c','#3a4f82'][idx % 6];
-}
-
-function biofigTopEntitiesForMechanism(papers, entities) {
-  var ids = {};
-  (papers || []).forEach(function(p){ ids[p.id] = true; });
-  return (entities || []).filter(function(e) {
-    return (e.papers || []).some(function(p){ return ids[p.id]; });
-  }).slice(0, 3).map(function(e){ return e.label; });
-}
-
-function renderBioFigure1(all, entities) {
-  var el = document.getElementById('biofig1-dynamic');
-  if (!el) return;
-  var mechanisms = getAtlasMechanisms(all).slice(0, 6);
-  if (!mechanisms.length) {
-    el.innerHTML = '<div class="evidence-note">The PubMed-wide mechanism map is waiting for literature records to load.</div>';
-    return;
-  }
-  var mechData = mechanisms.map(function(m) {
-    var papers = atlasMechanismPapers(m, all);
-    return { mechanism:m, papers:papers, count:papers.length, latest:papers.length ? Math.max.apply(null, papers.map(function(p){ return p.year || 0; })) : '' };
-  });
-  var maxCount = Math.max.apply(null, mechData.map(function(d){ return d.count || 1; }));
-  var positions = [
-    {x:44,y:130},{x:350,y:130},{x:656,y:130},
-    {x:44,y:340},{x:350,y:340},{x:656,y:340}
-  ];
-  var html = '<div class="biofig-generated" role="img" aria-label="Generated PubMed-wide lipoedema biology mechanism map">';
-  html += '<div class="biofig-generated-head"><h3>Generated mechanism map from PubMed-wide lipoedema evidence</h3><p>Cards are sorted by supporting-paper count; entity labels are derived from the same candidate library used by the Atlas.</p></div>';
-  html += '<div class="biofig-source-line">Source: ' + atlasEsc(all.length) + ' PubMed-wide lipoedema records. Cards, support bars, and ranks update after the 12-hour PubMed refresh.</div>';
-  html += '<div class="biofig-card-grid">';
-  mechData.forEach(function(d, idx) {
-    var m = d.mechanism, color = biofigMechanismColor(m, idx), barW = Math.max(4, Math.round((d.count / Math.max(1, maxCount)) * 100));
-    var ents = biofigTopEntitiesForMechanism(d.papers, entities);
-    html += '<div class="biofig-card" style="border-left-color:' + color + '">';
-    html += '<div class="biofig-card-top"><div class="biofig-card-title">' + atlasEsc(m.label) + '</div><div class="biofig-card-rank" style="background:' + color + '">' + (idx + 1) + '</div></div>';
-    html += '<div class="biofig-card-meta" style="color:' + color + '">' + d.count + ' supporting papers' + (d.latest ? ' · latest ' + d.latest : '') + '</div>';
-    html += '<div class="biofig-card-sub">' + atlasEsc(biofigSupportLabel(d.count, maxCount)) + '</div>';
-    html += '<div class="biofig-card-sub"><strong>Leading entities:</strong> ' + atlasEsc(ents.length ? ents.join(', ') : 'none detected yet') + '</div>';
-    html += '<div class="biofig-bar"><span style="width:' + barW + '%;background:' + color + '"></span></div>';
-    html += '</div>';
-  });
-  html += '</div>';
-  var strongest = mechData[0], weakest = mechData[mechData.length - 1];
-  html += '<div class="biofig-summary-strip"><strong>Strongest displayed signal:</strong> ' + atlasEsc(strongest.mechanism.label) + ' (' + strongest.count + ' papers). <strong>Lowest displayed signal:</strong> ' + atlasEsc(weakest.mechanism.label) + ' (' + weakest.count + ' papers).</div>';
-  html += '</div>';
-  el.innerHTML = html;
-}
-
-function atlasScrollIntoView(id) {
-  var el = document.getElementById(id);
-  if (el && el.scrollIntoView) el.scrollIntoView({ behavior:'smooth', block:'start' });
-}
-
-function openAtlasTopicFromFigure(topic) {
-  var tab = document.getElementById('nav-atlas');
-  if (tab) switchTab('atlas', tab);
-  setTimeout(function() {
-    atlasSelectGraphNode('topic', topic);
-    atlasScrollIntoView('atlas-graph');
-  }, 90);
-}
-
-function openAtlasCandidateFromFigure(key) {
-  var tab = document.getElementById('nav-atlas');
-  if (tab) switchTab('atlas', tab);
-  setTimeout(function() {
-    showCandidateEntityDetail(key);
-    atlasScrollIntoView('atlas-candidate-detail');
-  }, 90);
-}
-
-function openAtlasMechanismFromFigure(key) {
-  var tab = document.getElementById('nav-atlas');
-  if (tab) switchTab('atlas', tab);
-  setTimeout(function() {
-    selectAtlasMechanism(key);
-    atlasScrollIntoView('atlas-mechanism-detail');
-  }, 90);
-}
-
-function openAtlasGapsFromFigure() {
-  var tab = document.getElementById('nav-atlas');
-  if (tab) switchTab('atlas', tab);
-  setTimeout(function() {
-    atlasScrollIntoView('atlas-gap-table');
-  }, 90);
-}
-
-function biofigPriorityClass(priority) {
-  return priority === 'High' ? 'hot' : priority === 'Moderate' ? 'ok' : 'warn';
-}
-
-function renderBioFigure3(all, entities) {
-  var el = document.getElementById('biofig3-dynamic');
-  if (!el) return;
-  var mechanisms = getAtlasMechanisms(all);
-  var gaps = buildAtlasGaps(all);
-  var topicCounts = atlasTopicCounts(all);
-  var topics = Object.keys(topicCounts).sort(function(a,b){ return topicCounts[b].total - topicCounts[a].total; });
-  var topTopic = topics[0] || 'No topic loaded';
-  var highDesign = all.filter(function(p){ return atlasDesignWeight(p.type) >= 4; }).length;
-  var recent = all.filter(function(p){ return (p.year || 0) >= currentYear() - 2; }).length;
-  var clinical = all.filter(function(p){ return /diagnos|treatment|outcome|QoL|quality of life|surgery|compression|trial|guideline/i.test(atlasPaperText(p)); }).length;
-  var topEntities = entities.slice(0, 4);
-  var topCandidates = topEntities.map(function(e){ return e.label; });
-  var topGap = gaps[0] || {priority:'Medium', gap:'replication and standardization', trigger:'Evidence map is still loading.', missingEvidence:'Standardized phenotyping and matched controls are still required.', suggestedStudy:'Use standardized phenotyping and matched controls.', maturity:20};
-  var highGapCount = gaps.filter(function(g){ return g.priority === 'High'; }).length;
-  var topMechanism = mechanisms[0] || null;
-  var topMechanismLabel = topMechanism ? topMechanism.label : 'mechanism evidence';
-  var topMechanismCount = topMechanism ? topMechanism._count : 0;
-  var topTopics = topics.slice(0, 3);
-  var total = Math.max(1, all.length);
-  var highDesignPct = ((highDesign / total) * 100).toFixed(1);
-  var recentPct = ((recent / total) * 100).toFixed(1);
-  var clinicalPct = ((clinical / total) * 100).toFixed(1);
-  var evidenceInterpretation = highDesignPct < 12
-    ? 'Interpretation: a low share here means the lipoedema field is still led mainly by mixed or earlier-stage evidence. This supports caution when reading mechanisms, biomarkers, and treatment claims as settled.'
-    : highDesignPct < 25
-      ? 'Interpretation: this suggests a usable stronger-design layer is present, but it is not yet dominant. Field-level patterns are informative, although many still need targeted replication and better harmonization.'
-      : 'Interpretation: a relatively large stronger-design share suggests the field now has a more stable evidence backbone for comparing mechanisms, candidates, and outcome patterns across studies.';
-  var evidenceWhy = highDesignPct < 12
-    ? 'Why it matters: stronger-design evidence still forms a small share of the field, so many lipoedema claims should still be read as provisional and in need of replication.'
-    : highDesignPct < 25
-      ? 'Why it matters: a usable higher-design layer exists, but much of the field still rests on mixed design quality, so interpretation should stay anchored to provenance.'
-      : 'Why it matters: higher-design evidence now makes up a substantial slice of the field, which strengthens confidence in cross-paper signals and candidate prioritization.';
-  var mechanismWhy = topMechanismCount
-    ? 'Why it matters: this shows where the literature is currently most ready for mechanistic follow-up, but the signal reflects literature support rather than experimental proof.'
-    : 'Why it matters: mechanism mapping is still loading, so no literature-supported mechanistic lead is available yet.';
-  var gapWhy = highGapCount
-    ? 'Why it matters: these rule triggers mark missing evidence that should directly shape the next cohort, validation, or harmonization study.'
-    : 'Why it matters: no high-priority shortage rule fired in this refresh, but medium-priority gaps still remain and should guide better standardization and validation.';
-  var discoveryWhy = topTopics.length
-    ? 'Why it matters: the field is currently deepest in ' + topTopics[0] + ', so less-populated domains may still need deliberately targeted cohorts, assays, or synthesis.'
-    : 'Why it matters: this is the current literature base the Atlas is reasoning over.';
-  var nextStudy = 'Best next study pattern: address "' + topGap.gap + '" by testing ' + topMechanismLabel + ' with matched controls, minimum dataset fields, imaging, and serum/adipose omics' + (topCandidates.length ? ' focused on ' + topCandidates.join(', ') : '') + '.';
-  var stages = [
-    {
-      label:'Discovery',
-      n:all.length,
-      sub:'PubMed-wide Atlas records',
-      tag:'Current live literature base',
-      detail:'Largest domains: ' + (topTopics.length ? topTopics.map(function(t){ return t + ' (' + topicCounts[t].total + ')'; }).join(' · ') : topTopic),
-      how:'How counted: all lipoedema-focused records currently loaded into the Atlas after deduplicating the built-in public corpus and the auto-refreshed PubMed layer.',
-      why:discoveryWhy,
-      color:'#0d9488'
-    },
-    {
-      label:'Evidence triage',
-      n:highDesign,
-      sub:'Higher-design evidence records',
-      tag:'Systematic reviews + GWAS/cohorts + guidelines',
-      detail:'Recent records: ' + recent + ' (' + recentPct + '%) · clinical/outcome-linked: ' + clinical + ' (' + clinicalPct + '%)',
-      how:'How counted: records the app classifies as systematic review, GWAS/cohort, or guideline-level evidence based on the current study-type rules.',
-      interpretation:evidenceInterpretation + ' The current share is ' + highDesignPct + '% of the PubMed-wide Atlas. This is not a formal risk-of-bias or methodological-quality score for individual papers.',
-      why:evidenceWhy,
-      color:'#2563eb'
-    },
-    {
-      label:'Mechanism testing',
-      n:mechanisms.length,
-      sub:'Mechanism-supported domains',
-      tag:(topMechanismCount ? topMechanismCount + ' papers in the top signal' : 'Top signal still loading'),
-      detail:'Top mechanism: ' + topMechanismLabel + (topMechanismCount ? ' (' + topMechanismCount + ' matching papers)' : ''),
-      how:'How counted: mechanism buckets with at least one supporting lipoedema paper in the current Atlas source; one paper can support more than one bucket.',
-      why:mechanismWhy,
-      color:'#6d28d9'
-    },
-    {
-      label:'Gap signals',
-      n:gaps.length,
-      sub:'Current gap rules triggered',
-      tag:highGapCount + ' high-priority trigger(s)',
-      detail:'Lead gap: ' + topGap.gap,
-      how:'How counted: Cohort Design Gap Radar triggers based on current PubMed-wide counts, study-design terms, validation/reproducibility language, comparator signals, Delphi future-direction statements, and missing cross-domain links. This is not a count of every possible unanswered question in lipoedema.',
-      why:gapWhy,
-      color:'#c2185b'
-    }
-  ];
-  var max = Math.max.apply(null, stages.map(function(s){ return s.n || 1; }));
-  var html = '<div class="biofig-generated" role="img" aria-label="Generated PubMed-wide lipoedema research translation map">';
-  html += '<div class="biofig-generated-head"><h3>Generated translation blueprint: from PubMed signals to lipoedema study design</h3><p>Each block is recalculated from the PubMed-wide Atlas source. It shows where the field is strongest, how much of it currently sits in higher-design evidence, which mechanism is most ready for validation, and which gap should now shape study design.</p></div>';
-  html += '<div class="biofig-translation-note"><strong>How to read these signals:</strong> these counts overlap and do not add up to 100%. Right now, ' + highDesign + ' of ' + all.length + ' records (' + highDesignPct + '%) are in higher-design evidence buckets, ' + recent + ' (' + recentPct + '%) are recent records, and ' + clinical + ' (' + clinicalPct + '%) are clinically or outcome-linked. A single paper can contribute to several blocks at once.</div>';
-  html += '<div class="biofig-translation-grid">';
-  stages.forEach(function(stage, idx) {
-    var barW = Math.max(4, Math.round((stage.n / Math.max(1, max)) * 100));
-    html += '<div class="biofig-stage-card" style="border-top-color:' + stage.color + '">';
-    html += '<div class="biofig-stage-label" style="color:' + stage.color + '">' + atlasEsc(stage.label) + '</div>';
-    html += '<div class="biofig-stage-number">' + atlasEsc(stage.n) + '</div>';
-    html += '<div class="biofig-stage-sub">' + atlasEsc(stage.sub) + '</div>';
-    if (stage.tag) html += '<div class="biofig-stage-tag">' + atlasEsc(stage.tag) + '</div>';
-    html += '<div class="biofig-bar"><span style="width:' + barW + '%;background:' + stage.color + '"></span></div>';
-    html += '<div class="biofig-stage-detail">' + atlasEsc(stage.detail) + '</div>';
-    if (stage.how) html += '<div class="biofig-stage-how">' + atlasEsc(stage.how) + '</div>';
-    if (stage.interpretation) html += '<div class="biofig-stage-interpret">' + atlasEsc(stage.interpretation) + '</div>';
-    if (stage.why) html += '<div class="biofig-stage-why">' + atlasEsc(stage.why) + '</div>';
-    html += '</div>';
-  });
-  html += '</div>';
-  html += '<div class="biofig-blueprint-grid">';
-  html += '<div class="biofig-blueprint-card"><div class="biofig-kicker">Signal-rich domains</div><div class="biofig-blueprint-title">Where the literature is currently deepest</div><div class="biofig-blueprint-text">These topic domains currently carry the strongest PubMed-wide lipoedema signal. Click a domain to open the Knowledge Graph on that literature cluster.</div><div class="biofig-chip-row">' + (topTopics.length ? topTopics.map(function(t){ return '<button type="button" class="biofig-chip-btn" onclick="openAtlasTopicFromFigure(\'' + atlasEsc(t) + '\')">' + atlasEsc(t) + ' (' + topicCounts[t].total + ')</button>'; }).join('') : '<span class="biofig-blueprint-meta">No topic domains available yet.</span>') + '</div></div>';
-  html += '<div class="biofig-blueprint-card"><div class="biofig-kicker">Mechanism priority</div><div class="biofig-blueprint-title">' + atlasEsc(topMechanismLabel) + '</div><div class="biofig-blueprint-text">' + atlasEsc((topMechanism && topMechanism.hypothesis) || 'Mechanism-level evidence is still loading from the PubMed-wide Atlas source.') + '</div><div class="biofig-blueprint-meta">' + (topMechanismCount ? topMechanismCount + ' supporting papers' : 'Support count loading') + ' · Missing evidence: ' + atlasEsc((topMechanism && topMechanism.missing) || 'No mechanism-specific missing-evidence statement yet.') + '</div><div class="biofig-action-row">' + (topMechanism ? '<button type="button" class="atlas-btn" onclick="openAtlasMechanismFromFigure(\'' + atlasEsc(topMechanism.key) + '\')">Open Mechanism Explorer</button>' : '') + '</div></div>';
-  html += '<div class="biofig-blueprint-card"><div class="biofig-kicker">Candidates to validate</div><div class="biofig-blueprint-title">Entity anchors for the next experiment</div><div class="biofig-blueprint-text">These are the highest-ranked candidates in the current PubMed-wide Atlas. Click a candidate to inspect score rationale and supporting papers.</div><div class="biofig-chip-row">' + (topEntities.length ? topEntities.map(function(e){ return '<button type="button" class="biofig-chip-btn" onclick="openAtlasCandidateFromFigure(\'' + atlasEsc(e.key) + '\')">' + atlasEsc(e.label) + ' (' + e.paperCount + ')</button>'; }).join('') : '<span class="biofig-blueprint-meta">No candidate entities are ready yet.</span>') + '</div></div>';
-  html += '<div class="biofig-blueprint-card"><div class="biofig-kicker">Gap-led study route</div><div class="biofig-blueprint-title"><span class="atlas-pill ' + biofigPriorityClass(topGap.priority) + '">' + atlasEsc(topGap.priority) + '</span> ' + atlasEsc(topGap.gap) + '</div><div class="biofig-blueprint-text">' + atlasEsc(topGap.suggestedStudy) + '</div><div class="biofig-blueprint-meta">Evidence trigger: ' + atlasEsc(topGap.trigger) + '</div><div class="biofig-action-row"><button type="button" class="atlas-btn" onclick="openAtlasGapsFromFigure()">Open Cohort Design Gap Radar</button></div></div>';
-  html += '</div>';
-  html += '<div class="biofig-study-plan"><h4>Live study blueprint</h4><p>' + atlasEsc(nextStudy) + ' This blueprint is regenerated from the current PubMed-wide Atlas source, so the recommended route changes when new lipoedema evidence shifts the strongest mechanism, top candidates, or dominant gaps.</p><div class="biofig-plan-grid">';
-  html += '<div class="biofig-plan-card"><div class="biofig-plan-label">Current hypothesis</div><div class="biofig-plan-value">' + atlasEsc((topMechanism && topMechanism.hypothesis) || 'Waiting for mechanism evidence to load.') + '</div></div>';
-  html += '<div class="biofig-plan-card"><div class="biofig-plan-label">Missing evidence</div><div class="biofig-plan-value">' + atlasEsc((topMechanism && topMechanism.missing) || topGap.missingEvidence || topGap.trigger) + '</div></div>';
-  html += '<div class="biofig-plan-card"><div class="biofig-plan-label">Suggested study package</div><div class="biofig-plan-value">' + atlasEsc((topMechanism && topMechanism.studies) || topGap.suggestedStudy) + '</div></div>';
-  html += '<div class="biofig-plan-card"><div class="biofig-plan-label">Priority anchors</div><div class="biofig-plan-value">Top domain: ' + atlasEsc(topTopic) + '. Candidate anchors: ' + atlasEsc(topCandidates.length ? topCandidates.join(', ') : 'loading') + '. Higher-design records: ' + highDesign + '. Recent records: ' + recent + '.</div></div>';
-  html += '</div></div>';
-  html += '</div>';
-  el.innerHTML = html;
-}
-
-function renderBioFigures(all, entities) {
-  renderBioFigure1(all, entities);
-  renderBioFigure3(all, entities);
-}
-
-function pubMedWideSourceNote(all) {
-  return 'PubMed-wide evidence source: ' + all.length + ' lipoedema-focused records (' + (PAPERS.length + DEFAULT_EXPANDED_PAPERS.length) + ' public seed records + ' + livingAtlasPapers.length + ' auto-refreshed PubMed records after deduplication). Local Browse additions and hidden-paper choices do not narrow this figure.';
-}
-
-function renderBioFigureSourceNotes(all) {
-  var note = pubMedWideSourceNote(all);
-  ['biofig1-source-note','biofig3-source-note'].forEach(function(id) {
-    var el = document.getElementById(id);
-    if (el) el.textContent = note;
-  });
-}
 
 function renderResourcesPanel() {
   syncLivingAtlasStatusSnapshot('PubMed-wide Atlas ready');
@@ -12173,7 +11884,6 @@ function renderResearchAtlas() {
   renderAtlasKpis(all, entities);
   renderKnowledgeGraph(entities, all);
   renderCandidateTable(entities);
-  renderMechanismExplorer(all);
   renderGeneEvidenceChecker(_atlasLastGeneEvidence);
   renderDiagnosticConsensusWorkbench();
   renderPhenotypeBuilder(_atlasLastPhenotype);
@@ -12584,168 +12294,7 @@ function showCandidateEntityDetail(key) {
   detail.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
 
-function renderMechanismExplorer(all) {
-  var list = document.getElementById('atlas-mechanisms'); if (!list) return;
-  var mechanisms = getAtlasMechanisms(all);
-  if (!mechanisms.some(function(m){ return m.key === _atlasSelectedMechanism; })) _atlasSelectedMechanism = mechanisms[0] ? mechanisms[0].key : 'estrogen';
-  list.innerHTML = mechanisms.map(function(m) {
-    var papers = atlasMechanismPapers(m, all);
-    return '<div class="atlas-mech-card ' + (_atlasSelectedMechanism===m.key?'active':'') + '" onclick="selectAtlasMechanism(\'' + atlasEsc(m.key) + '\')"><h4>' + atlasEsc(m.label) + '</h4><p>' + papers.length + ' supporting papers · ' + atlasEsc(m.hypothesis.slice(0,115)) + '...</p></div>';
-  }).join('');
-  renderMechanismDetail(all);
-}
-function selectAtlasMechanism(key) { _atlasSelectedMechanism = key; renderMechanismExplorer(getAtlasSourcePapers()); }
-function getAtlasMechanisms(all) {
-  var topicCounts = atlasTopicCounts(all);
-  var base = ATLAS_MECHANISMS.slice();
-  Object.keys(topicCounts).forEach(function(t) {
-    var covered = base.some(function(m){ return (m.label + ' ' + (m.terms || []).join(' ')).toLowerCase().indexOf(t.toLowerCase().split(' ')[0]) !== -1; });
-    if (!covered && topicCounts[t].total >= 3) {
-      var topicProfile = topicMechanismProfile({topic:t});
-      base.push({
-        key:'topic_' + t.toLowerCase().replace(/[^a-z0-9]+/g,'_'),
-        label:'Emerging literature domain: ' + t,
-        topic:t,
-        terms:[],
-        hypothesis:topicProfile.novelty,
-        missing:'The ' + t + ' domain needs structured extraction of study design, cohort features, comparator groups, methods, outcomes, and replication status.',
-        studies:topicProfile.study
-      });
-    }
-  });
-  return base.map(function(m){ m._count = atlasMechanismPapers(m, all).length; return m; })
-    .filter(function(m){ return m._count > 0; })
-    .sort(function(a,b){ return b._count - a._count || a.label.localeCompare(b.label); });
-}
-function atlasMechanismPapers(m, all) {
-  return all.filter(function(p) {
-    if (m.topic && p.topic === m.topic) return true;
-    var text = atlasPaperText(p);
-    return (m.terms || []).some(function(term){ return atlasHasAlias(text, term); });
-  }).sort(function(a,b){ return b.year - a.year; });
-}
 
-function mechanismEvidenceSummary(papers) {
-  var types = {}, topics = {}, years = [];
-  (papers || []).forEach(function(p) {
-    types[p.type || 'Unknown'] = (types[p.type || 'Unknown'] || 0) + 1;
-    topics[p.topic || 'Unclassified'] = (topics[p.topic || 'Unclassified'] || 0) + 1;
-    if (p.year) years.push(p.year);
-  });
-  var typeTop = Object.keys(types).sort(function(a,b){ return types[b] - types[a]; }).slice(0,3).map(function(t){ return t + ' ' + types[t]; }).join(', ') || 'no typed records';
-  var topicTop = Object.keys(topics).sort(function(a,b){ return topics[b] - topics[a]; }).slice(0,3).join(', ') || 'no topic records';
-  var minY = years.length ? Math.min.apply(null, years) : '';
-  var maxY = years.length ? Math.max.apply(null, years) : '';
-  return { typeTop:typeTop, topicTop:topicTop, years:minY && maxY ? (minY + '-' + maxY) : 'not available' };
-}
-
-function topicMechanismProfile(m) {
-  var t = String((m && (m.topic || m.label)) || '').toLowerCase();
-  if (/epidemiology|registry|quality|qol|burden/.test(t)) return {
-    novelty:'Registry and patient-reported outcome records can define the real-world burden, diagnostic delay, and natural-history strata needed before molecular or treatment findings can be generalized.',
-    prediction:'Standardized PROMs, diagnostic source, onset window, treatment exposure, and follow-up duration will reveal reproducible symptom-burden and progression clusters across sites.',
-    study:'Prospective registry with Delphi-aligned phenotype fields, PROMs, treatment history, anthropometry, family history, and longitudinal follow-up.',
-    falsifier:'Registry variables fail to identify reproducible burden or progression patterns after site, age, BMI, and treatment exposure are modeled.'
-  };
-  if (/guideline|consensus|recommendation/.test(t)) return {
-    novelty:'Consensus literature is defining a common language for diagnosis and management, but it must be translated into measurable data fields and externally tested.',
-    prediction:'Consensus-aligned variables will improve cross-study comparability and reduce ambiguous cohort definitions in diagnostic, genetics, and treatment studies.',
-    study:'Consensus-to-data-dictionary validation study comparing Delphi-aligned fields against blinded expert adjudication and comparator diagnoses.',
-    falsifier:'Consensus variables do not improve cohort reproducibility or agreement between expert adjudicators.'
-  };
-  if (/comorbid|mental|quality/.test(t)) return {
-    novelty:'Comorbidity and QoL signals may identify clinically meaningful subtypes rather than merely secondary consequences of chronic pain or weight stigma.',
-    prediction:'Hypermobility, venous disease, lymphatic overlap, mental health burden, and metabolic comorbidity will cluster with distinct symptom trajectories and treatment responses.',
-    study:'Multidomain cohort linking comorbidities, PROMs, pain, mobility, family history, imaging/fluid measures, and treatment outcomes.',
-    falsifier:'Comorbidity patterns are explained entirely by BMI, age, or healthcare-access variables and do not stratify lipoedema outcomes.'
-  };
-  if (/diagnos|clinical|classif|stage/.test(t)) return {
-    novelty:'Diagnostic evidence can mature from descriptive criteria to validated, reproducible phenotyping if clinical pattern, differentials, and objective measurements are captured together.',
-    prediction:'Delphi-aligned clinical fields plus blinded differential review will outperform unstructured self-report for cohort definition and diagnostic-accuracy studies.',
-    study:'Blinded multicentre diagnostic-accuracy study with obesity, lymphoedema, venous disease, Dercum disease, and lipodystrophy comparators.',
-    falsifier:'Structured fields fail to improve adjudicator agreement or comparator separation beyond routine clinical assessment.'
-  };
-  if (/treatment|surgery|compression|therapy/.test(t)) return {
-    novelty:'Treatment literature can move from outcome description to response prediction by linking intervention exposure to baseline phenotype, imaging/fluid status, and molecular strata.',
-    prediction:'Baseline pain, stage, lymphatic/fluid measures, ECM/inflammation signals, and treatment dose will predict durable symptom and QoL response.',
-    study:'Prospective treatment registry or controlled cohort with pre/post PROMs, adverse events, imaging/fluid metrics, and optional biospecimens.',
-    falsifier:'No baseline phenotype, imaging, fluid, or molecular variables predict response after exposure and follow-up are standardized.'
-  };
-  return {
-    novelty:'This PubMed-emerging domain should be treated as an evidence cluster to curate, not as a settled mechanism.',
-    prediction:'If the domain is biologically or clinically meaningful, its papers should share measurable variables that replicate across independent cohorts.',
-    study:'Focused systematic screen, variable extraction, comparator mapping, and topic-specific minimum dataset extension.',
-    falsifier:'The domain remains non-specific to lipoedema or unsupported after full-text curation and independent replication.'
-  };
-}
-
-function mechanismPrecisionProfile(m, papers) {
-  var latest = papers.length ? Math.max.apply(null, papers.map(function(p){ return p.year || 0; })) : currentYear();
-  var key = m.key || '';
-  var profiles = {
-    estrogen: {
-      novelty:'A hormone-window subtype may exist in which progesterone metabolism, estrogen-receptor activity, and CAV1/MMP14 matrix remodeling amplify depot-specific adipogenesis after puberty, pregnancy, or menopause.',
-      prediction:'Affected thigh/leg adipose will show hormone-receptor or steroid-metabolism signals that separate cases from BMI-matched controls and differ by onset window.',
-      study:'Deep phenotyping plus paired affected/unaffected adipose, serum sex-steroid panel, ER-alpha/ER-beta protein staining, AKR1C1/CAV1/MMP14 assays, and longitudinal symptom timing.',
-      falsifier:'No depot-specific hormone-receptor, steroid-metabolism, or matrix-remodeling difference after controlling for BMI, stage, menopausal state, and treatment exposure.'
-    },
-    adipose: {
-      novelty:'Lipoedema may represent a resistant adipose-expansion state where hypertrophy, impaired lipolysis, altered progenitor differentiation, and adipokine signaling form a self-reinforcing depot program.',
-      prediction:'Single-cell/spatial profiles should reveal altered adipocyte progenitors, SVF immune-stromal crosstalk, and lipid-handling pathways in affected depots.',
-      study:'Matched control cohort with affected/unaffected depot biopsies, spatial transcriptomics, lipidomics, adipocyte-size histology, and standardized pain and body-composition measures.',
-      falsifier:'Affected and unaffected depots are molecularly indistinguishable from matched obesity controls once anatomical depot and adipocyte size are modeled.'
-    },
-    ecm: {
-      novelty:'Matrix remodeling may be the bridge between tissue texture, pain, capillary fragility, and progression, rather than a late nonspecific scarring process.',
-      prediction:'Collagen architecture, stiffness imaging, TGFB/MMP signatures, and hypermobility/connective-tissue traits will co-vary with pain and stage.',
-      study:'Histology, second-harmonic collagen imaging, proteomics, ultrasound/MRI stiffness, and connective-tissue phenotype annotation in the same participants.',
-      falsifier:'Fibrosis and stiffness markers track only BMI or age and do not associate with lipoedema pattern, pain, bruising, or stage.'
-    },
-    lymphatic: {
-      novelty:'Lymphatic involvement may be an early interacting axis in selected phenotypes, not simply a late complication, and could identify progression-prone subgroups.',
-      prediction:'ICG, BIS, MRI water/fat separation, PF4/CXCL4, VEGF-axis signals, and edema symptoms will cluster before overt lymphoedema in a subset.',
-      study:'Prospective imaging-plus-biomarker cohort from early to advanced disease with matched obesity and lymphoedema controls.',
-      falsifier:'Fluid and lymphatic measures show no case-control or stage-related structure beyond obesity and venous disease.'
-    },
-    inflammation: {
-      novelty:'Painful adipose tissue may be driven by local immune-neural crosstalk even when systemic inflammatory markers are not dramatic.',
-      prediction:'Macrophage, mast-cell, cytokine, and nociceptive-neuroimmune signatures will correlate with tenderness, bruising, and quality-of-life impairment.',
-      study:'Single-cell immune profiling, cytokine panels, pain phenotyping, skin/adipose innervation markers, and treatment-response follow-up.',
-      falsifier:'Local immune and neuroimmune markers do not differ from controls and fail to explain pain after mechanical and psychological covariates are included.'
-    },
-    genetics: {
-      novelty:'The field likely needs a two-layer genetic model: rare familial variants for high-penetrance families plus polygenic fat-distribution biology for common cases.',
-      prediction:'Family sequencing, polygenic scores, and body-composition GWAS loci will stratify phenotypes differently when stage, onset window, and depot distribution are standardized.',
-      study:'International genotype-phenotype registry with family trios, ancestry-aware GWAS, rare-variant burden testing, and functional assays for prioritized genes.',
-      falsifier:'Deeply phenotyped cases show no enrichment of rare variants, no transferable polygenic signal, and no genotype-phenotype structure.'
-    },
-    diagnosis: {
-      novelty:'A multimodal diagnostic signature may outperform symptom-only definitions by integrating pattern recognition, imaging, fluid metrics, and biomarker panels.',
-      prediction:'A blinded model combining distribution, pain/bruising, imaging texture, BIS/ICG, and candidate biomarkers will separate lipoedema from obesity and lymphoedema.',
-      study:'Multicentre diagnostic-accuracy study with blinded adjudication, matched comparator groups, and preregistered model validation.',
-      falsifier:'The multimodal model performs no better than expert clinical assessment or cannot replicate across sites.'
-    },
-    treatment: {
-      novelty:'Treatment response may be subtype-dependent; molecular, lymphatic, and pain phenotypes could predict who benefits from surgery, compression, exercise, or combined care.',
-      prediction:'Baseline imaging, lymphatic/fluid status, pain phenotype, ECM/inflammation markers, and stage will predict durable pain/QoL and volume outcomes.',
-      study:'Prospective treatment cohort with pre/post PROMs, imaging, optional biospecimens, adverse events, and minimum dataset fields.',
-      falsifier:'No baseline clinical, imaging, or molecular features predict response once treatment exposure and follow-up duration are standardized.'
-    }
-  };
-  var p = profiles[key] || topicMechanismProfile(m);
-  p.updated = latest;
-  return p;
-}
-function renderMechanismDetail(all) {
-  var el = document.getElementById('atlas-mechanism-detail'); if (!el) return;
-  var mechanisms = getAtlasMechanisms(all);
-  var m = mechanisms.filter(function(x){return x.key === _atlasSelectedMechanism;})[0] || mechanisms[0];
-  if (!m) { el.innerHTML = '<h4>No mechanisms available</h4><p>Add papers to generate mechanism summaries.</p>'; return; }
-  var papers = atlasMechanismPapers(m, all);
-  var profile = mechanismPrecisionProfile(m, papers);
-  var evidence = mechanismEvidenceSummary(papers);
-  el.innerHTML = '<h4>' + atlasEsc(m.label) + '</h4><p><span class="atlas-pill ok">' + papers.length + ' supporting papers</span> <span class="atlas-pill">latest signal ' + atlasEsc(profile.updated) + '</span> <span class="atlas-pill">' + atlasEsc((m.terms || [m.topic || 'topic']).slice(0,5).join(', ')) + '</span></p><p><strong>Evidence grounding:</strong> ' + atlasEsc(evidence.typeTop) + ' across ' + atlasEsc(evidence.topicTop) + ' (' + atlasEsc(evidence.years) + '). Statements below are constrained to this evidence set and should be treated as hypotheses until externally validated.</p><p><strong>Working hypothesis:</strong> ' + atlasEsc(m.hypothesis) + '</p><p><strong>Novel testable hypothesis:</strong> ' + atlasEsc(profile.novelty) + '</p><p><strong>Current precision gap:</strong> ' + atlasEsc(m.missing) + '</p><p><strong>Falsifiable prediction:</strong> ' + atlasEsc(profile.prediction) + '</p><p><strong>Best next study pattern:</strong> ' + atlasEsc(profile.study) + '</p><p><strong>What would weaken this mechanism:</strong> ' + atlasEsc(profile.falsifier) + '</p>' + atlasPaperMiniList(papers);
-}
 
 var ATLAS_CONSENSUS_SOURCE = {
   title:'Lipedema World Alliance Delphi Consensus-Based Position Paper',
@@ -13849,15 +13398,7 @@ function renderGeneEvidenceChecker(result) {
     el.innerHTML = '<div class="atlas-note"><strong>Ready to check evidence:</strong> paste one or more gene symbols. LipoScope will report whether each gene symbol or recognised alias is mentioned in the lipoedema PubMed layer, maps to predefined biology-context programs, has differential/overlap context, or has no current LipoScope match. This is research triage, not biomarker validation, clinical interpretation, or diagnostic evidence.</div>';
     return;
   }
-  var withDirect = result.items.filter(function(r){ return r.directPapers.length; }).length;
-  var withAdjacent = result.items.filter(function(r){ return r.pathways.length || r.programs.length; }).length;
-  var differential = result.items.filter(function(r){ return r.differential; }).length;
-  var html = '<div class="atlas-grid three" style="margin-bottom:12px">' +
-    '<div class="atlas-card"><div class="atlas-kpi">' + result.items.length + '</div><div class="atlas-kpi-label">queries checked locally</div></div>' +
-    '<div class="atlas-card"><div class="atlas-kpi" style="color:var(--teal)">' + withDirect + '</div><div class="atlas-kpi-label">with literature mentions</div></div>' +
-    '<div class="atlas-card"><div class="atlas-kpi" style="color:var(--rose)">' + (withAdjacent + differential) + '</div><div class="atlas-kpi-label">with biology or overlap context</div></div>' +
-    '</div><div class="atlas-note" style="margin-bottom:12px"><strong>Interpretation:</strong> literature mention means the gene symbol or a recognised alias appears in the PubMed-wide lipoedema/lipedema layer. Biology-context match means the gene maps to a predefined lipoedema-relevant biological program. Differential/overlap context means it may help define exclusion, comparator, or stratification rules. None of these outputs validates a biomarker, clinical diagnosis, or causal disease mechanism.</div>';
-  html += '<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>Item</th><th>Evidence class</th><th>Biology / cohort context</th><th>Supporting papers</th><th>PubMed queries</th></tr></thead><tbody>';
+  var html = '<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>Item</th><th>Evidence class</th><th>Biology / cohort context</th><th>Supporting papers</th><th>PubMed queries</th></tr></thead><tbody>';
   result.items.forEach(function(r) {
     var pathways = r.pathways.map(function(p){ return p.label; }).concat(r.programs.map(function(p){ return p.label; }));
     var pathwayText = pathways.length ? pathways.filter(function(v,i,a){ return a.indexOf(v) === i; }).join('; ') : 'No predefined LipoScope biology-context match';
