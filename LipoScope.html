@@ -2944,7 +2944,7 @@ select:focus{border-color:var(--rose)}
           <div class="how-to-card">
             <div class="how-to-icon">🧭</div>
             <div class="how-to-title">Research Atlas</div>
-            <div class="how-to-body">Explore the knowledge graph, candidate gene/biomarker prioritizer, mechanism explorer, Standardized Cohort Builder, Gene and Literature Evidence Checker, differential matrix, Cohort Design Gap Radar, biology figures, and Delphi/CCRF-aware minimum dataset builder. Atlas views use the PubMed-wide evidence source and refresh from PubMed automatically.</div>
+            <div class="how-to-body">Explore the knowledge graph, candidate gene/biomarker prioritizer, mechanism explorer, Standardized Cohort Builder, Gene and Literature Evidence Checker, differential matrix, Cohort Design Gap Radar, and Delphi/CCRF-aware minimum dataset builder. Atlas views use the PubMed-wide evidence source and refresh from PubMed automatically.</div>
           </div>
         </div>
       </div>
@@ -3000,7 +3000,7 @@ select:focus{border-color:var(--rose)}
           Uploaded figure PDFs can now be kept on this device for the current local workspace, so figure previews survive refresh and reopen automatically for the same paper.
           Hiding all default literature lets you curate Browse Papers from a clean slate.
           Restoring hidden papers or using <strong>Restore 200 Default Corpus</strong> brings the public default Browse corpus back.
-          These controls personalize Browse and visible-corpus Analytics; the PubMed-wide Atlas, diagnostic consensus table, Standardized Cohort Builder, Gene and Literature Evidence Checker, Cohort Design Gap Radar, and biology figures continue to use the broader lipoedema evidence layer.
+          These controls personalize Browse and visible-corpus Analytics; the PubMed-wide Atlas, diagnostic consensus table, Standardized Cohort Builder, Gene and Literature Evidence Checker, and Cohort Design Gap Radar continue to use the broader lipoedema evidence layer.
         </p>
         <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin:0 0 14px 0">
           <div style="display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap">
@@ -3066,7 +3066,7 @@ select:focus{border-color:var(--rose)}
         <div class="hero-feature"><strong>Figure-aware paper cards</strong> Reach open-access figures where available, or upload a paper PDF locally to preview likely figure pages without sending the file away.</div>
       </div>
       <div class="living-status" id="resource-live-status">PubMed-wide Atlas: loading cached records and checking for updates...</div>
-      <div class="atlas-note" style="margin-top:10px">The PubMed-wide Atlas checks PubMed automatically every 12 hours while the app is open. When new lipoedema/lipedema records are found, candidate tables, mechanisms, gene-literature evidence checks, cohort design gaps, and biology figures recompute from the refreshed evidence layer; your local Browse curation remains under your control.</div>
+      <div class="atlas-note" style="margin-top:10px">The PubMed-wide Atlas checks PubMed automatically every 12 hours while the app is open. When new lipoedema/lipedema records are found, candidate tables, mechanisms, gene-literature evidence checks, and cohort design gaps recompute from the refreshed evidence layer; your local Browse curation remains under your control.</div>
     </div>
 
     <div class="about-section">
@@ -3354,22 +3354,6 @@ select:focus{border-color:var(--rose)}
       </div>
     </div>
 
-    <div class="about-section">
-      <h2>🧬 Evidence-Based Biology Figures</h2>
-
-      <div class="biofig-wrap">
-        <div class="biofig-title">Figure 1. Working model of lipoedema biology</div>
-        <div id="biofig1-dynamic"></div>
-        <div class="biofig-caption" id="biofig1-caption">This mechanism map is generated from the PubMed-wide lipoedema evidence source. Mechanism order, counts, leading entities, and support levels update when the automatic PubMed layer refreshes.</div>
-        <div class="figure-note" id="biofig1-source-note"></div>
-      </div>
-      <div class="biofig-wrap">
-        <div class="biofig-title">Figure 2. Research translation map</div>
-        <div id="biofig3-dynamic"></div>
-        <div class="biofig-caption" id="biofig3-caption">This live translation blueprint is generated from the PubMed-wide lipoedema evidence source used by the Atlas tools. After PubMed refresh, it updates not only the field-stage counts, top domains, leading mechanism, candidate anchors, and gap-driven study route, but also the explanation of how each signal was counted and why it matters for study design.</div>
-        <div class="figure-note" id="biofig3-source-note"></div>
-      </div>
-    </div>
   </div>
 
 </div><!-- /.main-content -->
@@ -12131,11 +12115,7 @@ function renderBioFigureSourceNotes(all) {
 }
 
 function renderResourcesPanel() {
-  var all = getAtlasSourcePapers();
-  var rankedEntities = atlasRankEntities(all);
   syncLivingAtlasStatusSnapshot('PubMed-wide Atlas ready');
-  renderBioFigures(all, rankedEntities);
-  renderBioFigureSourceNotes(all);
   renderResourceFigurePreview(false);
   updateWalkthroughUI();
 }
