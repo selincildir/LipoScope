@@ -13,7 +13,7 @@ The audit checks the following implemented Research Atlas sections in the unchan
 - Cohort Design Gap Radar
 - Lipoedema Minimum Dataset Builder
 
-PubMed-derived discovery sections such as the Knowledge Graph, Candidate Gene and Biomarker Prioritizer, Mechanism Explorer and Gene/Variant Literature Evidence Checker are intentionally outside this Delphi/CCRF traceability audit because their primary logic is literature mapping rather than direct consensus/data-element implementation.
+PubMed-derived discovery sections such as the Knowledge Graph, Candidate Gene and Biomarker Prioritizer, and Gene and Literature Evidence Checker are intentionally outside this Delphi/CCRF traceability audit because their primary logic is literature mapping rather than direct consensus/data-element implementation.
 
 ## How the audit is generated
 

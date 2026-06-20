@@ -3061,7 +3061,7 @@ select:focus{border-color:var(--rose)}
           <p>This animated scientific explainer frames lipoedema as a multi-system research problem: sex-hormone timing and inherited susceptibility may interact with adipose remodeling, ECM/fibrosis, lymphatic or vascular dysfunction, inflammation, pain, and treatment-response heterogeneity.</p>
           <ul>
             <li><strong>Clinical pattern first:</strong> symmetrical limb enlargement, pain, bruising, heaviness, and foot sparing are placed beside the tissue biology they may reflect.</li>
-            <li><strong>Mechanisms you can test:</strong> adipocyte hypertrophy, ECM remodelling, lymphatic or microvascular stress, inflammation, and pain signalling are translated into measurable study domains.</li>
+            <li><strong>Biology you can measure:</strong> adipocyte hypertrophy, ECM remodelling, lymphatic or microvascular stress, inflammation, and pain signalling are translated into measurable study domains.</li>
             <li><strong>From gene to cohort:</strong> candidate genes and biomarkers are treated as leads for matched phenotyping, imaging, serum/adipose assays, and longitudinal treatment outcomes.</li>
           </ul>
         </div>
@@ -3190,7 +3190,7 @@ select:focus{border-color:var(--rose)}
         <div class="walkthrough-slide">
           <div class="walkthrough-copy">
             <h3>Turn Papers Into Hypotheses</h3>
-            <p>The Atlas maps papers to genes, biomarkers, pathways, evidence strength, research gaps, and minimum dataset fields for future cohort design.</p>
+            <p>The Atlas maps papers to candidate entities, evidence support, research gaps, and minimum dataset fields for future cohort design.</p>
           </div>
           <div class="walkthrough-frame">
             <div class="walkthrough-mockbar"><span class="walkthrough-dot"></span><span class="walkthrough-dot"></span><span class="walkthrough-dot"></span></div>
@@ -3198,7 +3198,7 @@ select:focus{border-color:var(--rose)}
               <div class="walk-hypothesis-pipeline">
                 <div class="walk-hypothesis-step"><strong>1. Papers</strong><span>PubMed and curated records become structured claims, entities, methods, and outcomes.</span></div>
                 <div class="walk-arrow">→</div>
-                <div class="walk-hypothesis-step"><strong>2. Mechanisms</strong><span>Claims are grouped into adipose, lymphatic, ECM, hormone, pain, and genetics pathways.</span></div>
+                <div class="walk-hypothesis-step"><strong>2. Candidate Biology</strong><span>Evidence is grouped into adipose, lymphatic, ECM, hormone, pain, and genetics research contexts.</span></div>
                 <div class="walk-arrow">→</div>
                 <div class="walk-hypothesis-step"><strong>3. Testable Studies</strong><span>Gaps become cohort blueprints, comparator plans, minimum datasets, and validation questions.</span></div>
               </div>
@@ -3451,21 +3451,21 @@ const PAPERS = [
     id:6,
     pmid: "38407896",
     title: "A Family-Based Study of Inherited Genetic Risk in Lipedema",
-    authors: "Ishaq M, Bandara N, Morgan S, Mehta K, Tuck M, Presnell S et al.",
-    firstAuthor: "Ishaq", lastAuthor: "Multiple",
+    authors: "Morgan S, Reid I, Bendon C, Ishaq M, Shayan R, Pope B, Park D, Karnezis T.",
+    firstAuthor: "Morgan", lastAuthor: "Karnezis",
     journal: "Lymphatic Research and Biology",
-    year: 2022, type: "Original Research",
+    year: 2024, type: "Original Research",
     topic: "Genetics & Genomics",
-    summary: "WES study in 9 families (31 individuals, 10 probands) identifying rare variants across 469 genes. Gene ontology analysis implicates extracellular matrix, collagen, and fibrillin pathways.",
-    aims: "To characterize the genetic landscape of lipedema through family-based whole-exome sequencing and Gene Ontology analysis.",
-    methods: "WES of 31 individuals in 9 families. Variant filtering: rare (gnomAD global AF <1%), quality criteria, inheritance model. GATK best practices pipeline. ConsensusPathDB for GO enrichment.",
+    summary: "Family-based sequencing study of 31 individuals from 9 lipedema families. Candidate protein-altering variants were identified in 469 genes, with no single exomic gene explaining all families; Gene Ontology analysis highlighted vasopressin receptor activity, microfibril binding, and patched binding.",
+    aims: "To identify inherited genetic changes that may contribute to lipedema using a family-based sequencing approach.",
+    methods: "DNA samples from 31 individuals across 9 lipedema families were analysed for genetic variants predicted to alter protein function, followed by Gene Ontology enrichment analysis of the candidate variant set.",
     findings: [
-      "2,786,094 SNVs/indels identified; filtered to rare variants across 469 genes",
-      "No single variant found in more than 4 families, suggesting genetic heterogeneity",
-      "GO enrichment: collagen fibril assembly, ECM organization, and fibrillin microfibril pathways",
-      "TNXB (tenascin-X) variants identified \u2014 associated with hypermobile EDS",
-      "Shared pathway enrichment with connective tissue disorders",
-      "Supports autosomal dominant inheritance with sex limitation"
+      "Analysed 31 individuals from 9 lipedema families",
+      "Identified candidate variants predicted to alter protein function across 469 genes",
+      "No single likely disease-causing gene was shared across all participating families",
+      "Gene Ontology analysis highlighted vasopressin receptor activity, microfibril binding, and patched binding",
+      "Findings support genetic heterogeneity rather than one shared exomic cause",
+      "Study provides a roadmap for larger family-based genetic investigation in lipedema"
     ],
     doi: "https://doi.org/10.1089/lrb.2023.0065",
     color: "#6a4a8a"
